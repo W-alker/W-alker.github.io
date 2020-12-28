@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>记录博客建站过程</title>
+    <url>/2020/12/27/%E5%8D%9A%E5%AE%A2%E5%BB%BA%E7%AB%8B/</url>
+    <content><![CDATA[<blockquote>
+<p>很早就有建一个博客的想法，主要想记录一些学习过程、发布和分享一些文章什么的。2020年中开始花了大概两个半月学了前端，就尝试写一个博客，但是很麻烦，过程也相当曲折，写了大概三分之一还是发现自己的技术很差很差，后端也只是浅尝辄止，很多东西都无法实现，就停止了建博客。断了几个月的前端学习后，这几天突然看到收藏夹的Hexo博客教学视频，心血来潮就学着花了一天建立了一个博客。这里简单记录下建站过程和一些踩坑。</p>
+</blockquote>
+<h2 id="教程及主题"><a href="#教程及主题" class="headerlink" title="教程及主题"></a>教程及主题</h2><p>教程视频：<a href="https://www.bilibili.com/video/BV1Np4y1Y7SW">从零开始搭建个人博客 | 手把手教你使用Hexo框架4步完成个人博客搭建 </a></p>
+<p>使用主题：<a href="https://shen-yu.gitee.io/">Ayer</a>  |  <a href="https://github.com/Shen-Yu/hexo-theme-ayer">Github地址</a>  |  <a href="https://shen-yu.gitee.io/2019/ayer/">ayer中文说明</a></p>
+<p>Hexo文档：<a href="https://hexo.io/zh-cn/docs/">hexo中文文档</a></p>
+<p><img src="https://pic.downk.cc/item/5fe9de223ffa7d37b33ed34f.jpg"></p>
+<a id="more"></a>
+
+<h2 id="过程及踩坑"><a href="#过程及踩坑" class="headerlink" title="过程及踩坑"></a>过程及踩坑</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;主要过程按照教学视频来就好。其实最主要修改的还是根目录和主题文件夹下的<font color="red"> _config.yml</font>文件，根目录下的<font color="red"> _config.yml</font>文件可以按照hexo的中文文档进行修改，主题文件夹中的最好参考该主题的中文说明（该主题的中文说明还是很简单易懂的）。最好还是阅读下hexo的中文文档，主题的中文说明更是必看。</p>
+<h3 id="页面404？"><a href="#页面404？" class="headerlink" title="页面404？"></a>页面404？</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;最开始更换完ayer主题后，只有主页和归档能够显示，其他页面会报404，是因为这些页面都没有创建。需要使用命令</p>
+<p>​    <code>hexo new page 要创建的页面</code></p>
+<p>注意命令应当是在根目录下运行，例如要创建分类页面，应当使用</p>
+<p>​    <code>hexo new page categories</code></p>
+<p>如果要标签页面就将页面名改为  tags：</p>
+<p>​    <code>hexo new page tags</code></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;如果觉得侧边栏菜单页面过多，直接更改主题文件夹下的<font color="red">_config.yml</font>文件，直接在  <strong>#menu</strong>  选项下删除即可，侧边栏就不会显示。其实这里可以注意下， <strong>#menu</strong> 选项下的“链接”其实是和根目录  <font color="blue">/source</font> 文件夹下的页面名是一一对应的。例如：</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;这是主题文件夹下的<font color="red">_config.yml</font>文件</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 侧边栏菜单</span></span><br><span class="line"><span class="attr">menu:</span></span><br><span class="line">  <span class="string">主页:</span> <span class="string">/</span></span><br><span class="line">  <span class="string">归档:</span> <span class="string">/archives</span></span><br><span class="line">  <span class="string">分类:</span> <span class="string">/categories</span></span><br><span class="line">  <span class="string">标签:</span> <span class="string">/tags</span></span><br><span class="line">  <span class="string">摄影:</span> <span class="string">/photos</span></span><br><span class="line">  <span class="string">友链:</span> <span class="string">/friends</span></span><br><span class="line">  <span class="string">关于我:</span> <span class="string">/about</span></span><br></pre></td></tr></table></figure>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;这是根目录<font color="blue"> /source</font> 文件夹下的文件：</p>
+<p><img src="https://pic.downk.cc/item/5fe9ccd73ffa7d37b322cd6d.png" alt="演示图片"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;不难看出除了 <font color="blue">/_posts</font> 文件夹是用来保存文章的，其他的文件夹名和上面是相互对应的。</p>
+<h3 id="分类和标签页面"><a href="#分类和标签页面" class="headerlink" title="分类和标签页面"></a>分类和标签页面</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;百度了怎么添加分类和标签页面，可以参考：<a href="https://blog.csdn.net/weixin_33857230/article/details/91474562">Hexo 添加分类及标签</a>。一开始给markdown文章添加了tags和categories，在文章界面上确实显示了标签和分类，但是分类和标签页面却仍然是空白，苦恼了半天，最后终于可找到了解决办法：<a href="https://blog.csdn.net/weixin_42118981/article/details/109462491">解决hexo下分类和标签无法显示的问题</a>，将 <font color="blue">/tags</font> <font color="blue"> /categories </font>和文件夹下的index.md文件改成如下：</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Categories</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2020-12-28 10:17:01</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">categories</span></span><br><span class="line"><span class="attr">layout:</span> <span class="string">categories</span>   <span class="comment">#这里是解决问题的核心</span></span><br><span class="line"><span class="attr">comments:</span> <span class="literal">false</span>   <span class="comment"># 这里是关闭评论</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Tags</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2020-12-28 10:17:49</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">tags</span></span><br><span class="line"><span class="attr">layout:</span> <span class="string">tags</span>   <span class="comment">#同上，必须加上此语句</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
+<h3 id="写文章"><a href="#写文章" class="headerlink" title="写文章"></a>写文章</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;写文章使用markdown的文法还是很舒服的，如果不会可以参考一下教程，十几分钟就能学会：<a href="https://www.runoob.com/markdown/md-tutorial.html">菜鸟教程 | Markdown 教程</a>。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;插入图片有点麻烦，有一篇参考文章说的比较全：<a href="https://www.5yun.org/20794.html">Hexo文章插入图片</a>。尝试了之后还是选择了使用图床：<a href="https://www.superbed.cn/">聚合图床</a>。图片上传后可以获得一个URL地址，插入图片时直接写上链接就好。</p>
+<h3 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;我的博客里用了一个网易云音乐的插件，是该主题中自带的，在主题文件夹下的<font color="red"> _config.yml  </font>里可以找到，将autoplay改为true即可，也可以更改默认音乐。这个插件局限性有点大，可以参考原开发者的博客，有播放器插件的页面。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;如果想要使用其他的插件，请参考hexo插件文档。</p>
+<h2 id="感谢原开发者"><a href="#感谢原开发者" class="headerlink" title="感谢原开发者"></a>感谢原开发者</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;大概就是这些，hexo创建博客还是很简单的，功能也相当强大，而且零成本，花点时间就可以做出来。最后感谢该主题的开发者：Shen-Yu。这是他的博客：<a href="https://shen-yu.gitee.io/">https://shen-yu.gitee.io/</a>，这是他的Github：<a href="https://github.com/Shen-Yu">https://github.com/Shen-Yu</a>。如果你也想使用该主题别忘了给开发者一个star。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;如果有问题可以在评论区留言。谢谢观看。</p>
+]]></content>
+      <categories>
+        <category>建站</category>
+      </categories>
+      <tags>
+        <tag>建站</tag>
+      </tags>
+  </entry>
+</search>
