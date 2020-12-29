@@ -45,6 +45,7 @@
 <p>&nbsp;&nbsp;&nbsp;&nbsp;再看到本地目录下的public文件夹中的文件，大致是这样的：</p>
 <p><img src="https://pic.downk.cc/item/5fe9f67e3ffa7d37b3681943.png"></p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;并且about、archives、friends文件夹里都有一个index.html文件。再加上上面主题目录下 _config.yml 文件中 <strong>#menu</strong> 项下的“链接”，这才发现部署到github仓库根目录上的其实就是public文件夹中的所有文件，根目录的index.html作为主页面，菜单栏的链接直接指向其他页面的文件夹路径，因此里面的index.html文件自然就成为了相应页面。<em>这也就意味着如果想要自定义页面，可以直接修改public文件夹中的html文件。</em></p>
+<h3 id="Valine评论系统"><a href="#Valine评论系统" class="headerlink" title="Valine评论系统"></a>Valine评论系统</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;该主题使用的评论系统是valine，当然还有其他的，在配置文件里可以看到，valine是默认开启的，页面里也可以看到，但是这时候的评论系统只有页面样式，无法发表评论。根据这篇文章：<a href="https://blog.csdn.net/blue_zy/article/details/79071414">为你的Hexo加上评论系统-Valine</a>，可以实现完整的评论功能。设置完之后别忘记重新部署。至于想管理评论的话，可以直接在  你创建的应用/存储/结构化数据/comment  中直接管理，当然也有其他方法，参考Valine官方文档：<a href="https://valine.js.org/">Valine - 一款快速、简洁且高效的无后端评论系统</a>。</p>
 <h2 id="感谢原开发者"><a href="#感谢原开发者" class="headerlink" title="感谢原开发者"></a>感谢原开发者</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;大概就是这些，hexo创建博客还是很简单的，功能也相当强大，而且零成本，花点时间就可以做出来。最后感谢该主题的开发者：Shen-Yu。这是他的博客：<a href="https://shen-yu.gitee.io/">https://shen-yu.gitee.io/</a>，这是他的Github：<a href="https://github.com/Shen-Yu">https://github.com/Shen-Yu</a>。如果你也想使用该主题别忘了给开发者一个star。</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;如果有问题可以在评论区留言。谢谢观看。</p>
 ]]></content>
