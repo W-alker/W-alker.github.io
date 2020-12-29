@@ -57,6 +57,83 @@
       </tags>
   </entry>
   <entry>
+    <title>ajax学习笔记</title>
+    <url>/2020/12/29/ajax%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<blockquote>
+<p>原学习视频地址：<a href="https://www.bilibili.com/video/BV1NE411T7Z2?p=367">https://www.bilibili.com/video/BV1NE411T7Z2?p=367</a> ，p367-p371。</p>
+</blockquote>
+<h2 id="ajax的应用场景"><a href="#ajax的应用场景" class="headerlink" title="ajax的应用场景"></a>ajax的应用场景</h2><ol>
+<li>页面上拉下载更多数据</li>
+<li>列表数据无刷新分页</li>
+<li>表单项离开焦点数据验证</li>
+<li>搜索框提示文字下拉列表</li>
+</ol>
+<h2 id="ajax一些基本语法"><a href="#ajax一些基本语法" class="headerlink" title="ajax一些基本语法"></a>ajax一些基本语法</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//创建ajax对象</span></span><br><span class="line"><span class="keyword">var</span> xhr=<span class="keyword">new</span> XMLHttpRequest();  </span><br><span class="line">    <span class="comment">//IE8下使用 ActiveXObject(&quot;Microsoft.XMLHTTP&quot;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*调用open</span></span><br><span class="line"><span class="comment">  第一个参数：请求方式  get、post等</span></span><br><span class="line"><span class="comment">  第二个参数：url</span></span><br><span class="line"><span class="comment">  第三个参数：是否异步，true为异步</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">xhr.open(<span class="string">&quot;get&quot;</span>,<span class="string">&quot;1.txt&quot;</span>,<span class="string">&quot;true&quot;</span>)</span><br><span class="line"><span class="comment">//调用send</span></span><br><span class="line">xhr.send();</span><br><span class="line"><span class="comment">/*等待数据响应</span></span><br><span class="line"><span class="comment">  readystatechange  事件类型</span></span><br><span class="line"><span class="comment">  xhr.readyState  发生变化时候调用</span></span><br><span class="line"><span class="comment">  参数：0  (初始化)还没有调用open方法</span></span><br><span class="line"><span class="comment">       1  (载入)已调用send方法，正在发送请求</span></span><br><span class="line"><span class="comment">       2  (载入完成)send方法已完成，收到全部响应内容</span></span><br><span class="line"><span class="comment">       3  (解析)正在解析响应内容</span></span><br><span class="line"><span class="comment">       4  (完成)响应内容解析完成，可以在客户端调用了</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">xhr.onreadystatechange=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; </span><br><span class="line">    <span class="keyword">if</span>(xhr.readyState==<span class="number">4</span>)&#123;</span><br><span class="line">        <span class="comment">//判断本次下载的状态是多少</span></span><br><span class="line">        <span class="keyword">if</span>(xhr.status==<span class="number">200</span>)&#123;</span><br><span class="line">            alert(<span class="string">&#x27;xhr.responseText&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            alert(<span class="string">&#x27;ERROR:&#x27;</span>+xhr.status)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="try-catch"><a href="#try-catch" class="headerlink" title="try_catch"></a>try_catch</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    尝试执行的代码</span><br><span class="line">&#125;<span class="keyword">catch</span>(error)&#123;</span><br><span class="line">    <span class="comment">//error  错误对象，try中代码执行的异常信息</span></span><br><span class="line">    补救代码</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//try_throw_catch手动抛出异常</span></span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    尝试执行的代码</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>();  <span class="comment">//用户故意抛出的异常</span></span><br><span class="line">&#125;<span class="keyword">catch</span>(error)&#123;</span><br><span class="line">    补救代码</span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<h2 id="GET和POST请求"><a href="#GET和POST请求" class="headerlink" title="GET和POST请求"></a>GET和POST请求</h2><p>HTML标签form的action和method属性</p>
+<p>​    action    点击submit后要跳转到的链接 </p>
+<p>​    method    表单要提交数据的方式，get、post等</p>
+<h3 id="GET（默认）"><a href="#GET（默认）" class="headerlink" title="GET（默认）"></a>GET（默认）</h3><ul>
+<li><p>提交方式：直接将数据拼接在url后进行提交，通过？进行拼接，查询字符串</p>
+</li>
+<li><p>好处：简单</p>
+</li>
+<li><p>缺点：</p>
+<pre><code>   1. 不安全
+      2. 最大2kb
+      3. 无法实现上传</code></pre>
+</li>
+<li><p>ajax的post提交：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//直接以字符串拼接的方式写在后面</span></span><br><span class="line">xhr.open(<span class="string">&#x27;get&#x27;</span>,<span class="string">&#x27;1.get.php?username=yyy&amp;age=18&amp;password=123a&#x27;</span>,<span class="literal">true</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h3></li>
+<li><p>提交方式：通过浏览器内部进行提交</p>
+</li>
+<li><p>好处：安全 、理论上无上限、可以上传</p>
+</li>
+<li><p>缺点：较复杂</p>
+</li>
+<li><p>form中需要添加enctype属性：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">&#x27;post&#x27;</span> <span class="attr">enctype</span>=<span class="string">&#x27;application/x-www-form-urlencoded&#x27;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<ul>
+<li><p>ajax的get请求</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//send方法之前需要设置请求的格式</span></span><br><span class="line">xhr.sendRequestHeader(<span class="string">&#x27;content-type&#x27;</span>,<span class="string">&#x27;application/x-www-form-urlencoded&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//需要通过send方法进行提交查询字符串</span></span><br><span class="line"><span class="comment">//?name=value&amp;age=value2    search方式</span></span><br><span class="line"><span class="comment">//name=value&amp;age=value2  queryString方式</span></span><br><span class="line">xhr.open(<span class="string">&#x27;post&#x27;</span>,<span class="string">&#x27;1.post.php&#x27;</span>);</span><br><span class="line">xhr.send(<span class="string">&#x27;username=yyy&amp;age=18&amp;password=123a&#x27;</span>);       <span class="comment">//send中使用queryString方式</span></span><br></pre></td></tr></table></figure>
+<h2 id="ajax函数封装"><a href="#ajax函数封装" class="headerlink" title="ajax函数封装"></a>ajax函数封装</h2></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//使用解构方式定义形参，method默认为get请求</span></span><br><span class="line"><span class="comment">//success  数据下载成功执行的函数</span></span><br><span class="line"><span class="comment">//error  数据下载失败执行的函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">$ajax</span>(<span class="params">&#123;method=<span class="string">&#x27;get&#x27;</span>,url,data，success,error&#125;</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> xhr=<span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        xhr=<span class="keyword">new</span> XMLHttpRequest(); </span><br><span class="line">    &#125;<span class="keyword">catch</span>(error)&#123;</span><br><span class="line">        xhr=<span class="keyword">new</span> ActiveXObject(<span class="string">&quot;Microsoft.XMLHTTP&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//判断如果数据存在，转化为查询字符串</span></span><br><span class="line">    <span class="keyword">if</span>(data)&#123;</span><br><span class="line">        data=queryString(data);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//当为get请求且有数据时使用get的方式拼接字符串</span></span><br><span class="line">    <span class="keyword">if</span>(method==<span class="string">&#x27;get&#x27;</span> &amp;&amp; data)&#123;</span><br><span class="line">        url+=<span class="string">&quot;?&quot;</span>+data;</span><br><span class="line">    &#125;</span><br><span class="line">    xhr.open(method,url,<span class="literal">true</span>);</span><br><span class="line">    <span class="comment">//传输数据时根据请求方式使用不同方式</span></span><br><span class="line">    <span class="keyword">if</span>(method==<span class="string">&#x27;get&#x27;</span>)&#123;</span><br><span class="line">        xhr.send();</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        xhr.sendRequestHeader(<span class="string">&#x27;content-type&#x27;</span>,<span class="string">&#x27;application/x-www-form-urlencoded&#x27;</span>);</span><br><span class="line">        xhr.send(data);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//等待数据响应</span></span><br><span class="line">    xhr.onreadystatechange=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; </span><br><span class="line">        <span class="keyword">if</span>(xhr.readyState==<span class="number">4</span>)&#123;</span><br><span class="line">            <span class="comment">//判断本次下载的状态是多少</span></span><br><span class="line">            <span class="keyword">if</span>(xhr.status==<span class="number">200</span>)&#123;</span><br><span class="line">                <span class="comment">/*</span></span><br><span class="line"><span class="comment">                    如何处理数据的方式不确定</span></span><br><span class="line"><span class="comment">                    使用回调函数</span></span><br><span class="line"><span class="comment">                */</span></span><br><span class="line">               <span class="keyword">if</span>(success)</span><br><span class="line">                   success(xhr.responseText);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(error)</span><br><span class="line">                    error();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//将用户需传入的对象转化为查询字符串</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">queryString</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> str=<span class="string">&#x27;&#x27;</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> attr <span class="keyword">in</span> obj)&#123;</span><br><span class="line">        str+=attr+<span class="string">&quot;=&quot;</span>+obj[attr]+<span class="string">&#x27;&amp;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    str.substring(<span class="number">0</span>,str.length-<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//调用案例，使用对象和解构传参</span></span><br><span class="line">button.onclick=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    $ajax(&#123;</span><br><span class="line">        method:<span class="string">&#x27;post&#x27;</span>,   <span class="comment">//若为get可不写</span></span><br><span class="line">        url:<span class="string">&#x27;1.post.php&#x27;</span>,</span><br><span class="line">        data:&#123;      <span class="comment">//可直接传入对象</span></span><br><span class="line">            username:<span class="string">&#x27;xxx&#x27;</span>;</span><br><span class="line">            age:<span class="number">18</span>;</span><br><span class="line">            passord:<span class="string">&#x27;123ab&#x27;</span>;</span><br><span class="line">        &#125;,</span><br><span class="line">        success:<span class="function"><span class="keyword">function</span>(<span class="params">result</span>)</span>&#123;</span><br><span class="line">            alert(result);</span><br><span class="line">        &#125;,</span><br><span class="line">        error:<span class="function"><span class="keyword">function</span>(<span class="params">msg</span>)</span>&#123;</span><br><span class="line">            alert(msg);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="补充：JSON"><a href="#补充：JSON" class="headerlink" title="补充：JSON"></a>补充：JSON</h2><p>json对象的两种方法：</p>
+<ul>
+<li><p>```js<br>JSON.stringfy()    数据结构 =&gt; 字符串</p>
+<p>1.对象<br>var arr=[100,true,’hello’];<br>var str=JSON.stringfy(arr);<br>alert(str);    //‘[100,true,’hello’]’</p>
+<p>2.数组<br>var obj={</p>
+<pre><code>username:&#39;nic&#39;,
+age:18,
+password:&#39;123ab&#39;</code></pre>
+<p>}<br>var str=JSOn.stringfy(obj);<br>alert(str);    //‘{    username:’nic’,age:18,password:’123ab’}’</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">+ &#96;&#96;&#96;js</span><br><span class="line">  JSON.parse()    json格式字符串 &#x3D;&gt; 数据结构</span><br><span class="line">  </span><br><span class="line">  var str&#x3D;&#39;[100,true,&#39;hello&#39;]&#39;;</span><br><span class="line">  var arrr&#x3D;JSON.parse(str);</span><br><span class="line">  alert(arr);    &#x2F;&#x2F;[100,true,&#39;hello&#39;]</span><br></pre></td></tr></table></figure></li>
+<li><p>php中：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">JSON.encode();    <span class="comment">//数据结构转化为字符串</span></span><br><span class="line">JSON.decode();    <span class="comment">//字符串转化为数据结构</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>前端</category>
+        <category>ajax</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+        <tag>前端</tag>
+        <tag>ajax</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>关于更新到github后博客内容未变问题</title>
     <url>/2020/12/29/%E6%9B%B4%E6%96%B0%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<blockquote>
@@ -142,9 +219,9 @@
         <category>gulp</category>
       </categories>
       <tags>
+        <tag>学习笔记</tag>
         <tag>前端</tag>
         <tag>gulp</tag>
-        <tag>学习笔记</tag>
       </tags>
   </entry>
 </search>

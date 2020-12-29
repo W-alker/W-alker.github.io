@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2020-12-29T06:10:39.950Z</updated>
+  <updated>2020-12-29T12:45:57.740Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,40 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ajax学习笔记</title>
+    <link href="http://example.com/2020/12/29/ajax%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <id>http://example.com/2020/12/29/ajax%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</id>
+    <published>2020-12-29T12:38:50.000Z</published>
+    <updated>2020-12-29T12:45:57.740Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;原学习视频地址：&lt;a href=&quot;https://www.bilibili.com/video/BV1NE411T7Z2?p=367&quot;&gt;https://www.bilibili.com/video/BV1NE411T7Z2?p=367&lt;/a&gt;</summary>
+        
+      
+    
+    
+    
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="前端" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%89%8D%E7%AB%AF/"/>
+    
+    <category term="ajax" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%89%8D%E7%AB%AF/ajax/"/>
+    
+    
+    <category term="学习笔记" scheme="http://example.com/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="前端" scheme="http://example.com/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+    <category term="ajax" scheme="http://example.com/tags/ajax/"/>
+    
+  </entry>
   
   <entry>
     <title>关于更新到github后博客内容未变问题</title>
@@ -80,11 +114,11 @@
     <category term="gulp" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%89%8D%E7%AB%AF/gulp/"/>
     
     
+    <category term="学习笔记" scheme="http://example.com/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
     <category term="前端" scheme="http://example.com/tags/%E5%89%8D%E7%AB%AF/"/>
     
     <category term="gulp" scheme="http://example.com/tags/gulp/"/>
-    
-    <category term="学习笔记" scheme="http://example.com/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
