@@ -63,10 +63,18 @@
 <p>原学习视频地址：<a href="https://www.bilibili.com/video/BV1NE411T7Z2?p=367">https://www.bilibili.com/video/BV1NE411T7Z2?p=367</a> ，p367-p371。</p>
 </blockquote>
 <h2 id="ajax的应用场景"><a href="#ajax的应用场景" class="headerlink" title="ajax的应用场景"></a>ajax的应用场景</h2><ol>
-<li>页面上拉下载更多数据</li>
-<li>列表数据无刷新分页</li>
-<li>表单项离开焦点数据验证</li>
-<li>搜索框提示文字下拉列表</li>
+<li><p>页面上拉下载更多数据</p>
+</li>
+<li><p>列表数据无刷新分页</p>
+</li>
+<li><p>表单项离开焦点数据验证</p>
+</li>
+<li><p>搜索框提示文字下拉列表</p>
+</li>
+<li><p>……</p>
+<a id="more"></a>
+
+</li>
 </ol>
 <h2 id="ajax一些基本语法"><a href="#ajax一些基本语法" class="headerlink" title="ajax一些基本语法"></a>ajax一些基本语法</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//创建ajax对象</span></span><br><span class="line"><span class="keyword">var</span> xhr=<span class="keyword">new</span> XMLHttpRequest();  </span><br><span class="line">    <span class="comment">//IE8下使用 ActiveXObject(&quot;Microsoft.XMLHTTP&quot;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*调用open</span></span><br><span class="line"><span class="comment">  第一个参数：请求方式  get、post等</span></span><br><span class="line"><span class="comment">  第二个参数：url</span></span><br><span class="line"><span class="comment">  第三个参数：是否异步，true为异步</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">xhr.open(<span class="string">&quot;get&quot;</span>,<span class="string">&quot;1.txt&quot;</span>,<span class="string">&quot;true&quot;</span>)</span><br><span class="line"><span class="comment">//调用send</span></span><br><span class="line">xhr.send();</span><br><span class="line"><span class="comment">/*等待数据响应</span></span><br><span class="line"><span class="comment">  readystatechange  事件类型</span></span><br><span class="line"><span class="comment">  xhr.readyState  发生变化时候调用</span></span><br><span class="line"><span class="comment">  参数：0  (初始化)还没有调用open方法</span></span><br><span class="line"><span class="comment">       1  (载入)已调用send方法，正在发送请求</span></span><br><span class="line"><span class="comment">       2  (载入完成)send方法已完成，收到全部响应内容</span></span><br><span class="line"><span class="comment">       3  (解析)正在解析响应内容</span></span><br><span class="line"><span class="comment">       4  (完成)响应内容解析完成，可以在客户端调用了</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">xhr.onreadystatechange=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; </span><br><span class="line">    <span class="keyword">if</span>(xhr.readyState==<span class="number">4</span>)&#123;</span><br><span class="line">        <span class="comment">//判断本次下载的状态是多少</span></span><br><span class="line">        <span class="keyword">if</span>(xhr.status==<span class="number">200</span>)&#123;</span><br><span class="line">            alert(<span class="string">&#x27;xhr.responseText&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            alert(<span class="string">&#x27;ERROR:&#x27;</span>+xhr.status)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="try-catch"><a href="#try-catch" class="headerlink" title="try_catch"></a>try_catch</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    尝试执行的代码</span><br><span class="line">&#125;<span class="keyword">catch</span>(error)&#123;</span><br><span class="line">    <span class="comment">//error  错误对象，try中代码执行的异常信息</span></span><br><span class="line">    补救代码</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
