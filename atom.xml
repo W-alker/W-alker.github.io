@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2020-12-29T05:01:05.889Z</updated>
+  <updated>2020-12-29T06:10:39.950Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>关于更新到github后博客内容未变问题</title>
+    <link href="http://example.com/2020/12/29/%E6%9B%B4%E6%96%B0%E9%97%AE%E9%A2%98/"/>
+    <id>http://example.com/2020/12/29/%E6%9B%B4%E6%96%B0%E9%97%AE%E9%A2%98/</id>
+    <published>2020-12-29T05:44:29.000Z</published>
+    <updated>2020-12-29T06:10:39.950Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;网站修改和更新文章后，在本地用 &lt;code&gt;hexo s&lt;/code&gt; 部署到了GitHub后却发现自己的博客网站内容没有变化。找了一中午终于找到了原因所在。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;最开始更新完毕确认检查后，使用</summary>
+        
+      
+    
+    
+    
+    <category term="建站" scheme="http://example.com/categories/%E5%BB%BA%E7%AB%99/"/>
+    
+    
+    <category term="建站" scheme="http://example.com/tags/%E5%BB%BA%E7%AB%99/"/>
+    
+  </entry>
   
   <entry>
     <title>gulp学习笔记</title>
