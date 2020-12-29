@@ -79,7 +79,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">1.2k</span>
+            <span class="post-count">1.7k</span>
         </span>
     </span>
 
@@ -88,7 +88,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">4 min</span>
+            <span class="post-count">6 min</span>
         </span>
     </span>
 </div>
@@ -112,7 +112,9 @@
 <p><img src="https://pic.downk.cc/item/5fe9de223ffa7d37b33ed34f.jpg"></p>
 <a id="more"></a>
 
-<h2 id="过程及踩坑"><a href="#过程及踩坑" class="headerlink" title="过程及踩坑"></a>过程及踩坑</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;主要过程按照教学视频来就好。其实最主要修改的还是根目录和主题文件夹下的<font color="red"> _config.yml</font>文件，根目录下的<font color="red"> _config.yml</font>文件可以按照hexo的中文文档进行修改，主题文件夹中的最好参考该主题的中文说明（该主题的中文说明还是很简单易懂的）。最好还是阅读下hexo的中文文档，主题的中文说明更是必看。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<strong><em>注意，本篇文章仅作记录建站过程和解决一些问题的方法，如果你使用该主题也出现了些问题，可以略作参考。或者你是新手并且也想使用该主题，可以阅读本文。</em></strong></p>
+<h2 id="过程及踩坑"><a href="#过程及踩坑" class="headerlink" title="过程及踩坑"></a>过程及踩坑</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;Hexo的教学其实已经屡见不鲜了，但是我个人还是比较喜欢视频教学，找学习视频自然上B站。主要过程按照教学视频来就好。其实最主要修改的还是根目录和主题文件夹下的<font color="red"> _config.yml</font>文件，根目录下的<font color="red"> _config.yml</font>文件可以按照hexo的中文文档进行修改，主题文件夹中的最好参考该主题的中文说明（该主题的中文说明还是很简单易懂的）。最好还是阅读下hexo的中文文档，主题的中文说明更是必看。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;如果想更改本主题的配置，可以参考这篇文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_35982918/article/details/106728754">Hexo博客Ayer主题自定义配置</a></p>
 <h3 id="页面404？"><a href="#页面404？" class="headerlink" title="页面404？"></a>页面404？</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;最开始更换完ayer主题后，只有主页和归档能够显示，其他页面会报404，是因为这些页面都没有创建。需要使用命令</p>
 <p>​    <code>hexo new page 要创建的页面</code></p>
 <p>注意命令应当是在根目录下运行，例如要创建分类页面，应当使用</p>
@@ -124,14 +126,25 @@
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 侧边栏菜单</span></span><br><span class="line"><span class="attr">menu:</span></span><br><span class="line">  <span class="string">主页:</span> <span class="string">/</span></span><br><span class="line">  <span class="string">归档:</span> <span class="string">/archives</span></span><br><span class="line">  <span class="string">分类:</span> <span class="string">/categories</span></span><br><span class="line">  <span class="string">标签:</span> <span class="string">/tags</span></span><br><span class="line">  <span class="string">摄影:</span> <span class="string">/photos</span></span><br><span class="line">  <span class="string">友链:</span> <span class="string">/friends</span></span><br><span class="line">  <span class="string">关于我:</span> <span class="string">/about</span></span><br></pre></td></tr></table></figure>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;这是根目录<font color="blue"> /source</font> 文件夹下的文件：</p>
 <p><img src="https://pic.downk.cc/item/5fe9ccd73ffa7d37b322cd6d.png" alt="演示图片"></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;不难看出除了 <font color="blue">/_posts</font> 文件夹是用来保存文章的，其他的文件夹名和上面是相互对应的。</p>
-<h3 id="分类和标签页面"><a href="#分类和标签页面" class="headerlink" title="分类和标签页面"></a>分类和标签页面</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;百度了怎么添加分类和标签页面，可以参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_33857230/article/details/91474562">Hexo 添加分类及标签</a>。一开始给markdown文章添加了tags和categories，在文章界面上确实显示了标签和分类，但是分类和标签页面却仍然是空白，苦恼了半天，最后终于可找到了解决办法：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42118981/article/details/109462491">解决hexo下分类和标签无法显示的问题</a>，将 <font color="blue">/tags</font> <font color="blue"> /categories </font>和文件夹下的index.md文件改成如下：</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;不难看出除了 <font color="blue">/_posts</font> 文件夹是用来保存文章的，其他的文件夹名和上面是相互对应的。<em>注意路径名不要出错。</em></p>
+<h3 id="分类和标签页面"><a href="#分类和标签页面" class="headerlink" title="分类和标签页面"></a>分类和标签页面</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;百度了怎么添加分类和标签页面，可以参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_33857230/article/details/91474562">Hexo 添加分类及标签</a>。一开始给markdown文章添加了tags和categories，在文章界面上确实显示了标签和分类，但是分类和标签页面却仍然是空白，苦恼了半天，最后终于可找到了解决办法：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42118981/article/details/109462491">解决hexo下分类和标签无法显示的问题</a>，将 <font color="blue">/tags</font>  和<font color="blue">  /categories </font>文件夹下的index.md文件改成如下：</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Categories</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2020-12-28 10:17:01</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">categories</span></span><br><span class="line"><span class="attr">layout:</span> <span class="string">categories</span>   <span class="comment">#这里是解决问题的核心</span></span><br><span class="line"><span class="attr">comments:</span> <span class="literal">false</span>   <span class="comment"># 这里是关闭评论</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Tags</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2020-12-28 10:17:49</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">tags</span></span><br><span class="line"><span class="attr">layout:</span> <span class="string">tags</span>   <span class="comment">#同上，必须加上此语句</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;如果友链等页面也出现该问题，解决办法一致。</p>
 <h3 id="写文章"><a href="#写文章" class="headerlink" title="写文章"></a>写文章</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;写文章使用markdown的文法还是很舒服的，如果不会可以参考一下教程，十几分钟就能学会：<a target="_blank" rel="noopener" href="https://www.runoob.com/markdown/md-tutorial.html">菜鸟教程 | Markdown 教程</a>。</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;插入图片有点麻烦，有一篇参考文章说的比较全：<a target="_blank" rel="noopener" href="https://www.5yun.org/20794.html">Hexo文章插入图片</a>。尝试了之后还是选择了使用图床：<a target="_blank" rel="noopener" href="https://www.superbed.cn/">聚合图床</a>。图片上传后可以获得一个URL地址，插入图片时直接写上链接就好。</p>
 <h3 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;我的博客里用了一个网易云音乐的插件，是该主题中自带的，在主题文件夹下的<font color="red"> _config.yml  </font>里可以找到，将autoplay改为true即可，也可以更改默认音乐。这个插件局限性有点大，可以参考原开发者的博客，有播放器插件的页面。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;如果想要使用其他的插件，请参考hexo插件文档。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;该主题已经集成了一些插件，比如字数统计，访问量统计，评论插件等。如果想要使用其他的插件，请参考hexo插件文档。</p>
+<h3 id="Github部署"><a href="#Github部署" class="headerlink" title="Github部署"></a>Github部署</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;部署视频中已经有说明，如果想要上传更新记住以下命令：</p>
+<p><code>hexo clean</code>     主要用来清除缓存等，建议每次有更新都使用该命令</p>
+<p><code>hexo g</code>    </p>
+<p><code>hexo s</code>    仅在本地开启一个预览，可以直观的看到变化</p>
+<p><code>hexo d</code>    上传更新</p>
+<h3 id="自定义页面"><a href="#自定义页面" class="headerlink" title="自定义页面"></a>自定义页面</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;在观看GitHub上传后的文件后，根目录文件大致是这样：</p>
+<p><img src="https://pic.downk.cc/item/5fe9f5f83ffa7d37b36711ce.png"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;再看到本地目录下的public文件夹中的文件，大致是这样的：</p>
+<p><img src="https://pic.downk.cc/item/5fe9f67e3ffa7d37b3681943.png"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;并且about、archives、friends文件夹里都有一个index.html文件。再加上上面主题目录下 _config.yml 文件中 <strong>#menu</strong> 项下的“链接”，这才发现部署到github仓库根目录上的其实就是public文件夹中的所有文件，根目录的index.html作为主页面，菜单栏的链接直接指向其他页面的文件夹路径，因此里面的index.html文件自然就成为了相应页面。<em>这也就意味着如果想要自定义页面，可以直接修改public文件夹中的html文件。</em></p>
 <h2 id="感谢原开发者"><a href="#感谢原开发者" class="headerlink" title="感谢原开发者"></a>感谢原开发者</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;大概就是这些，hexo创建博客还是很简单的，功能也相当强大，而且零成本，花点时间就可以做出来。最后感谢该主题的开发者：Shen-Yu。这是他的博客：<a target="_blank" rel="noopener" href="https://shen-yu.gitee.io/">https://shen-yu.gitee.io/</a>，这是他的Github：<a target="_blank" rel="noopener" href="https://github.com/Shen-Yu">https://github.com/Shen-Yu</a>。如果你也想使用该主题别忘了给开发者一个star。</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;如果有问题可以在评论区留言。谢谢观看。</p>
  
@@ -209,6 +222,20 @@
   </div>
 
    
+  <nav class="article-nav">
+    
+      <a href="/2020/12/29/gulp%E7%AC%94%E8%AE%B0/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            gulp学习笔记
+          
+        </div>
+      </a>
+    
+    
+  </nav>
+
    
 <!-- valine评论 -->
 <div id="vcomments-box">
@@ -641,8 +668,8 @@
     
     
     
-    <iframe frameborder="no" border="1" marginwidth="0" marginheight="0" width="200" height="52"
-        src="//music.163.com/outchain/player?type=2&id=22707008&auto=1&height=32"></iframe>
+    <iframe frameborder="no" border="1" marginwidth="0" marginheight="0" width="200" height="86"
+        src="//music.163.com/outchain/player?type=2&id=28718313&auto=1&height=66"></iframe>
 </div>
 
 <style>
