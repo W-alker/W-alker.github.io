@@ -380,9 +380,10 @@
 <p>都知道github-pages是GitHub自带生成静态页面的功能，点进去后发现有一个更新日志，看了下最近的更新还是最开始部署到GitHub作测试的时候。于是知道博客内容没变是因为根本还没有更新。</p>
 <p>然后查到了可能是分支问题，按照视频做的时候，根目录的<font color="red"> _config.yml </font>文件中deploy这一行是这样的：</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">&#x27;git&#x27;</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">git@github.com:W-alker/W-alker.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
-<p>这样做，意思是将hexo部署到了master分支，导致我的仓库里多出了一个master分支。这才想起前段时间GitHub已经将仓库的默认主分支改为了main，所以我的仓库里有两个分支，一个main一个master，而main才是”active“分支，尽管我之前已经将默认分支改为了master分支，但是博客页面所在的分支还是main分支。两个分支的内容截然不同，修改之后的hexo文件更新在了master分支，而main分支保留的仍然是最开始未修改的文件。</p>
+<p>这样做，意思是将hexo部署到了master分支，导致我的仓库里多出了一个master分支。这才想起前段时间GitHub已经将仓库的默认主分支改为了main，所以我的仓库里有两个分支，一个main一个master，而main才是”active“分支，尽管我之前已经将默认分支改为了master分支，但是博客页面所在的分支还是main分支。两个分支的内容截然不同，修改之后的hexo文件更新在了master分支，而main分支保留的仍然是最开始未修改的文件。也就是说，pages服务使用的是我的main分支生成的页面，而我需要生成页面的代码是在master分支里的。</p>
 <p>于是一不做二不休，直接删除了这个仓库然后新建了同名的仓库，并且将配置文件里的branch改成了main，然后 <code>hexo clean</code> <code>hexo g</code> <code>hexo d</code> 重新部署，之后博客果然更新了。</p>
-<p><strong><em>总结：注意仓库分支。仓库最好是单分支，如果需要改到其他分支，记得将pages服务改到那个分支下。当然，你也可以直接将github的默认分支名重新改为maser，这样能避免你同时部署到其他代码托管平台如gitee和coding时候有又出现问题。</em></strong></p>
+<p>后来觉得部署在GitHub上太慢，又百度着把博客部署在了gitee，但是又出现了很多问题，因为gitee的默认分支名还是maser，所以和pages服务冲突的问题又出现了好几次。最后干脆把GitHub的默认分支名改成了master，解决问题。</p>
+<p><strong><em>总结：注意仓库分支。仓库最好是单分支，如果需要改到其他分支，记得将pages服务改到那个分支下。当然，你也可以直接将github的默认分支名重新改为maser，这样能避免你同时部署到其他代码托管平台如gitee和coding时候又出现问题。</em></strong></p>
  
       <!-- reward -->
       
