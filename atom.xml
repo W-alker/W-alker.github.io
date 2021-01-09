@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-01-09T13:51:31.426Z</updated>
+  <updated>2021-01-09T16:48:36.377Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://example.com/2021/01/09/js%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%EF%BC%881%EF%BC%89/"/>
     <id>http://example.com/2021/01/09/js%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%EF%BC%881%EF%BC%89/</id>
     <published>2021-01-09T13:44:55.000Z</published>
-    <updated>2021-01-09T13:51:31.426Z</updated>
+    <updated>2021-01-09T16:48:36.377Z</updated>
     
     
     <summary type="html">&lt;blockquote&gt;
@@ -75,7 +75,9 @@
     
     <category term="JavaScript" scheme="http://example.com/tags/JavaScript/"/>
     
-    <category term="数据结构与算法" scheme="http://example.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    <category term="数据结构" scheme="http://example.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    <category term="算法" scheme="http://example.com/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
