@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-01-09T13:48:03.564Z</updated>
+  <updated>2021-01-09T13:51:31.426Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -21,17 +21,44 @@
     <link href="http://example.com/2021/01/09/js%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%EF%BC%881%EF%BC%89/"/>
     <id>http://example.com/2021/01/09/js%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%EF%BC%881%EF%BC%89/</id>
     <published>2021-01-09T13:44:55.000Z</published>
-    <updated>2021-01-09T13:48:03.564Z</updated>
+    <updated>2021-01-09T13:51:31.426Z</updated>
     
     
-      
-      
-        
-        
     <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;注意：原教学视频：&lt;a href=&quot;https://www.bilibili.com/video/BV1a5411t7vZ&quot;&gt;JavaScript(ES6)数据结构和算法&lt;/a&gt;  |  &lt;a</summary>
-        
-      
+&lt;p&gt;注意：原教学视频：&lt;a href=&quot;https://www.bilibili.com/video/BV1a5411t7vZ&quot;&gt;JavaScript(ES6)数据结构和算法&lt;/a&gt;  |  &lt;a href=&quot;https://www.bilibili.com/video/BV1r7411n7Pw&quot;&gt;JavaScript数据结构与算法&lt;/a&gt; (都是CoderWhy老师的教学)&lt;/p&gt;
+&lt;p&gt;原作者（笔记）链接：&lt;a href=&quot;https://github.com/XPoet/JS-Data-Structures-and-Algorithms&quot;&gt;JavaScript 数据结构与算法&lt;/a&gt;  |  &lt;a href=&quot;https://www.cnblogs.com/AhuntSun-blog/p/12636718.html&quot;&gt;JavaScript数据结构与算法博客目录&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;PS：本文仅在学习过程中，对两篇笔记进行整合及总结（包含少量补充），以作学习之用。侵权立删。&lt;/p&gt;
+&lt;p&gt;Part1: 数组、栈、队列、优先队列、单向链表、双向链表。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;hr&gt;
+
+&lt;h3 id=&quot;1-什么是数据结构？&quot;&gt;&lt;a href=&quot;#1-什么是数据结构？&quot; class=&quot;headerlink&quot; title=&quot;1. 什么是数据结构？&quot;&gt;&lt;/a&gt;1. 什么是数据结构？&lt;/h3&gt;&lt;p&gt;数据结构就是在计算机中，存储和组织数据的方式。&lt;/p&gt;
+&lt;p&gt;解决问题方法的效率，根据数据的组织方式有关。我们无需关心数据结构到底是什么，我们需要考虑的问题是：&lt;strong&gt;以什么样的方式，来存储和组织我们的数据才能在使用数据时更加方便呢？&lt;/strong&gt;这才是学习数据结构的意义。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;常见的数据结构：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;数组&lt;/strong&gt;（Aarray）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;栈&lt;/strong&gt;（Stack）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;链表&lt;/strong&gt;（Linked List）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;图&lt;/strong&gt;（Graph）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;散列表&lt;/strong&gt;（Hash）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;队列&lt;/strong&gt;（Queue）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;树&lt;/strong&gt;（Tree）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;堆&lt;/strong&gt;（Heap）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt; 注意：数据结构与算法与语言无关，常见的编程语言都有&lt;strong&gt;直接或间接&lt;/strong&gt;的使用上述常见的数据结构。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;2-什么是算法？&quot;&gt;&lt;a href=&quot;#2-什么是算法？&quot; class=&quot;headerlink&quot; title=&quot;2. 什么是算法？&quot;&gt;&lt;/a&gt;2. 什么是算法？&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;算法（Algorithm）的定义：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;一个有限指令集，每条指令的描述不依赖于语言。&lt;/li&gt;
+&lt;li&gt;接收一些输入（有些情况下不需要输入）。&lt;/li&gt;
+&lt;li&gt;产生输出。&lt;/li&gt;
+&lt;li&gt;一定在有限步骤之后终止。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;通俗理解：解决问题的办法/步骤逻辑。数据结构的实现，离不开算法。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;br&gt;</summary>
     
     
     
