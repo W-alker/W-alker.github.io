@@ -13,7 +13,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    记录博客建站过程 |  路修远 | 个人博客
+    记录博客建站过程 |  路修远
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -37,7 +37,7 @@
 
   
 
-<link rel="alternate" href="/atom.xml" title="路修远 | 个人博客" type="application/atom+xml">
+<link rel="alternate" href="/atom.xml" title="路修远" type="application/atom+xml">
 </head>
 
 </html>
@@ -115,13 +115,13 @@
 <p>&nbsp;&nbsp;&nbsp;&nbsp;<strong><em>注意，本篇文章仅作记录建站过程和解决一些问题的方法，如果你使用该主题也出现了些问题，可以略作参考。或者你是新手并且也想使用该主题，可以阅读本文。</em></strong></p>
 <h2 id="过程及踩坑"><a href="#过程及踩坑" class="headerlink" title="过程及踩坑"></a>过程及踩坑</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;Hexo的教学其实已经屡见不鲜了，但是我个人还是比较喜欢视频教学，找学习视频自然上B站。主要过程按照教学视频来就好。其实最主要修改的还是根目录和主题文件夹下的<font color="red"> _config.yml</font>文件，根目录下的<font color="red"> _config.yml</font>文件可以按照hexo的中文文档进行修改，主题文件夹中的最好参考该主题的中文说明（该主题的中文说明还是很简单易懂的）。最好还是阅读下hexo的中文文档，主题的中文说明更是必看。</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;如果想更改本主题的配置，可以参考这篇文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_35982918/article/details/106728754">Hexo博客Ayer主题自定义配置</a></p>
-<h3 id="页面404？"><a href="#页面404？" class="headerlink" title="页面404？"></a>页面404？</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;最开始更换完ayer主题后，只有主页和归档能够显示，其他页面会报404，是因为这些页面都没有创建。需要使用命令</p>
+<h3 id="页面404？"><a href="#页面404？" class="headerlink" title="页面404？"></a>页面404？</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;最开始更换完ayer主题后，只有主页和归档能够显示，其他页面会报404，是因为这些页面都没有创建或者路径不正确。需要使用命令</p>
 <p>​    <code>hexo new page 要创建的页面</code></p>
 <p>注意命令应当是在根目录下运行，例如要创建分类页面，应当使用</p>
 <p>​    <code>hexo new page categories</code></p>
 <p>如果要标签页面就将页面名改为  tags：</p>
 <p>​    <code>hexo new page tags</code></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;如果觉得侧边栏菜单页面过多，直接更改主题文件夹下的<font color="red">_config.yml</font>文件，直接在  <strong>#menu</strong>  选项下删除即可，侧边栏就不会显示。如果要添加菜单项，同样直接按模板格式添加就行，路径可以是相对或地址路径，也可以是url地址。其实这里可以注意下， <strong>#menu</strong> 选项下的“链接”其实是和根目录  <font color="blue">/source</font> 文件夹下的页面名是一一对应的。例如：</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;如果觉得侧边栏菜单页面过多，直接更改主题文件夹下的<font color="red">_config.yml</font>文件，直接在  <strong>#menu</strong>  选项下删除即可，侧边栏就不会显示。如果要添加菜单项，同样直接按模板格式添加就行，路径可以是相对地址路径，也可以是url地址。其实这里可以注意下， <strong>#menu</strong> 选项下的“链接”其实是和根目录  <font color="blue">/source</font> 文件夹下的页面名是一一对应的。例如：</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;这是主题文件夹下的<font color="red">_config.yml</font>文件</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 侧边栏菜单</span></span><br><span class="line"><span class="attr">menu:</span></span><br><span class="line">  <span class="string">主页:</span> <span class="string">/</span></span><br><span class="line">  <span class="string">归档:</span> <span class="string">/archives</span></span><br><span class="line">  <span class="string">分类:</span> <span class="string">/categories</span></span><br><span class="line">  <span class="string">标签:</span> <span class="string">/tags</span></span><br><span class="line">  <span class="string">摄影:</span> <span class="string">/photos</span></span><br><span class="line">  <span class="string">友链:</span> <span class="string">/friends</span></span><br><span class="line">  <span class="string">关于我:</span> <span class="string">/about</span></span><br></pre></td></tr></table></figure>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;这是根目录<font color="blue"> /source</font> 文件夹下的文件：</p>
@@ -355,7 +355,7 @@
 <nav class="navbar">
   
   <div class="logo">
-    <a href="/"><img src="/images/ayer-side.svg" alt="路修远 | 个人博客"></a>
+    <a href="/"><img src="/images/ayer-side.svg" alt="路修远"></a>
   </div>
   
   <ul class="nav nav-main">

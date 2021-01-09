@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>路修远 | 个人博客</title>
+  <title>路修远</title>
   
   <subtitle>山高水远，且行且珍惜。</subtitle>
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2020-12-31T14:01:53.241Z</updated>
+  <updated>2021-01-09T13:48:03.564Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,42 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Javascript数据结构与算法（1）</title>
+    <link href="http://example.com/2021/01/09/js%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%EF%BC%881%EF%BC%89/"/>
+    <id>http://example.com/2021/01/09/js%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%EF%BC%881%EF%BC%89/</id>
+    <published>2021-01-09T13:44:55.000Z</published>
+    <updated>2021-01-09T13:48:03.564Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;注意：原教学视频：&lt;a href=&quot;https://www.bilibili.com/video/BV1a5411t7vZ&quot;&gt;JavaScript(ES6)数据结构和算法&lt;/a&gt;  |  &lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="JavaScript" scheme="http://example.com/categories/JavaScript/"/>
+    
+    <category term="学习笔记" scheme="http://example.com/categories/JavaScript/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="数据结构与算法" scheme="http://example.com/categories/JavaScript/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    
+    
+    <category term="前端" scheme="http://example.com/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+    <category term="学习笔记" scheme="http://example.com/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="JavaScript" scheme="http://example.com/tags/JavaScript/"/>
+    
+    <category term="数据结构与算法" scheme="http://example.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
   
   <entry>
     <title>几首散诗</title>
@@ -160,7 +196,7 @@
     <link href="http://example.com/2020/12/27/%E5%8D%9A%E5%AE%A2%E5%BB%BA%E7%AB%8B/"/>
     <id>http://example.com/2020/12/27/%E5%8D%9A%E5%AE%A2%E5%BB%BA%E7%AB%8B/</id>
     <published>2020-12-27T13:03:41.000Z</published>
-    <updated>2020-12-30T13:21:56.639Z</updated>
+    <updated>2021-01-09T11:33:38.573Z</updated>
     
     
     <summary type="html">&lt;blockquote&gt;
