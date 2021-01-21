@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+
+<head>
+  <meta charset="utf-8" />
+   
+  <meta name="keywords" content="JavaScript，高级程序设计，红宝书，学习笔记,路修远,博客,ayer,学习笔记,前端,萌新" />
+   
+  <meta name="description" content="路修远个人博客,前端萌新" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    《Javascript高级程序设计》红宝书学习笔记（1） |  路修远
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="路修远" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-Javascript红宝书学习笔记（1）"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  《Javascript高级程序设计》红宝书学习笔记（1）
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/01/21/Javascript%E7%BA%A2%E5%AE%9D%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%881%EF%BC%89/" class="article-date">
+  <time datetime="2021-01-21T08:04:22.000Z" itemprop="datePublished">2021-01-21</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a> / <a class="article-category-link" href="/categories/JavaScript/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a> / <a class="article-category-link" href="/categories/JavaScript/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">11.6k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">44 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <blockquote>
+<p>个人对第四版红宝书的学习笔记。不适合小白阅读。这是part1。</p>
+<p>目录如下（记  * 的表示是ES6新增的知识点，记 ` 表示包含新知识点。）：</p>
+</blockquote>
+<p>[TOC]</p>
+<a id="more"></a>
+
+<h2 id="第二章：HTML中的Javascript"><a href="#第二章：HTML中的Javascript" class="headerlink" title="第二章：HTML中的Javascript"></a>第二章：HTML中的Javascript</h2><hr>
+
+<h3 id="2-1-lt-script-gt-元素"><a href="#2-1-lt-script-gt-元素" class="headerlink" title="2.1 &lt;script&gt;元素"></a>2.1 &lt;script&gt;元素</h3><p><strong>&lt;script&gt;标签的八个属性</strong></p>
+<ul>
+<li><p><code>async</code>：可选。表示应该立即开始下载脚本，但不能阻止其它页面动作，比如下载资源或等待其他脚本加载。<strong>使用该属性可以异步执行脚本</strong>。<em>只对外部脚本文件有效。</em></p>
+</li>
+<li><p><code>charset</code>：可选。使用src属性指定的代码字符集。基本不会使用。</p>
+</li>
+<li><p><code>crossorigin</code>：可选。配置相关的CORS（跨资源共享）设置。默认不使用CORS。<code>corssorigin=&quot;anonymous&quot;</code>配置文件请求不必设置凭据标志。<code>corssorigin=&quot;use-credentials&quot;</code>设置凭据标志，意味着出战请求会包含凭据。</p>
+</li>
+<li><p><code>defer</code>：可选。表示在文档解析和显示完成后再执行脚本是没有问题的。<em>只对外部脚本文件有效</em>。IE7及以前可以对行内脚本指定该属性。<strong>使用该属性推迟执行脚本</strong>。</p>
+</li>
+<li><p><code>integrity</code>：可选。允许对比接收到的资源和指定的加密签名以验证子资源完整性（SRI）。如果接收到资源的签名与这个属性指定的签名不匹配，则页面会报错，脚本不会执行。该属性可以用于<em>确保内容分发网络（CDN，Content Delivery Network）不会提供恶意内容</em>。</p>
+</li>
+<li><p><code>language</code>：已废弃。</p>
+</li>
+<li><p><code>src</code>：可选。表示包含要执行的代码的外部文件。</p>
+</li>
+<li><p><code>type</code>：可选。代替language，表示代码块中脚本语言的内容类型（也称MIME类型）。按惯例始终都会是<code>text/javascript</code>。Javascript文件的MIME类型通常是<code>&quot;application/x-javascript&quot;</code>，不过给type属性这个值有可能导致脚本被忽略。在非IE浏览器有效的其他值还有<code>&quot;application/javascript&quot;</code>和<code>&quot;application/ecmascript&quot;</code>。<em>如果这个值是module，则代码会被当成ES6模块，且只有这时候代码中才能出现import和export关键字。</em></p>
+</li>
+</ul>
+<p><strong>三个注意点</strong>：</p>
+<ol>
+<li><p>使用&lt;script&gt;标签写行内代码时不要出现这种情况：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(<span class="string">&quot;</span></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>&quot;);  <span class="comment">&lt;!--这里&lt;/script&gt;会被当作结束标签，甚至你会发现写在注释中也会被当作结束标签无法解析，因此我这里用了html的注释法--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>可以使用转义字符解决这一问题：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(<span class="string">&quot;&lt;\/script&gt;&quot;</span>);  <span class="comment">//这里可以正常使用，注释里这样使用：&lt;\/script&gt; 也可以，从代码没有高亮可以看出来</span></span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>该元素最为强大同时也备受争议的特性是：它可以包含来自外部域的Javascript文件。它的src属性可以是一个完整的url，而且这个url指向的资源可以跟包含它的HTML页面不再同一个域中。例如：</p>
+<p><code>&lt;script src=&quot;http://www.somewhere.com/afile.js&quot;&gt;&lt;/script&gt;</code></p>
+<p>浏览器解析时会向src属性指定的路径发送一个GET请求，以取得相应资源。这个初始的请求不受浏览器同源策略限制，但返回的Javascript受限。（当然，该请求仍然受HTTP/HTTPS）协议的限制。</p>
+<p>来自外部的代码会被当成加载他它的页面的一部分来加载和解析。<strong>这个能力可以让我们通过不同的域分发JavaScript。</strong>不过同时，引用他人服务器的文件时必须格外小心，因为可能会有恶意的程序员替换这个文件。<em>integrity属性可以防范，但不是所有浏览器都支持。</em></p>
+</li>
+<li><p>一般浏览器会按照&lt;script&gt;在页面中的顺序依次解释它们，只要没有使用defer和async属性的话。另<strong>外最好将标签位置放在页面底部（&lt;body&gt;之后）</strong>。</p>
+</li>
+</ol>
+<h3 id="2-2-行内代码与外部文件"><a href="#2-2-行内代码与外部文件" class="headerlink" title="2.2 行内代码与外部文件"></a>2.2 行内代码与外部文件</h3><p>虽然不是明确的强制性规则，但通常认为最佳实践是<strong>尽可能将Javascript代码放在外部文件</strong>中。原因如下：</p>
+<ul>
+<li><strong>可维护性</strong>。使用一个目录保存所有的JavaScript文件总会比分散在很多HTML页面容易维护。</li>
+<li><strong>缓存</strong>。浏览器会根据特点的设置缓存所有外部链接的JavaScript文件，这意味着如果两个页面都用到同一个文件，则该文件只需被下载依次。</li>
+<li><strong>适应未来</strong>。</li>
+</ul>
+<h3 id="2-3-文档模式"><a href="#2-3-文档模式" class="headerlink" title="2.3 文档模式"></a>2.3 文档模式</h3><p>IE5.5发明了文档模式的概念，即可以通过doctype切换文档模式。最初的文档模式有两种：<strong>混杂模式</strong>（quirks mode）和<strong>标准模式</strong>（standards mode）。后来出现了第三种文档模式：准文档模式（almost standards mode）。只作了解。</p>
+<h3 id="2-4-lt-noscript-gt-元素"><a href="#2-4-lt-noscript-gt-元素" class="headerlink" title="2.4 &lt;noscript&gt;元素"></a>2.4 &lt;noscript&gt;元素</h3><p>针对早期浏览器不支持JavaScript的问题，提出的一个页面优雅降级的处理方案：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">noscript</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>该页面不支持JavaScript，请更换浏览器。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">noscript</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>&lt;noscript&gt;元素可以包含任何出现在&lt;body&gt;中的HTML元素，&lt;script&gt;除外。出现下列两种情况下，浏览器将显示包含在该元素中的内容：</p>
+<ul>
+<li>浏览器不支持脚本；</li>
+<li>浏览器对脚本的支持被关闭。</li>
+</ul>
+<br>
+
+<h2 id="第三章：语言基础"><a href="#第三章：语言基础" class="headerlink" title="第三章：语言基础"></a>第三章：语言基础</h2><hr>
+
+<h3 id="3-1-变量声明"><a href="#3-1-变量声明" class="headerlink" title="3.1 变量声明"></a>3.1 变量声明</h3><h4 id="3-1-1-var声明"><a href="#3-1-1-var声明" class="headerlink" title="3.1.1 var声明"></a>3.1.1 var声明</h4><p>var声明的变量不初始化的情况下，该变量会保存特殊的值undefined。</p>
+<p>var声明厨初始化后的变量，后续可以改变类型。</p>
+<p>1）var声明作用域</p>
+<p>使用var操作符定义的变量会成为包含它的函数的局部变量，该变量在函数退出时被销毁。而在局部作用域中省略var操作符声明，该变量会作为全局变量：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> m1=<span class="string">&quot;hi&quot;</span>;</span><br><span class="line">    m2=<span class="string">&quot;hi&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line">test();</span><br><span class="line"><span class="built_in">console</span>.log(m1);     <span class="comment">//-&gt; 出错!</span></span><br><span class="line"><span class="built_in">console</span>.log(m2);     <span class="comment">//-&gt; hi</span></span><br></pre></td></tr></table></figure>
+<p>2）var声明提升</p>
+<p>使用var关键字时，声明的变量会自动提升（hoist）到函数作用域顶部。此外，<em>反复多次使用var声明同一个变量也没有问题</em>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(age);</span><br><span class="line">    <span class="keyword">var</span> age=<span class="number">18</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*上述代码在ECMAScript中运行时会看成等价如下代码：*/</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> age；</span><br><span class="line">    <span class="built_in">console</span>.log(age);</span><br><span class="line">    age=<span class="number">18</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//因此调用该方法，结果会如下：</span></span><br><span class="line">test();  <span class="comment">//-&gt;  undefined</span></span><br></pre></td></tr></table></figure>
+
+
+<h4 id="3-1-2-let声明"><a href="#3-1-2-let声明" class="headerlink" title="3.1.2 let声明  *"></a>3.1.2 let声明  *</h4><p>let和var差不多，但有着很大的区别，最明显的区别是：let声明的范围是<strong>块作用域</strong>，而var是函数作用域。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> name1=<span class="string">&#x27;matt&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(name1);  <span class="comment">//-&gt; matt</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">    <span class="keyword">let</span> name2=<span class="string">&#x27;mat&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(name2);   <span class="comment">//-&gt; ReferenceError:name没有定义</span></span><br></pre></td></tr></table></figure>
+<p>这里name2之所以不能再if块外部被引用，是因为它的作用域仅限于该块内部。块作用域是函数作用域的子集，因此适用于var的作用域限制同样适用于let。</p>
+<p>let也不允许同一个块作用域中出现冗余声明。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> age;</span><br><span class="line"><span class="keyword">var</span> age;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> age;</span><br><span class="line"><span class="keyword">let</span> age;   <span class="comment">//-&gt; SyntaxError;  标识符age已经声明过了</span></span><br></pre></td></tr></table></figure>
+<p>对声明冗余报错不会因混用let和var而受影响。它们声明的不是不同类型的变量，只是指出变量在相关作用域如今存在。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name;</span><br><span class="line"><span class="keyword">let</span> name;   <span class="comment">//-&gt; SyntaxError</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> age;</span><br><span class="line"><span class="keyword">var</span> age;    <span class="comment">//-&gt; SyntaxError</span></span><br></pre></td></tr></table></figure>
+<p>1）暂时性死区</p>
+<p>let和var另一个重要的区别，就是<strong>let声明的变量不会再作用域中被提升</strong>。</p>
+<p>在let声明之前的执行瞬间被称为“暂时性死区”（temporal dead zone），在此阶段引用任何后面才声明的变量都会抛出ReferenceError。</p>
+<p>2）全局声明</p>
+<p>let在全局作用域中声明的变量<strong>不会成为window 对象的属性</strong>（var声明的变量则会）。不过let声明仍然是在全局作用域中发生的，相应变量会在页面的生命周期内存续。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name=<span class="string">&#x27;matt&#x27;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.name);    <span class="comment">//-&gt; &#x27;matt&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> age=<span class="number">18</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.age);    <span class="comment">//-&gt; undefined</span></span><br></pre></td></tr></table></figure>
+<p>3）条件声明</p>
+<p>使用var声明时，由于声明会被提升，JavaScript引擎会自动将多余的声明在作用域顶部合并为一个声明。<strong>因为let的作用域是块，所以不可能检查前面是否已经使用let声明过同名变量，同时也就不可能在没有声明的情况下声明它</strong>。</p>
+<p>4）for循环中的let声明</p>
+<p>在let出现之前，for循环定义的迭代变量会渗透到循环体外部：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)&#123;</span><br><span class="line">    <span class="comment">//循环体</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(i);   <span class="comment">//-&gt; 5</span></span><br></pre></td></tr></table></figure>
+<p>而let就解决了这一问题，因为迭代遍历的作用域仅限于for循环块内部。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)&#123;</span><br><span class="line">    <span class="comment">//循环体</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(i);   <span class="comment">//-&gt; ReferenceError：i没有定义</span></span><br></pre></td></tr></table></figure>
+<p>另外在使用var的时候，最常见的问题就是对迭代变量的奇特声明和修改：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)&#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> <span class="built_in">console</span>.log(i),<span class="number">0</span>);   <span class="comment">//-&gt; 5、5、5、5、5</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//因为在退出循环时，迭代变量保存的都是导致循环退出的值：5。之后执行超时逻辑时，所有的i都是同一个变量。</span></span><br></pre></td></tr></table></figure>
+<p>而在使用let声明迭代变量时，JavaScript引擎在后台会为每个迭代循环声明一个新的迭代变量。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)&#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> <span class="built_in">console</span>.log(i),<span class="number">0</span>);   <span class="comment">//-&gt; 1、2、3、4、5</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种行为适用于于所有风格的for循环，包括for-in和for-of循环。</p>
+<h4 id="3-1-3-const声明"><a href="#3-1-3-const声明" class="headerlink" title="3.1.3 const声明  *"></a>3.1.3 const声明  *</h4><p>const的行为与let基本相同，唯一一个重要的区别是用它声明变量是时必须同时初始化变量，且后续尝试修改const变量会报错。</p>
+<p><strong>const声明的限制只适用于它指向的变量的引用</strong>。换言之，如果const变量引用的是一个对象，那么修改这个对象内部的属性并不违反const的限制。</p>
+<p>另外const不能用来声明迭代变量（因为迭代变量会自增或自减）。但const可以用来声明一个不会被修改的for循环变量，也就是说，每次迭代只是创建一个新变量。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> i=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">const</span> j=<span class="number">7</span>;i&lt;<span class="number">5</span>;++i)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(j);    <span class="comment">//-&gt; 7,7,7,7,7</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">const</span> key <span class="keyword">in</span> &#123;<span class="attr">a</span>:<span class="number">1</span>,<span class="attr">b</span>:<span class="number">2</span>&#125;)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(key);   <span class="comment">//-&gt; a,b</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">const</span> value <span class="keyword">of</span> [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>])&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(value);    <span class="comment">//-&gt; 1,2,3,4,5</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//可以看出，这对for-of和for-in循环特别有意义</span></span><br></pre></td></tr></table></figure>
+<br>
+
+<h3 id="3-2-数据类型"><a href="#3-2-数据类型" class="headerlink" title="3.2 数据类型"></a>3.2 数据类型</h3><h4 id="3-2-1-typeof操作符"><a href="#3-2-1-typeof操作符" class="headerlink" title="3.2.1 typeof操作符"></a>3.2.1 typeof操作符</h4><p>使用typeof操作符检验数据类型。可以用来区分函数和对象。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">alert(<span class="keyword">typeof</span> <span class="number">95</span>);</span><br><span class="line">alert(<span class="keyword">typeof</span>(<span class="number">95</span>));    <span class="comment">//看的出来typeof操作符也可以使用参数</span></span><br><span class="line">alert(<span class="keyword">typeof</span> <span class="literal">null</span>);   <span class="comment">//会返回object，因为特殊值null被认为是一个对空对象的引用</span></span><br></pre></td></tr></table></figure>
+<h4 id="3-2-2-Undefined类型"><a href="#3-2-2-Undefined类型" class="headerlink" title="3.2.2 Undefined类型"></a>3.2.2 Undefined类型</h4><p>在声明变量但未对其加以初始化时，这个变量的值就是undefined。</p>
+<p>而当使用typeof操作符检验一个未声明的变量时，返回的值也是undefined。</p>
+<h4 id="3-2-3-Null类型"><a href="#3-2-3-Null类型" class="headerlink" title="3.2.3 Null类型"></a>3.2.3 Null类型</h4><p>逻辑上，null值表示一个空对象指针。所以使用typeof检验null会返回object。</p>
+<p>ECMA-262规定  undefined==null  返回 true。</p>
+<p>无论什么情况都不需要将变量值显式地设置undefined，但对null不适用。换言之，只要意在保存的对象还没有真正保存对象，就应该明确地让该变量保存null。</p>
+<h4 id="3-2-4-Boolean类型"><a href="#3-2-4-Boolean类型" class="headerlink" title="3.2.4 Boolean类型"></a>3.2.4 Boolean类型</h4><p>​    <strong>true、false是区分大小写的</strong>。</p>
+<p><strong>布尔类型转换Boolean()</strong></p>
+<p>​    使用**Boolean()**函数将对应的值转化为布尔值。下面是转化规则：</p>
+<table>
+<thead>
+<tr>
+<th align="left">数据类型</th>
+<th align="left">转化为true的值</th>
+<th align="left">转化为false的值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Boolean</td>
+<td align="left">true</td>
+<td align="left">false</td>
+</tr>
+<tr>
+<td align="left">String</td>
+<td align="left">任何非空字符串</td>
+<td align="left">空字符串</td>
+</tr>
+<tr>
+<td align="left">Number</td>
+<td align="left">任何非零数字值（包括无穷值）</td>
+<td align="left">0和NaN</td>
+</tr>
+<tr>
+<td align="left">Object</td>
+<td align="left">任何对象</td>
+<td align="left">null</td>
+</tr>
+<tr>
+<td align="left">Undefined</td>
+<td align="left">n/a（不适用）</td>
+<td align="left">undefined</td>
+</tr>
+</tbody></table>
+<h4 id="3-2-5-Numer类型"><a href="#3-2-5-Numer类型" class="headerlink" title="3.2.5 Numer类型"></a>3.2.5 Numer类型</h4><p> 除了<strong>十进制</strong>表示以外，整数还可以通过<strong>八进制</strong>或<strong>十六进制</strong>的字面值表示。</p>
+<p>其中，八进制字面值的第一位必须是零（0）。如果字面值中的数值超出了范围，那么前导零将被忽略，后面的数值将被当作十进制数值解析。注意，<strong>八进制字面量在严格模式下是无效的</strong>，会导致支持的Js引擎抛出错误。</p>
+<p>十六进制字面值的前两位必须是0x，后跟任何十六进制数（0<del>9及A</del>F）。其中，字母A~F可以大写，也可以小写。</p>
+<p><strong>进行算术计算时，所有的八进制和十六进制数最终都将被转化为十进制数。</strong></p>
+<h5 id="1）浮点数"><a href="#1）浮点数" class="headerlink" title="1）浮点数"></a>1）浮点数</h5><p>由于保存浮点数值需要的内存空间是整数的两倍，因此<strong>ECMAScript会不失时机地将浮点数值转化为整数值</strong>。如果小数点后没有跟任何数字（如 1.）或浮点数值本身表示的就是一个整数（如1.0），就会将其转化为整数。</p>
+<p><em>默认情况下，ECMAScript会将那些小数点后面带有6个0以上的浮点数值转化为以e表示法表示的数值</em>。</p>
+<p>浮点数值的最高精度是<strong>17</strong>位小数，但在进行算术计算时其精确度远不如整数。例如，0.1+0.2的结果不是0.3，而是0.30000000000000004（小数点后一共17位）。这个舍入误差会导致无法测试指定的浮点数值。例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(a + b == <span class="number">0.3</span>)&#123;          <span class="comment">//不要做这样的测试！</span></span><br><span class="line">  alert(<span class="string">&quot;You get 0.3&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//在这个例子中，我们测试的是两个数的和是不是等于0.3。若这两个数是0.05和0.25，或者是0.15和0.15都不会有问题。因此，永远不要测试某个特定的浮点数</span></span><br></pre></td></tr></table></figure>
+<h5 id="2）数值范围"><a href="#2）数值范围" class="headerlink" title="2）数值范围"></a>2）数值范围</h5><p>由于内存限制，ECMAScript无法保存世界上所有数据。ECMAScript能够表示的最小数值保存在<code>Number.MIN_VALUE</code>中——在大多数浏览器中，这个值是5e-324；能够表示的最大数值保存在<code>Number.MAX_VALUE</code>中——在大多数浏览器中，这个值是1.7976931348623157e+308。如果这个数值是正数，则会转化为**<code>Infinity</code>**。</p>
+<p>要想确定一个数值是不是有穷的（换言之，是不是位于最小和最大数值之间），可以使用<code>isFinite()</code>函数。<strong>这个函数在参数位于最小与最大数值之间会返回true</strong>。</p>
+<h5 id="3）NaN"><a href="#3）NaN" class="headerlink" title="3）NaN"></a>3）NaN</h5><p>​    NaN，即非数值（Not a Number）是一个特殊的数值，这个数值用于表示一个本来要返回数值的操作数未返回数值的情况（这样不会抛出错误）。例如在其他编程语言中，任何数除以0都会导致错误，但在ECMAScript中会返回NaN，因此不会影响其他代码执行。</p>
+<p>​    NaN有两个特点。<strong>首先，任何涉及NaN的操作都会返回NaN。其次，NaN与任何值都不相等，包括NaN本身。</strong></p>
+<p>​    针对NaN，ECMAScript定义了一个函数<code>isNaN()</code>函数。这个函数接受一个参数（可以是任意类型），函数会帮我们确定该参数是否“不是数值”。函数在接受到值后，会尝试将该值转化为数值，某些不是数值的值会直接转化为数值，例如字符串”10”或Boolean值。任何不能被转化为数值的值都会导致函数返回true。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">alert(<span class="built_in">isNaN</span>(<span class="literal">NaN</span>));    <span class="comment">//true</span></span><br><span class="line">alert(isNan(<span class="number">10</span>));     <span class="comment">//false(10是一个数值)</span></span><br><span class="line">alert(isNan(<span class="string">&quot;10&quot;</span>));    <span class="comment">//false(会转化为数值10)</span></span><br><span class="line">alert(isNan(<span class="string">&quot;blue&quot;</span>));    <span class="comment">//true(无法转化为数值)</span></span><br><span class="line">alert(isNan(<span class="literal">true</span>));    <span class="comment">//false(可以被转化为数值1)</span></span><br></pre></td></tr></table></figure>
+<p>​    而对于<code>isNaN()</code>，<em>它也适用于对象</em>。在基于对象调用该函数时，会首先调用对象的<code>valueOf()</code>方法，然后确定该方法返回的值是否可以转化为数值。如果不能，则基于这个返回值再调用 <code>toString()</code> 方法，再测试返回值。</p>
+<h5 id="4）数值转换"><a href="#4）数值转换" class="headerlink" title="4）数值转换"></a>4）数值转换</h5><p>​    有三个函数可以将非数值转化为数值：<code>Number()</code>、<code>parseInt()</code>和<code>parseFloat()</code>。第一个转型函数<code>Number()</code>可以用于任何数据类型，而另两个函数则专门用于将字符串转换成数值。</p>
+<p><strong>Number()函数</strong></p>
+<ul>
+<li><p>如果是布尔值，true和false将分别转换为1和0。</p>
+</li>
+<li><p>如果数字值，只是简单的传入与返回。</p>
+</li>
+<li><p>如果是null，返回0。</p>
+</li>
+<li><p>如果是undefined，返回NaN。</p>
+</li>
+<li><p>如果是字符串，遵循下列规则：</p>
+<ul>
+<li>如果字符串中只包含数字，则将其转化为十进制，如”12”会转化为12，”0123”转化为123（注意，前导的零被忽略了）。</li>
+<li>如果字符串中包含有效的浮点格式，如”1.1”，则将其转化为对应的浮点数值（同样会忽略前导零）</li>
+<li>如果字符串中包含有效的十六进制格式，则将其转化为相同大小的十进制整数；</li>
+<li>如果为空字符串，转化为0；</li>
+<li>如果字符串包含上述格式之外的字符，则转换为NaN。</li>
+</ul>
+</li>
+<li><p>如果是对象，则调用对象的valueOf()方法，然后依照前面的规则转换返回的值。如果结果是NaN，则调用对象的toString()方法，然后再次依照前面的规则转换返回的字符串值。</p>
+</li>
+</ul>
+<p><strong>ParseInt()函数</strong></p>
+<p>由于<code>Number()</code>函数在转化时比较复杂且不够合理，因此在处理整数的时候更常用的是<code>parseInt()</code>函数。该函数会忽略字符串前的空格，直至找到第一个非空格字符。如果第一个字符不是数字或者负号，函数就会返回NaN；也就是说，<strong>parseInt()函数对空字符串会返回NaN（而Number()函数会返回0）</strong>。如果第一个字符是数字字符，则会继续解析第二个字符直到全部解析完毕或者遇到了第一个非数字字符。</p>
+<p>如果字符串中的第一个字符是数字字符，<strong>parseInt()也能识别各种整数格式</strong>。也就是说，如果字符串以”0x”开头且后跟数字字符，就会将其当作十六进制整数，如果字符串以”0”开头且后跟数字字符，则会将其解析为八进制数。</p>
+<p>【注】对于八进制数如  070  ，ES3和ES5存在分歧，ES3会解析为56，而ES5会解析为0。在ES5 JS引擎中，parseInt()函数已不再具备解析八进制的能力，因此前导零无效，解析为0。严格模式下同样如此。</p>
+<p>【续】为消除可能产生的困惑，可以为这个函数提供第二个参数：转换时使用的基数（即多少进制）。例如： </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num=<span class="built_in">parseInt</span>(<span class="string">&quot;0xAF&quot;</span>,<span class="number">16</span>);     <span class="comment">//175</span></span><br><span class="line"><span class="comment">//而实际上如果指定了16进制，字符串可以不带前面的0x。</span></span><br><span class="line"> <span class="keyword">var</span> num=<span class="built_in">parseInt</span>(<span class="string">&quot;AF&quot;</span>);     <span class="comment">//NaN </span></span><br><span class="line"> <span class="keyword">var</span> num=<span class="built_in">parseInt</span>(<span class="string">&quot;AF&quot;</span>，<span class="number">16</span>);     <span class="comment">//175 </span></span><br><span class="line"></span><br><span class="line"><span class="comment">//指定基数会影响转换的输出结果</span></span><br><span class="line"><span class="keyword">var</span> num1=<span class="built_in">parseInt</span>(<span class="string">&quot;10&quot;</span>,<span class="number">2</span>);    <span class="comment">//2</span></span><br><span class="line"><span class="keyword">var</span> num2=<span class="built_in">parseInt</span>(<span class="string">&quot;10&quot;</span>,<span class="number">8</span>);    <span class="comment">//8</span></span><br></pre></td></tr></table></figure>
+<p><strong>为了避免解析的错误，建议无论在什么情况下都明确指定基数。</strong></p>
+<p><strong>parseFloat()函数</strong></p>
+<p>该函数同<code>parseInt()</code>函数类似，也是从第一个字符位置开始解析每个字符，同样解析到字符串结尾，或者解析到遇见一个无效的浮点数字符为止。<strong>也就是说，字符串中的第一个小数点是有效的，而第二个小数点就无效了。</strong></p>
+<p>除第一个小数点有效之外，<code>parseFloat()</code>函数与<code>parseInt()</code>的第二个区别在于<strong>它始终都会忽略前导的零</strong>。parseFloat()函数对于十<em>六进制格式字符串则始终会转换成0</em>。parseFloat()没有指定进制第二参数的用法。且<em>若字符串包含的是一个可解析为整数的数（没有小数点或者小数点后都为0），则会返回整数</em>。</p>
+<h4 id="3-2-6-String类型"><a href="#3-2-6-String类型" class="headerlink" title="3.2.6 String类型"></a>3.2.6 String类型</h4><p><strong>字符串的表达方式</strong>：可以使用双引号（””）、单引号（’’）和反引号（``）表示。</p>
+<h5 id="1）字符字面量（转义序列）"><a href="#1）字符字面量（转义序列）" class="headerlink" title="1）字符字面量（转义序列）"></a>1）字符字面量（转义序列）</h5><table>
+<thead>
+<tr>
+<th>字面量</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>\n</td>
+<td>换行</td>
+</tr>
+<tr>
+<td>\t</td>
+<td>制表</td>
+</tr>
+<tr>
+<td>\b</td>
+<td>空格</td>
+</tr>
+<tr>
+<td>\r</td>
+<td>回车</td>
+</tr>
+<tr>
+<td>\f</td>
+<td>换页</td>
+</tr>
+<tr>
+<td>\`    \“   \‘</td>
+<td>字符串标志符号</td>
+</tr>
+<tr>
+<td>\xnn</td>
+<td>以十六进制编码nn表示的一个字符（其中n为0~F)</td>
+</tr>
+<tr>
+<td>\unnnn</td>
+<td>以十六进制编码nnnn表示的一个Unicode字符</td>
+</tr>
+</tbody></table>
+<p><strong>一个转义序列表示一个字符。</strong>字符串的长度可以使用length属性获取。</p>
+<blockquote>
+<p>如果字符串中包含双字节字符，那么length属性返回的值可能不是准确的字符数。第五章会具体讨论如何解决这个问题。</p>
+</blockquote>
+<h5 id="2）字符串的特点"><a href="#2）字符串的特点" class="headerlink" title="2）字符串的特点"></a>2）字符串的特点</h5><p><strong>ES中的字符串不可变</strong>。字符串一旦创建，它们的值就不能改变。要改变某个变量保存的字符串，首先要销毁原来的字符串，然后再用另一个包含新值的字符串填充改变量。</p>
+<h5 id="3）转换为字符串"><a href="#3）转换为字符串" class="headerlink" title="3）转换为字符串"></a>3）转换为字符串</h5><p><strong>toString()</strong></p>
+<p>要将一个值转换为字符串有两种方式。第一种是使用几乎每个值都有的<code>toString()</code>方法。<strong>数值、布尔值、对象和字符串值</strong>（字符串调用该方法返回字符串的一个副本）都有该方法。<em>但null和undefined值没有该方法</em>。</p>
+<p>多数情况下，调用<code>toString()</code>方法不必传递参数。但是，<strong>在调用数值的toString()方式时，可以传递一个参数：输出数值的基数</strong>。默认情况，该方法以十进制格式返回数值的字符串表示。通过传递基数，可以输出其他任意有效进制格式的表示。</p>
+<p><strong>String()</strong></p>
+<p>在不知道要转换的值是不是null或undefined的情况下，可以使用<code>String()</code>方法，这个函数能够将任何类型的值转化为字符串。该方法遵循下列转换规则：</p>
+<ul>
+<li>如果值有toString()方法，则调用该方法（无参数）并返回相应结果；</li>
+<li>如果值为null，则返回”null”；</li>
+<li>如果值为undefined，则返回”undefined”。</li>
+</ul>
+<h5 id="4）模板字面量"><a href="#4）模板字面量" class="headerlink" title="4）模板字面量  *"></a>4）模板字面量  *</h5><p>ES6新增了使用模板字面量定义字符串的能力。与使用单引号和双引号不同，<strong>模板字面量保留换行字符，可以跨行定义字符串</strong>：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> str1=<span class="string">&#x27;first line\nsecond line&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> str2=<span class="string">`first line</span></span><br><span class="line"><span class="string">second line`</span>;</span><br><span class="line"><span class="built_in">console</span>.log(str1);</span><br><span class="line"><span class="comment">/*-&gt; first line</span></span><br><span class="line"><span class="comment">     second line  */</span></span><br><span class="line"><span class="built_in">console</span>.log(str2);</span><br><span class="line"><span class="comment">/*-&gt; first line</span></span><br><span class="line"><span class="comment">     second line  */</span></span><br><span class="line"><span class="built_in">console</span>.log(str1===str2);    <span class="comment">//-&gt; true</span></span><br></pre></td></tr></table></figure>
+<p>顾名思义，<strong>模板字面量在定义模板时特别有用</strong>。如下html模板：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> pageHTML=<span class="string">`           </span></span><br><span class="line"><span class="string">&lt;div&gt;</span></span><br><span class="line"><span class="string">  &lt;a href=&quot;#&quot;&gt;</span></span><br><span class="line"><span class="string">    &lt;span&gt;Jake&lt;/span&gt;</span></span><br><span class="line"><span class="string">  &lt;/a&gt;</span></span><br><span class="line"><span class="string">&lt;/div&gt;</span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line"><span class="comment">//这里可以注意，这里字符串其实是以换行符开始的。如果打印</span></span><br><span class="line"><span class="built_in">console</span>.log(pageHTML[<span class="number">0</span>]===<span class="string">&#x27;\n&#x27;</span>);    <span class="comment">//-&gt; 结果会是true</span></span><br></pre></td></tr></table></figure>
+<p>但同时，因为<strong>模板字面量会保持反引号内部的空格</strong>，因此使用时需格外小心。（这些空格也算一个字符）</p>
+<h5 id="5）字符串插值"><a href="#5）字符串插值" class="headerlink" title="5）字符串插值  *"></a>5）字符串插值  *</h5><p>模板字面量最常用的一个特性是<strong>支持字符串插值</strong>，也就是可以在一个连续定义中插入一个或多个值。技术上来说，模板字面量不是字符串，而是一种特殊的Javascript句法表达式，只不过求值之后得到的是字符串。模板字面量在定义时立即求值并转化为字符串实例，任何插入的变量也会从它们最近的作用域中取值。</p>
+<p>使用<code>$&#123;&#125;</code>实现字符串插值：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> name=<span class="string">&#x27;Jack&#x27;</span>,</span><br><span class="line">    age=<span class="number">18</span>;</span><br><span class="line"><span class="keyword">let</span> str=<span class="string">`My name is <span class="subst">$&#123;name&#125;</span>, I&#x27;m <span class="subst">$&#123;age&#125;</span> years old`</span>;</span><br></pre></td></tr></table></figure>
+<p>所有插入的值都会使用<code>toString()</code>强制转型为字符串，<strong>任何JS表达式都可以用于插值</strong>（也就是说函数和方法也可以）。嵌套的模板字符串无需转义：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;Hello, $&#123;&#x27;</span>world<span class="string">&#x27;&#125; !&#x27;</span>);   <span class="comment">//-&gt; Hello, world!</span></span><br></pre></td></tr></table></figure>
+<p>此外，模板也可以插入自己之前的值：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> val=<span class="string">&#x27;&#x27;</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">append</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    val=<span class="string">`<span class="subst">$&#123;val&#125;</span>abc`</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(val);</span><br><span class="line">&#125;</span><br><span class="line">append();    <span class="comment">//-&gt; abc</span></span><br><span class="line">append();    <span class="comment">//-&gt; abcabc</span></span><br><span class="line">append();    <span class="comment">//-&gt; abcabcabc</span></span><br></pre></td></tr></table></figure>
+<h5 id="6）模板字面量标签函数"><a href="#6）模板字面量标签函数" class="headerlink" title="6）模板字面量标签函数 *"></a>6）模板字面量标签函数 *</h5><p>模板字面量也支持定义<strong>标签函数</strong>（tag function），通过标签函数可以自定义插值行为。标签函数会接受被插值记号分隔后的模板和对每个表达式求值的结果。</p>
+<p>标签函数本身是一个常规函数，通过前缀到字面量来应用自定义行为，如下所示。标签函数接收到的参数依次是<strong>原始字符串数组</strong>和<strong>对每个表达式求值的结果</strong>。这个函数的返回值是<strong>对模板字面量求值得到的字符串</strong>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a=<span class="number">6</span>,</span><br><span class="line">    b=<span class="number">9</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">simpleTag</span>(<span class="params">strings,aValExression,bValExression,sumValExpression</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(strings);</span><br><span class="line">    <span class="built_in">console</span>.log(aValExression);</span><br><span class="line">    <span class="built_in">console</span>.log(bValExression);</span><br><span class="line">    <span class="built_in">console</span>.log(sumValExpression);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;foobar&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> untaggedResult=<span class="string">`<span class="subst">$&#123;a&#125;</span> + <span class="subst">$&#123;b&#125;</span> = <span class="subst">$&#123;a+b&#125;</span>`</span>;</span><br><span class="line"><span class="keyword">let</span> taggedResult=simpleTag<span class="string">`<span class="subst">$&#123;a&#125;</span> + <span class="subst">$&#123;b&#125;</span> = <span class="subst">$&#123;a+b&#125;</span>`</span>;</span><br><span class="line"><span class="comment">// [&quot;&quot;, &quot; + &quot;, &quot; = &quot;, &quot;&quot;]     这里是插值未生效的原始字符串数组</span></span><br><span class="line"><span class="comment">// 6      这里是第一个插值表达式的结果，也就是 a = 6</span></span><br><span class="line"><span class="comment">//9       第二个插值表达式的结果，也就是 b = 9</span></span><br><span class="line"><span class="comment">//15     第三个插值表达式的结果，也就是  a+b = 15</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(untaggedResult);   <span class="comment">//-&gt; &quot;6 + 9 = 15&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(taggedResult);   <span class="comment">//-&gt; &quot;foobar&quot;</span></span><br></pre></td></tr></table></figure>
+<p>因为表达式的参数的数量是可变的，所以通常应该使用<strong>剩余操作符</strong>（rest operator）将它们收集到数组中：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a=<span class="number">6</span>,</span><br><span class="line">    b=<span class="number">9</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">simpleTag</span>(<span class="params">strings,...expressions</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(strings);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">const</span> exp <span class="keyword">of</span> expressions)&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(exp);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;foobar&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//调用结果同上，不赘述</span></span><br></pre></td></tr></table></figure>
+<p>对于有n个插值的模板字面量。传给标签函数的表达式参数个数始终是n，加上第一个参数则传给标签函数的参数始终是n+1。因此，如果想把这些字符串和对表达式求值的结果拼接起来作为默认返回的字符串，可以这样做：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a=<span class="number">6</span>,</span><br><span class="line">    b=<span class="number">9</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">zipTag</span>(<span class="params">strings,...expressions</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> strings[<span class="number">0</span>] + </span><br><span class="line">           expressions.map(<span class="function">(<span class="params">e,i</span>) =&gt;</span> <span class="string">`<span class="subst">$&#123;e&#125;</span><span class="subst">$&#123;strings[i+<span class="number">1</span>]&#125;</span>`</span>)</span><br><span class="line">                      .join(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">    <span class="comment">//map()：参数1表示当前元素的值；参数2表示当前元素的索引值</span></span><br><span class="line">    <span class="comment">//join()：按照给定的字符串作为分隔符拼接整个数组</span></span><br><span class="line">    <span class="comment">//拼接思路：先将原始字符串数组的第一个元素单独拿出来；将保存插值表达式结果的数组用map遍历，返回的值为 “当前插值表达式结果” + “对应的下一个原始数组字符串” 所产生的表达式，最后用join拼接。</span></span><br><span class="line">    <span class="comment">/*例子的拼接：第一个原始字符串元素：&quot;&quot; ;</span></span><br><span class="line"><span class="comment">      插值表达式数组：第一次遍历：6 + &quot; + &quot;; -&gt; 返回 &quot;6 + &quot;</span></span><br><span class="line"><span class="comment">                   第二次遍历：9 + &quot; = &quot;; -&gt; 返回 &quot;9 = &quot;</span></span><br><span class="line"><span class="comment">                   第三次遍历：15 + &quot;&quot;;  -&gt; 返回 &quot;15&quot;</span></span><br><span class="line"><span class="comment">                   join拼接：&quot;6 + 9 = 15&quot;</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> untaggedResult=<span class="string">`<span class="subst">$&#123;a&#125;</span> + <span class="subst">$&#123;b&#125;</span> = <span class="subst">$&#123;a+b&#125;</span>`</span>;</span><br><span class="line"><span class="keyword">let</span> taggedResult=zipTag<span class="string">`<span class="subst">$&#123;a&#125;</span> + <span class="subst">$&#123;b&#125;</span> = <span class="subst">$&#123;a+b&#125;</span>`</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(untaggedResult);   <span class="comment">//-&gt; &quot;6 + 9 = 15&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(taggedResult);   <span class="comment">//-&gt; &quot;6 + 9 = 15&quot;</span></span><br></pre></td></tr></table></figure>
+<h5 id="7）原始字符串"><a href="#7）原始字符串" class="headerlink" title="7）原始字符串 *"></a>7）原始字符串 *</h5><p>使用模板字面量也可以<strong>直接获取原始的模板字面量内容</strong>（如换行符和Unicode字符），而不是被转换后的字符表示。为此，可以使用默认的String.raw标签函数：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">`\u00A9`</span>);   <span class="comment">//-&gt; ©   对应的Unicode字符：版权符</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">String</span>.raw<span class="string">`\u00A9`</span>);   <span class="comment">//-&gt; \u00A9</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：原字符串中自带转义序列如换行符，可以直接获取到。但是对实际的换行行为无用，它们不会被转换成转义序列的形式。</p>
+</blockquote>
+<p>另外，可以通过标签函数的第一个参数（即字符串数组）的**.raw属性**取得每个字符串的原始内容。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">printRaw</span>(<span class="params">strings</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">const</span> rawStr <span class="keyword">of</span> strings.raw)</span><br><span class="line">        <span class="built_in">console</span>.log(rawStr);</span><br><span class="line">&#125;</span><br><span class="line">printRaw<span class="string">`\u00A9 <span class="subst">$&#123;<span class="string">&#x27;and&#x27;</span>&#125;</span> \n`</span>;</span><br><span class="line"><span class="comment">//-&gt; \u00A9   返回的是原始内容，而非对应的Unicode字符</span></span><br><span class="line"><span class="comment">//-&gt; \n</span></span><br></pre></td></tr></table></figure>
+<h4 id="3-2-7-symbol类型"><a href="#3-2-7-symbol类型" class="headerlink" title="3.2.7 symbol类型 *"></a>3.2.7 symbol类型 *</h4><p>Symbol（符号）是ES6新增的数据类型。<strong>符号是原始值，且符号实例是唯一、不可变的</strong>。符号的用途是确保对象属性使用唯一标识符，不会发生属性冲突的危险。</p>
+<h5 id="1）符号的基本用法"><a href="#1）符号的基本用法" class="headerlink" title="1）符号的基本用法 *"></a>1）符号的基本用法 *</h5><p>符号需要使用<code>Symbol()</code>函数初始化。<code>typeof</code>操作符返回symobol：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> sym=<span class="built_in">Symbol</span>();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> sym);  <span class="comment">//-&gt; symbol </span></span><br></pre></td></tr></table></figure>
+<p>可以传入一个字符串参数作为对符号的描述。符号没有字面量语法。</p>
+<p><code>Symbol()</code>函数<strong>不能用作构造函数</strong>，与new关键字一起使用。这样避免创建符号包装对象，像使用Boolean、String、Number一样。如果确实想使用符号包装对象，可以借用Object函数。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> sym=<span class="keyword">new</span> <span class="built_in">Symbol</span>();</span><br><span class="line"><span class="built_in">console</span>.log(sym);<span class="comment">//-&gt; TypeError: Symbol is not a constructor</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> mySym=<span class="built_in">Symbol</span>();</span><br><span class="line"><span class="keyword">let</span> myWrappedSym=<span class="built_in">Object</span>(mySym);  <span class="comment">//使用Object()创建符号包装对象</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> myWrappedSym);    <span class="comment">//-&gt; object</span></span><br></pre></td></tr></table></figure>
+<h5 id="2）使用全局符号注册表"><a href="#2）使用全局符号注册表" class="headerlink" title="2）使用全局符号注册表 *"></a>2）使用全局符号注册表 *</h5><p>如果运行时的不同部分<strong>需要共享和重用符号实例</strong>，那么可以用一个字符串作为键，在全局符号注册表中创建并重用符号。使用<code>Symbol.for()</code>函数。</p>
+<p><code>Symbol.for()</code>对每个字符串键都执行幂等操作。第一次使用某个字符串调用时，它会检查<strong>全局运行时注册表</strong>，发现不存在对应的符号，于是就会生成一个新符号实例并添加到注册表中。后续使用相同的字符串的调用同样会检查注册表，发现存在与该字符串对应的符号，然后就会返回该符号实例。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> fooGlobalSymbol=<span class="built_in">Symbol</span>.for(<span class="string">&#x27;foo&#x27;</span>);    <span class="comment">//创建新符号</span></span><br><span class="line"><span class="keyword">let</span> otherFooGlobalSymbol=symbol.for(<span class="string">&#x27;foo&#x27;</span>);    <span class="comment">//重用已有符号</span></span><br><span class="line"><span class="built_in">console</span>.log(fooGlobalSymbol===otherFooGlobalSymbol);<span class="comment">//-&gt;true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//但是要注意，即便采用相同的符号描述，在全局注册表中定义的符号和使用SYmbol()定义的符号也并不等同：</span></span><br><span class="line"><span class="keyword">let</span> localSymbol=<span class="built_in">Symbol</span>(<span class="string">&#x27;foo&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(localSymbol===fooGlobalSymbol);  <span class="comment">//-&gt; false</span></span><br></pre></td></tr></table></figure>
+<p>全局注册表中的符号<strong>必须使用字符串键</strong>来创建，因此传给<code>Symbol.for()</code>的任何值都会被转换为字符串。注册表中使用的键也会同时被用作符号描述。</p>
+<p>还可以使用<code>Symbol.keyFor()</code>来<strong>查询全局注册表</strong>，这个方法接收符号，返回该全局符号对应的字符串键。若查询的不是全局符号，则返回undefined。若查询的不是符号，则会抛出TypeError。</p>
+<h5 id="3）使用符号作为属性"><a href="#3）使用符号作为属性" class="headerlink" title="3）使用符号作为属性 *"></a>3）使用符号作为属性 *</h5><p>凡是可以<strong>使用字符串或数值作为属性</strong>的地方，都可以使用符号。这就包括了对象字面量属性和<code>Object.defineProperty()</code> / <code>object.definedProperties()</code>定义的属性。对象字面量只能在计算属性语法中使用符号作为属性。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> s1 = <span class="built_in">Symbol</span>(<span class="string">&#x27;foo&#x27;</span>),</span><br><span class="line">    s2 = <span class="built_in">Symbol</span>(<span class="string">&#x27;bar&#x27;</span>),</span><br><span class="line">    s3 = <span class="built_in">Symbol</span>(<span class="string">&#x27;baz&#x27;</span>),</span><br><span class="line">    s4 = <span class="built_in">Symbol</span>(<span class="string">&#x27;qux&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> o = &#123;</span><br><span class="line">  [s1]:<span class="string">&#x27;foo val&#x27;</span></span><br><span class="line">&#125;    <span class="comment">//也可以这样写：o[s1]=‘foo val&#x27;;</span></span><br><span class="line"><span class="built_in">console</span>.log(o);    <span class="comment">//-&gt; &#123; Symbol(foo): foo val &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(o, s2, &#123;<span class="attr">value</span>: <span class="string">&#x27;bar val&#x27;</span>&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(o);</span><br><span class="line"><span class="comment">//-&gt; &#123;Symbol(foo): foo val, Symbol(bar): bar val&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>,defineProperties(o,&#123;</span><br><span class="line">  [s3]:&#123;<span class="attr">value</span>:<span class="string">&#x27;baz val&#x27;</span>&#125;,</span><br><span class="line">  [s4):&#123;<span class="attr">value</span>:<span class="string">&#x27;qux val&#x27;</span>&#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log (o):</span><br><span class="line"><span class="comment">/* -&gt; &#123;Symbol(foo): foo val, Symbol(bar): bar val,</span></span><br><span class="line"><span class="comment">       Symbol(baz): baz val, Symbol(qux): qux val&#125;  */</span></span><br></pre></td></tr></table></figure>
+<p><code>object.getOwnPropertyNames()</code>返回对象实例的<strong>常规属性数组</strong>，而<code>Object.getOwnPropertySymbols()</code>返回对象实例的<strong>符号属性数组</strong>。这两个方法的返回值<strong>彼此互斥</strong>。<code>Object.getOwnPropertyDescriptors()</code>会返回<strong>同时包含常规和符号属性描述符</strong>的对象。<code>Reflect.ownKeys()</code>会返回两种类型的键：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> s1 = <span class="built_in">Symbol</span>(<span class="string">&#x27;foo&#x27;</span>),</span><br><span class="line">    s2 = <span class="built_in">Symbol</span>(<span class="string">&#x27;bar&#x27;</span>);</span><br><span class="line"><span class="keyword">let</span>  o = &#123;</span><br><span class="line">    [s1]: <span class="string">&#x27;foo val&#x27;</span>,</span><br><span class="line">    [s2]: <span class="string">&#x27;bar val&#x27;</span>,</span><br><span class="line">    baz: <span class="string">&#x27;baz val&#x27;</span>,</span><br><span class="line">    qux: <span class="string">&#x27;qux val&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log (<span class="built_in">Object</span>.getOwnPropertySymbols(o))；</span><br><span class="line"><span class="comment">//-&gt; [symbol(foo),Symbol(bar)]   只返回符号属性数组</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyNames(o));</span><br><span class="line"><span class="comment">//-&gt; [&quot;baz&quot;,&quot;qux&quot;]   只返回常规属性数组，与上互斥</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyDescriptors (o));</span><br><span class="line"><span class="comment">//-&gt; &#123;baz: (...), qux: (...), Symbol(foo): (...), Symbol (bar):(...)&#125;    常规属性和符号属性都返回了</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Reflect</span>.ownkeys(o));</span><br><span class="line"><span class="comment">//-&gt; [&quot;baz&quot;,“qux”,Symbol(foo),Symbol (bar)]   返回的是常规属性和符号属性两种的键</span></span><br></pre></td></tr></table></figure>
+<p>因为符号属性是对内存中符号的一个引用，所以<strong>直接创建并用作属性的符号不会丢失</strong>。但是，如果没有<strong>显式地保存对这些属性的引用</strong>，那么必须遍历对象的所有符号属性才能找到相应的属性键：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//和上面不同，这里直接在对象中使用Symbol()创建了符号实例作为属性，而没有显式的保存这些实例</span></span><br><span class="line"><span class="keyword">let</span> o = &#123;</span><br><span class="line">  [<span class="built_in">Symbol</span>(<span class="string">&#x27;foo&#x27;</span>)]: <span class="string">&#x27;foo val&#x27;</span>,</span><br><span class="line">  [<span class="built_in">Symbol</span>(<span class="string">&#x27;bar&#x27;</span>)]: <span class="string">&#x27;bar val&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(o);</span><br><span class="line"><span class="comment">//-&gt; (Symbol(foo):&#x27;foo val&#x27;, Symbol(bar): &#x27;bar val&#x27;)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> barSymbol = <span class="built_in">Object</span>.getOwnPropertySymbols(o)</span><br><span class="line">          .find(<span class="function">(<span class="params">symbol</span>) =&gt;</span> symbol.tostring().match(<span class="regexp">/bar/</span>));</span><br><span class="line">congole.log(barSymbol);    <span class="comment">//-&gt; Symbol(bar)</span></span><br></pre></td></tr></table></figure>
+<h5 id="4）常用内置符号"><a href="#4）常用内置符号" class="headerlink" title="4）常用内置符号 *"></a>4）常用内置符号 *</h5><p>ECMAScript 6 也引入了一批<strong>常用内置符号</strong>(well-known symbol )，用于暴露语言内部行为，开发者可以直接访问、重写或模拟这些行为。这些内置符号都以Symbol工厂函数字符串属性的形式存在。</p>
+<p>这些内置符号最重要的用途之一是<strong>重新定义它们，从而改变原生结构的行为</strong>。比如，我们知道for-of 循环会在相关对象上使用<code>Symbol.iterator</code>属性，那么就可以通过在自定义对象上重新定义<code>Symbol.iterator</code>的值，来改变for-of在迭代该对象时的行为。</p>
+<p>这些内置符号也没有什么特别之处，它们就是全局函数symbol的普通字符串属性，指向一个符号的实例。所有内置符号属性都是不可写、不可枚举、不可配置的。</p>
+<blockquote>
+<p>注意：在提到ECMAScript规范时，经常会引用符号在规范中的名称，前缀为@@。比如，@@giterator 指的就是Symbol.iterator。 </p>
+</blockquote>
+<blockquote>
+<p>PS：后续一些ES6内置的Symbol值，也即是常用内置符号，将不在此提及。这里有篇CSDN上简单的总结：<a target="_blank" rel="noopener" href="https://blog.csdn.net/c__dreamer/article/details/81873087">JavaScriptES6内置的Symbol值</a>。（文章缺少书中提及的另一个内置符号：Symbol.asyncIterator。但是由于该属性是ES2018规范的，因此只有版本非常新的浏览器才支持，所以也没必要全了解。用到的话就百度吧。）</p>
+</blockquote>
+<h4 id="3-2-8-Obejct类型"><a href="#3-2-8-Obejct类型" class="headerlink" title="3.2.8 Obejct类型"></a>3.2.8 Obejct类型</h4><p>使用  <code>new Object()</code>  新建一个对象。（可以省略括号，但不推荐）</p>
+<p> Obeject类型的每个实例都具有下列属性和方法：</p>
+<ul>
+<li><code>constructor</code>：用于创建当前对象的函数。</li>
+<li><code>hasOwnProperty(propertyName)</code>：用于判断当前对象实例中（不是原型）是否存在给定的属性。其中，作为参数的属性名必须以字符串形式存在（例如： <code>o.hasOwnProperty(&quot;name&quot;)</code>）。</li>
+<li><code>isPrototypeOf(object)</code>：用于检查传入的对象是否是另一个对象的原型。</li>
+<li><code>propertyIsEnumerable(*propertyName*)</code>：用于检查给定的属性是否能够使用for-in语句来枚举。参数必须以字符串形式存在。</li>
+<li><code>toLocalString()</code>：返回对象的字符串表示，该字符串与执行环境的地区对应。</li>
+<li><code>toString()</code>:返回对象的字符串表示。</li>
+<li><code>valueOf()</code>：返回对象的字符串、数值或布尔值表示。通常与<code>toString()</code>方法的返回值相同。</li>
+</ul>
+<br>
+
+<h3 id="3-3-操作符"><a href="#3-3-操作符" class="headerlink" title="3.3 操作符"></a>3.3 操作符</h3><h4 id="3-3-1-一元操作符"><a href="#3-3-1-一元操作符" class="headerlink" title="3.3.1 一元操作符"></a>3.3.1 一元操作符</h4><p><strong>1）递增递减操作符 ++  /  –</strong></p>
+<p>递增递减操作符直接照搬自C语言，且分为前置型和后置型。</p>
+<p>使用前置型时，变量的值都是在语句被求值以前改变的**。且由于前置递增和递减操作与执行语句的优先级相等，因此整个语句会从左至右被求值。例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num1 = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> num2 = <span class="number">20</span>;</span><br><span class="line"><span class="keyword">var</span> num3 = --num1 + num2;      <span class="comment">//21</span></span><br><span class="line"><span class="keyword">var</span> num4 = num1 + num2;    <span class="comment">//21</span></span><br></pre></td></tr></table></figure>
+<p><strong>后置型递增和递减操作都是在包含它们的语句被求值后才执行的</strong>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num1 = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> num2 = <span class="number">20</span>;</span><br><span class="line"><span class="keyword">var</span> num3 = num1-- + num2;      <span class="comment">//22,此时--还未执行</span></span><br><span class="line"><span class="keyword">var</span> num4 = num1 + num2;       <span class="comment">//21，使用了num1递减后的值</span></span><br></pre></td></tr></table></figure>
+<p>这些<strong>操作符适用任何类型的值</strong>。在应用不同的值时，遵循下列规则：</p>
+<ul>
+<li>应用一个<strong>包含有效数字字符的字符串</strong>时，先将其转化为<strong>数字值</strong>，再执行加减1的操作。字符串变量变成数值变量。</li>
+<li>应用一个<strong>不包含有效数字的字符串</strong>时，将变量的值设置为<strong>NaN</strong>。字符串变量变为数值变量。</li>
+<li>应用布尔值<strong>false</strong>时，先将其转化为0再执行加减1的操作。布尔值变量变为数值变量。</li>
+<li>应用布尔值<strong>true</strong>时，先将其转化为1再执行加减1的操作。布尔值变量变为数值变量。</li>
+<li>应用于对象时，（后面第5章会详细介绍）先调用对象的<code>valueOf()</code>方法以取得一个可供操作的值。然后对该值应用前述规则。如果结果是NaN，则调用<code>toString()</code>方法后再应用前述规则。对象变量变成数值变量。</li>
+</ul>
+<p><strong>2）一元加减操作符  +  /  -</strong></p>
+<p>一元加操作符以一个加号表示，放在数值前不会产生任何影响。但应用在非数值时，该操作符会像<code>Number()</code>转型函数一样对这个值进行转换。</p>
+<p>一元减操作符应用于数值时，该值会变成负数。应用于非数值时，遵循与一元加操作符相同的规则，最后将值转化为负数。</p>
+<h4 id="3-3-2-位操作符"><a href="#3-3-2-位操作符" class="headerlink" title="3.3.2 位操作符"></a>3.3.2 位操作符</h4><p>位操作符用于数值的底层操作，即按内存中表示数值的位来操作数值。位操作符并不直接操作64位的值，而是先将64位转化为32位的整数，然后执行操作，最后再将结果转换回64位。</p>
+<p>对于有符号的整数，<strong>32位中的前31位表示整数的值</strong>。<strong>第三十二位（即符号位）表示数值的符号</strong>：0表示正数，1表示负数。正数以纯二进制格式存储。</p>
+<p>负数同样以二进制码存储，但使用的格式是二进制补码。计算补码步骤：</p>
+<ol>
+<li><em>求这个数值绝对值的二进制码；</em></li>
+<li><em>求二进制反码，即0替换为1，1替换为0；</em></li>
+<li><em>得到的二进制反码加1。</em></li>
+</ol>
+<p><strong>1）按位非（NOT）</strong></p>
+<p>按位非操作符由一个波浪线（**~**）表示，执行按位非的结果就是返回数值的反码。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num1 = <span class="number">25</span>;    <span class="comment">//二进制00000000000000000000000000011001</span></span><br><span class="line"><span class="keyword">var</span> num2 = ~num1;  <span class="comment">//二进制1111111111111111111111111100110</span></span><br><span class="line">alert(num2);    <span class="comment">//-26</span></span><br></pre></td></tr></table></figure>
+<p>按位非操作的本质：操作数的负值减1。但相比负值减1的操作，由于按位非是在数值表示的最底层执行操作，因此操作速度更快。</p>
+<p><strong>2）按位与（AND）</strong></p>
+<p>按位与操作符由一个和号字符（*<em>&amp;<strong>）表示，它有两个操作符数。从本质上讲，</strong>按位与操作就是将两个数值的每一位对齐<strong>，然后根据</strong></em>对应位都是1时才返回1，任何一位是0，结果都是0***的规则，对相同位置上的两个数执行AND操作。例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> result = <span class="number">25</span> &amp; <span class="number">3</span>;</span><br><span class="line">alert(result);      <span class="comment">//1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//底层操作：</span></span><br><span class="line"> <span class="number">25</span> = <span class="number">0000</span> <span class="number">0000</span> <span class="number">0000</span> <span class="number">0000</span> <span class="number">0000</span> <span class="number">0000</span> <span class="number">0001</span> <span class="number">1001</span></span><br><span class="line">  <span class="number">3</span> = <span class="number">0000</span> <span class="number">0000</span> <span class="number">0000</span> <span class="number">0000</span> <span class="number">0000</span> <span class="number">0000</span> <span class="number">0000</span> <span class="number">0011</span></span><br><span class="line">---------------------------------------------</span><br><span class="line">AND = <span class="number">0000</span> <span class="number">0000</span> <span class="number">0000</span> <span class="number">0000</span> <span class="number">0000</span> <span class="number">0000</span> <span class="number">0000</span> <span class="number">0001</span></span><br></pre></td></tr></table></figure>
+<p><strong>3）按位或（OR）</strong></p>
+<p>按位或操作符由一个竖线符号（*<em>|<strong>）表示。同样也有两个操作数。根据</strong></em>有一个位是1的情况下就返回1，只有两个都是0的情况下才返回0***的规则执行OR操作。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> result = <span class="number">25</span> | <span class="number">3</span>;</span><br><span class="line">alert(result);    <span class="comment">//27</span></span><br></pre></td></tr></table></figure>
+<p><strong>4）按位异或（XOR）</strong></p>
+<p>按位异或由一个插入符号（<strong>^</strong>）表示。也有两个操作数。遵循两个数值**<em>对应位上只有一个1时才返回1，如果对应的两位都是1或都是0，则返回0**</em>的规则。</p>
+<p><strong>5）左移</strong></p>
+<p>左移操作符由两个小于号（**&lt;&lt;**）表示，这个操作符会将数值的所有位向左移动指定的位数。例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> oldValue = <span class="number">2</span>;      <span class="comment">//二进制码10</span></span><br><span class="line"><span class="keyword">var</span> newValue = oldValue &lt;&lt; <span class="number">5</span>;    <span class="comment">//二进制码1000000</span></span><br><span class="line"><span class="comment">//向左位移后，原数值的右侧多出了5个空位，左移操作会以0填充这些空位。</span></span><br></pre></td></tr></table></figure>
+<p> 注意：左移不会影响操作数的符号位。换言之，-2左移5位的结果是-64而非64。</p>
+<p><strong>6）右移</strong></p>
+<p>有符号的右移操作符由两个大于号（**&gt;&gt;**）表示。这个操作符会将数值向右移动5位，但保留符号位（即正负号标记）。</p>
+<p>同样，在移位过程中，原数值也会出现空位，而这次的空位出现在原数值的左侧、<strong>符号位的右侧</strong>。而此时ECMAScript会用<strong>符号位的值来填充所有的空位</strong>。</p>
+<p><strong>7）无符号右移</strong></p>
+<p>无符号右移操作符以三个大于号（**&gt;&gt;&gt;**）表示。这个操作符会将数值的所有32位都向右移动。对正数来说，无符号右移与有符号右移相同。</p>
+<p>对于负数，无符号右移是<strong>以0填充空位</strong>而非以符号位的值。其次，无符号右移操作符会把负数的二进制码当成正数的二进制码。由于负数以其绝对值的二进制补码形式表示，因此会导致无符号右移后的结果非常大。例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> oldValue = -<span class="number">64</span>;<span class="comment">//等于二进制111111111111111111111111000000</span></span><br><span class="line"><span class="keyword">var</span> newValue = oldValue &gt;&gt;&gt; <span class="number">5</span>;  <span class="comment">//等于十进制134217726</span></span><br><span class="line"><span class="comment">//这里无符号右移操作符会将这个二进制码当成正数的二进制码，换算成十进制就是4294967232，将其右移5位，结果就变成了000001111111111111111111111110,即十进制的134217726。</span></span><br></pre></td></tr></table></figure>
+<h4 id="3-3-3-布尔操作符"><a href="#3-3-3-布尔操作符" class="headerlink" title="3.3.3 布尔操作符"></a>3.3.3 布尔操作符</h4><p><strong>1）逻辑非</strong></p>
+<p>逻辑非操作符由一个感叹号（**!**）表示。无论这个值是什么数据类型，这个操作符都会返回一个布尔值然后对其求反。</p>
+<p><strong>同时使用两个逻辑非操作符，实际上就会模拟Boolean()转型函数的行为</strong>。</p>
+<p><strong>2）逻辑与</strong></p>
+<p>逻辑与操作符由两个和号（**&amp;&amp;**）表示。逻辑与可以应用在任何类型的操作数，在有一个操作数不是布尔值的情况下，遵循下列规则：</p>
+<ul>
+<li>第一个操作数是对象，此时返回第二个操作数；</li>
+<li>第二个操作数是对象，则只有在第一个操作数的求值结果位是true的情况下才会返回该对象；</li>
+<li>如果两个操作数都是对象，则返回第二个操作数；</li>
+<li>如果有一个操作数是null / NaN / undefined ，则返回null / NaN / undefined 。</li>
+</ul>
+<p><strong>逻辑与操作属于短路操作</strong>。即若第一个操作数求值结果为false，就不会对第二个数进行求值了。</p>
+<p><strong>3）逻辑或</strong></p>
+<p>逻辑或操作符由两个竖线符号（**||**）表示。逻辑或在有一个操作数不是布尔值的情况下遵循下列规则：</p>
+<ul>
+<li>第一个操作数是对象，则返回第一个操作数；</li>
+<li>第一个操作数的求值结果为false，则返回第二个操作数；</li>
+<li>如果两个操作数都是对象，则返回第一个对象</li>
+<li>如果两个操作数都是null / NaN / undefined ，则返回null / NaN / undefined 。</li>
+</ul>
+<p><strong>逻辑或同属短路操作。</strong>即若第一个操作数求值结果为true，就不会对第二个数进行求值了。</p>
+<p>我们可以利用逻辑或这一行为来避免为变量赋null或undefined值。例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myObject = preferredObject || backupObject;</span><br><span class="line"></span><br><span class="line"><span class="comment">//在这个例子中，变量myObject将被赋予等号后面两个值中一个。变量preferredObject中包含优先赋给变量myObject的值，变量backupObject负责在preferredObject中不包含有效值的情况下提供后备值。</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>PS：后面还有乘性操作符、加性操作符、关系操作符、相等操作符、赋值操作符、逗号操作符，就不再赘述。只要知道：</p>
+<ol>
+<li><p>乘性操作符、加性操作符、关系操作符在操作数为非数值的情况下，执行运算时都可以在后台转换不同的数据类型。</p>
+</li>
+<li><p>相等操作符：相等（==）和不相等（ !=）操作符在操作数类型不同时会先转换再比较；而全等（===）和全不等（ !==）仅作比较而不会转换。</p>
+</li>
+<li><p>在赋值时使用逗号操作符分隔值，最终会返回表达式中的最后一个值（这种使用场景并不多见，但确实存在）：</p>
+<p><code>let num = (5,1,2,3,0);   //-&gt;  num的值会是0</code></p>
+</li>
+</ol>
+</blockquote>
+<br>
+
+<h3 id="3-4-语句"><a href="#3-4-语句" class="headerlink" title="3.4 语句"></a>3.4 语句</h3><blockquote>
+<p> if、for、while、do-while、break、continue、switch语句这里不再提及。</p>
+<p> 因为不推荐with语句，所以这里也不再提及。with语句在严格模式下会报错。</p>
+</blockquote>
+<h4 id="3-4-1-循环语句"><a href="#3-4-1-循环语句" class="headerlink" title="3.4.1 循环语句 `"></a>3.4.1 循环语句 `</h4><p><strong>for-in语句</strong></p>
+<p>语法如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(property <span class="keyword">in</span> expression) statement</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>定义迭代变量时推荐使用const（就如之前使用一样）；</p>
+</li>
+<li><p>for-in不能保证返回对象属性的顺序；</p>
+</li>
+<li><p>如果要迭代的变量是null和undefined。则不执行循环体。</p>
+</li>
+</ul>
+<p><strong>for-of语句</strong></p>
+<p>语法如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(property <span class="keyword">of</span> expression) statement</span><br></pre></td></tr></table></figure>
+<ul>
+<li>定义迭代变量推荐使用const；</li>
+<li>for-of循环会按照可迭代对象的<code>next()</code>方法产生值得顺序迭代元素。可迭代对象会在第7章介绍。</li>
+<li>若尝试迭代变量的不支持迭代，则语句会抛出错误。</li>
+</ul>
+<blockquote>
+<p>注：ES2018对for-of语句，增加了for-await-of 循环，以支持生成期约（promise）的异步可迭代对象。（这个新增循环和前面提到的常用内置符号<code>Symbol.asyncIterator</code>有关系，可以自行了解）</p>
+</blockquote>
+<h4 id="3-4-2-标签语句"><a href="#3-4-2-标签语句" class="headerlink" title="3.4.2 标签语句"></a>3.4.2 标签语句</h4><p>使用label语句可以在代码中添加标签，以便将来使用。语法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">label : statement</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//实例：</span></span><br><span class="line">start : <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; count; i++)&#123;</span><br><span class="line">    alert(i);</span><br><span class="line">&#125; </span><br><span class="line"><span class="comment">//该例子中定义的start标签可以在将来由break或continue语句引用。加标签的语句一般都要与for语句等循环语句配合使用。</span></span><br></pre></td></tr></table></figure>
+<br>
+
+<h3 id="3-5-函数"><a href="#3-5-函数" class="headerlink" title="3.5 函数"></a>3.5 函数</h3><p>函数体中语句碰到return语句会立即停止执行并退出，后续代码不会被执行。<strong>return语句也可以不带返回值</strong>。这时候，函数会立即停止并返回undefined。这种用法最常用于<strong>提前终止函数执行</strong>。</p>
+<p>严格模式下对函数有一些限制，若发生以下情况，会发生语法错误：</p>
+<ul>
+<li>不能把函数命名为eval或arguments；</li>
+<li>不能把函数的参数命名为eval或arguments；</li>
+<li>不能出现两个命名参数同名的情况。</li>
+</ul>
+<blockquote>
+<p>第10章会更详细的介绍函数。</p>
+</blockquote>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2021/01/21/Javascript%E7%BA%A2%E5%AE%9D%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%881%EF%BC%89/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag">学习笔记</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2021/01/19/JavaScript%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%EF%BC%882%EF%BC%89/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">JavaScript数据结构与算法（2）</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "DxjdVENjKn4OPt6wHb07UtxP-gzGzoHsz",
+    app_key: "J0hPK8lUjl1jMLcupB2S7Gws",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2020-2021
+        <i class="ri-heart-fill heart_icon"></i> Lu xiuyuan
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        Powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+        <span class="division">|</span>
+        Theme - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="路修远"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/photos">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2020/12/30/%E6%95%A3%E8%AF%97">诗集</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+<script src="/js/dz.js"></script>
+
+
+
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="1" marginwidth="0" marginheight="0" width="200" height="52"
+        src="//music.163.com/outchain/player?type=2&id=28718313&auto=1&height=32"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        right: 15px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
+    
+  </div>
+</body>
+
+</html>
