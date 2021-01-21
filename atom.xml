@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-01-21T08:07:33.066Z</updated>
+  <updated>2021-01-21T08:25:35.797Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -21,14 +21,14 @@
     <link href="http://example.com/2021/01/21/Javascript%E7%BA%A2%E5%AE%9D%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%881%EF%BC%89/"/>
     <id>http://example.com/2021/01/21/Javascript%E7%BA%A2%E5%AE%9D%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%881%EF%BC%89/</id>
     <published>2021-01-21T08:04:22.000Z</published>
-    <updated>2021-01-21T08:07:33.066Z</updated>
+    <updated>2021-01-21T08:25:35.797Z</updated>
     
     
     <summary type="html">&lt;blockquote&gt;
 &lt;p&gt;个人对第四版红宝书的学习笔记。不适合小白阅读。这是part1。&lt;/p&gt;
 &lt;p&gt;目录如下（记  * 的表示是ES6新增的知识点，记 ` 表示包含新知识点。）：&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;[TOC]&lt;/p&gt;</summary>
+&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
     
     
     
