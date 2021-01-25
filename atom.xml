@@ -247,7 +247,7 @@
     <link href="http://example.com/2020/12/29/gulp%E7%AC%94%E8%AE%B0/"/>
     <id>http://example.com/2020/12/29/gulp%E7%AC%94%E8%AE%B0/</id>
     <published>2020-12-29T04:45:59.000Z</published>
-    <updated>2020-12-31T14:19:18.922Z</updated>
+    <updated>2021-01-25T06:28:09.579Z</updated>
     
     
     <summary type="html">&lt;blockquote&gt;
@@ -256,17 +256,17 @@
 &lt;h2 id=&quot;gulp基本使用流程&quot;&gt;&lt;a href=&quot;#gulp基本使用流程&quot; class=&quot;headerlink&quot; title=&quot;gulp基本使用流程&quot;&gt;&lt;/a&gt;gulp基本使用流程&lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;初始化项目目录：&lt;/li&gt;
 &lt;/ol&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;cnpm init      &amp;#x2F;&amp;#x2F;如果出错改为npm指令&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;npm init      &lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;ol start=&quot;2&quot;&gt;
 &lt;li&gt;安装到项目文件夹：&lt;/li&gt;
 &lt;/ol&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;cnpm install gulp@3.9.1 --save-dev&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cnpm i gulp-scss gulp-minify-css gulp-rename -D    &amp;#x2F;&amp;#x2F;一次下载多个第三方插件&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;npm install gulp@3.9.1 --save-dev        &amp;#x2F;&amp;#x2F;下载gulp。--save-dev表示下载附带版本信息&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;npm i gulp-scss gulp-minify-css gulp-rename -D    &amp;#x2F;&amp;#x2F;一次下载多个第三方插件。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#x2F;&amp;#x2F;i是 install 的简写， -D是 --save-dev 的简写&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;ol start=&quot;3&quot;&gt;
 &lt;li&gt;&lt;p&gt;创建一个gulpfile.js文件&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;p&gt;在gulpfile.js文件中编写任务&lt;/p&gt;
 &lt;p&gt;(全局配置好命令行工具，之后会多出gulp命令行任务）&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;cnpm install gulp-cli -g&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/li&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;npm install gulp-cli -g&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;在控制台通过    gulp  任务名    ，运行编写好的任务&lt;/p&gt;&lt;/li&gt;&lt;/ol&gt;</summary>
     
     

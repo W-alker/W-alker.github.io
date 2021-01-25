@@ -654,17 +654,17 @@
 <h2 id="gulp基本使用流程"><a href="#gulp基本使用流程" class="headerlink" title="gulp基本使用流程"></a>gulp基本使用流程</h2><ol>
 <li>初始化项目目录：</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm init      &#x2F;&#x2F;如果出错改为npm指令</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init      </span><br></pre></td></tr></table></figure>
 <ol start="2">
 <li>安装到项目文件夹：</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cnpm install gulp@3.9.1 --save-dev</span><br><span class="line">cnpm i gulp-scss gulp-minify-css gulp-rename -D    &#x2F;&#x2F;一次下载多个第三方插件</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install gulp@3.9.1 --save-dev        &#x2F;&#x2F;下载gulp。--save-dev表示下载附带版本信息</span><br><span class="line">npm i gulp-scss gulp-minify-css gulp-rename -D    &#x2F;&#x2F;一次下载多个第三方插件。</span><br><span class="line">&#x2F;&#x2F;i是 install 的简写， -D是 --save-dev 的简写</span><br></pre></td></tr></table></figure>
 <ol start="3">
 <li><p>创建一个gulpfile.js文件</p>
 </li>
 <li><p>在gulpfile.js文件中编写任务</p>
 <p>(全局配置好命令行工具，之后会多出gulp命令行任务）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install gulp-cli -g</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install gulp-cli -g</span><br></pre></td></tr></table></figure></li>
 <li><p>在控制台通过    gulp  任务名    ，运行编写好的任务</p></li></ol> 
       <a class="article-more-link" href="/2020/12/29/gulp%E7%AC%94%E8%AE%B0/"
         >阅读更多...</a
