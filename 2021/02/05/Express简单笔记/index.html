@@ -118,6 +118,8 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">app.get(<span class="string">&#x27;/&#x27;</span>,<span class="function">(<span class="params">req,res</span>)=&gt;</span>&#123;</span><br><span class="line">    res.send(<span class="string">&#x27;hello,express!&#x27;</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//send方法也可以直接传递一个对象：</span></span><br><span class="line">app.get(<span class="string">&#x27;/&#x27;</span>,<span class="function">(<span class="params">req,res</span>)=&gt;</span>&#123;</span><br><span class="line">    res.send(&#123;<span class="attr">name</span>:<span class="string">&#x27;Jack&#x27;</span>,<span class="attr">age</span>:<span class="number">20</span>&#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <br>
 
+<a id="more"></a>
+
 <h2 id="3-中间件"><a href="#3-中间件" class="headerlink" title="3.中间件"></a>3.中间件</h2><h3 id="1）什么是中间件"><a href="#1）什么是中间件" class="headerlink" title="1）什么是中间件"></a>1）什么是中间件</h3><p>中间件就是一堆方法，可以接收客户端发来的请求，可以对请求做出响应，也可以将请求继续交给下一个中间件继续处理。</p>
 <p>中间件主要由两部分构成：<strong>中间件方法</strong>和<strong>请求处理函数</strong>。</p>
 <p>中间件方法由Express提供，负责拦截请求，请求处理函数由开发人员提供，负责处理请求。</p>

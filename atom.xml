@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-02-05T06:24:42.014Z</updated>
+  <updated>2021-02-05T06:30:43.696Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -21,16 +21,23 @@
     <link href="http://example.com/2021/02/05/Express%E7%AE%80%E5%8D%95%E7%AC%94%E8%AE%B0/"/>
     <id>http://example.com/2021/02/05/Express%E7%AE%80%E5%8D%95%E7%AC%94%E8%AE%B0/</id>
     <published>2021-02-05T06:21:07.000Z</published>
-    <updated>2021-02-05T06:24:42.014Z</updated>
+    <updated>2021-02-05T06:30:43.696Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;Express&quot;&gt;&lt;a href=&quot;#Express&quot; class=&quot;headerlink&quot; title=&quot;Express&quot;&gt;&lt;/a&gt;Express&lt;/h1&gt;&lt;h2 id=&quot;1-安装&quot;&gt;&lt;a href=&quot;#1-安装&quot; class=&quot;headerlink&quot;</summary>
-        
-      
+    <summary type="html">&lt;h1 id=&quot;Express&quot;&gt;&lt;a href=&quot;#Express&quot; class=&quot;headerlink&quot; title=&quot;Express&quot;&gt;&lt;/a&gt;Express&lt;/h1&gt;&lt;h2 id=&quot;1-安装&quot;&gt;&lt;a href=&quot;#1-安装&quot; class=&quot;headerlink&quot; title=&quot;1.安装&quot;&gt;&lt;/a&gt;1.安装&lt;/h2&gt;&lt;p&gt;使用 &lt;code&gt; npm install express (--save)&lt;/code&gt; 进行安装&lt;/p&gt;
+&lt;br&gt;
+
+&lt;h2 id=&quot;2-基本使用&quot;&gt;&lt;a href=&quot;#2-基本使用&quot; class=&quot;headerlink&quot; title=&quot;2.基本使用&quot;&gt;&lt;/a&gt;2.基本使用&lt;/h2&gt;&lt;p&gt;1）开启服务器&lt;/p&gt;
+&lt;figure class=&quot;highlight js&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; express= &lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&amp;#x27;express&amp;#x27;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; app = express();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;app.listen(&lt;span class=&quot;number&quot;&gt;3000&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;2）接收get请求&lt;/p&gt;
+&lt;p&gt;send()方法：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;send方法内部会检测响应内容的类型&lt;/li&gt;
+&lt;li&gt;send方法会自动设置http状态码&lt;/li&gt;
+&lt;li&gt;send方法会帮我们自动设置响应的内容类型及编码&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&quot;highlight js&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;app.get(&lt;span class=&quot;string&quot;&gt;&amp;#x27;/&amp;#x27;&lt;/span&gt;,&lt;span class=&quot;function&quot;&gt;(&lt;span class=&quot;params&quot;&gt;req,res&lt;/span&gt;)=&amp;gt;&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    res.send(&lt;span class=&quot;string&quot;&gt;&amp;#x27;hello,express!&amp;#x27;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//send方法也可以直接传递一个对象：&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;app.get(&lt;span class=&quot;string&quot;&gt;&amp;#x27;/&amp;#x27;&lt;/span&gt;,&lt;span class=&quot;function&quot;&gt;(&lt;span class=&quot;params&quot;&gt;req,res&lt;/span&gt;)=&amp;gt;&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    res.send(&amp;#123;&lt;span class=&quot;attr&quot;&gt;name&lt;/span&gt;:&lt;span class=&quot;string&quot;&gt;&amp;#x27;Jack&amp;#x27;&lt;/span&gt;,&lt;span class=&quot;attr&quot;&gt;age&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;20&lt;/span&gt;&amp;#125;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;br&gt;</summary>
     
     
     
