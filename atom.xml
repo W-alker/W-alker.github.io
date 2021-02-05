@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-01-21T08:28:23.224Z</updated>
+  <updated>2021-02-05T06:24:42.014Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,41 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Express简单笔记</title>
+    <link href="http://example.com/2021/02/05/Express%E7%AE%80%E5%8D%95%E7%AC%94%E8%AE%B0/"/>
+    <id>http://example.com/2021/02/05/Express%E7%AE%80%E5%8D%95%E7%AC%94%E8%AE%B0/</id>
+    <published>2021-02-05T06:21:07.000Z</published>
+    <updated>2021-02-05T06:24:42.014Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Express&quot;&gt;&lt;a href=&quot;#Express&quot; class=&quot;headerlink&quot; title=&quot;Express&quot;&gt;&lt;/a&gt;Express&lt;/h1&gt;&lt;h2 id=&quot;1-安装&quot;&gt;&lt;a href=&quot;#1-安装&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="前端" scheme="http://example.com/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    <category term="node.js" scheme="http://example.com/categories/%E5%89%8D%E7%AB%AF/node-js/"/>
+    
+    <category term="express" scheme="http://example.com/categories/%E5%89%8D%E7%AB%AF/node-js/express/"/>
+    
+    
+    <category term="前端" scheme="http://example.com/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+    <category term="node.js" scheme="http://example.com/tags/node-js/"/>
+    
+    <category term="学习笔记" scheme="http://example.com/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="express" scheme="http://example.com/tags/express/"/>
+    
+  </entry>
   
   <entry>
     <title>《Javascript高级程序设计》红宝书学习笔记（1）</title>
@@ -247,7 +282,7 @@
     <link href="http://example.com/2020/12/29/gulp%E7%AC%94%E8%AE%B0/"/>
     <id>http://example.com/2020/12/29/gulp%E7%AC%94%E8%AE%B0/</id>
     <published>2020-12-29T04:45:59.000Z</published>
-    <updated>2021-01-25T06:28:09.579Z</updated>
+    <updated>2021-02-05T06:26:13.386Z</updated>
     
     
     <summary type="html">&lt;blockquote&gt;
