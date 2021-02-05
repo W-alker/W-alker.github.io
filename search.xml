@@ -57,6 +57,122 @@
       </tags>
   </entry>
   <entry>
+    <title>ajax学习笔记(新)</title>
+    <url>/2021/02/05/ajax%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/</url>
+    <content><![CDATA[<h2 id="1-Ajax实现步骤"><a href="#1-Ajax实现步骤" class="headerlink" title="1. Ajax实现步骤"></a>1. Ajax实现步骤</h2><ol>
+<li><p>创建ajax对象</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br></pre></td></tr></table></figure></li>
+<li><p>告诉ajax请求地址及请求方式</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">xhr.open(<span class="string">&#x27;get&#x27;</span>,<span class="string">&#x27;http://www.example.com&#x27;</span>);</span><br></pre></td></tr></table></figure></li>
+<li><p>发送请求</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">xhr.send();</span><br></pre></td></tr></table></figure></li>
+<li><p>获取服务器端与客户端的响应数据</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">xhr.onload = <span class="function">()=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(xrh.responseText)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+
+</li>
+</ol>
+<blockquote>
+<p>服务器端响应的数据格式</p>
+<p>真实项目中，服务器端大多数情况下会以<strong>JSON对象</strong>作为响应数据的格式。当客户端拿到响应数据时，要将JSON数据和HTML字符串进行拼接，然后将拼接的结果展示在页面中。</p>
+<p>在http请求与响应的过程中，无论是请求参数还是响应内容，如果是对象类型，最终都会被转换为对象字符串进行传输。</p>
+<p>使用：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">JSON</span>.parse();   <span class="comment">//将json字符串转化为json对象</span></span><br></pre></td></tr></table></figure>
+<br>
+</blockquote>
+<h2 id="2-请求参数传递"><a href="#2-请求参数传递" class="headerlink" title="2. 请求参数传递"></a>2. 请求参数传递</h2><p>1）传统网站表单提交</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;http://www.example.com&quot;</span> <span class="attr">method</span>=<span class="string">&quot;GET&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;uname&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">name</span>=<span class="string">&quot;pwd&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 此时的请求地址：</span></span><br><span class="line"><span class="comment">     http://www.example.com?uname=jack&amp;pwd=1234  --&gt;</span></span><br></pre></td></tr></table></figure>
+<p>2）GET请求方式</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">xhr.open(<span class="string">&#x27;get&#x27;</span>,<span class="string">&#x27;http://www.example.com?uname=jack&amp;pwd=1234&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>3）POST请求方式</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//设置请求参数格式的类型</span></span><br><span class="line">xhr.setRequestHeader(<span class="string">&#x27;Content-Type&#x27;</span>,<span class="string">&#x27;application/x-www-form-urlencoded&#x27;</span>);</span><br><span class="line">xhr.send(<span class="string">&#x27;uname=jack&amp;pwd=1234&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="请求报文："><a href="#请求报文：" class="headerlink" title="请求报文："></a>请求报文：</h3><p><a href="https://img.imgdb.cn/item/601ced793ffa7d37b3d8c557.png"><img src="https://img.imgdb.cn/item/601ced793ffa7d37b3d8c557.png"></a></p>
+<h3 id="请求参数的格式"><a href="#请求参数的格式" class="headerlink" title="请求参数的格式:"></a>请求参数的格式:</h3><p>1）application/x-www-form-urlencoded</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">uname=jack&amp;age=20</span><br></pre></td></tr></table></figure>
+<p>2）application/json</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#123;name:&#x27;jack&#x27;,age:&#x27;20&#x27;&#125;</span><br></pre></td></tr></table></figure>
+<p>在请求头中指定Content-type属性的值是application/json，告诉服务器端当前请求参数的格式是json。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">JSON</span>.stringfy();   <span class="comment">//将json对象转化为json字符串</span></span><br></pre></td></tr></table></figure>
+<br>
+
+<h2 id="参考：Ajax对象的属性、方法"><a href="#参考：Ajax对象的属性、方法" class="headerlink" title="参考：Ajax对象的属性、方法"></a>参考：Ajax对象的属性、方法</h2><p>火狐开发者文档：<br><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest">https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest</a> </p>
+<h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><ul>
+<li><p>*<em>readyState： Ajax状态码  **<br>0：表示对象已建立，但未初始化，只是 new 成功获取了对象，但是未调用open方法<br>1：表示对象已初始化，但未发送，调用了open方法，但是未调用send方法<br>2：已调用send方法进行请求<br>3：正在接收数据（接收到一部分），客户端已经接收到了一部分返回的数据<br>**4：接收完成，客户端已经接收到了所有数据 * *</em></p>
+</li>
+<li><p>status ：http响应状态码<br>200代表成功获取服务器端数据<br>404未找到页面等等……</p>
+</li>
+<li><p>statusText ：http响应状态文本</p>
+</li>
+<li><p><strong>responseText：如果服务器端返回字符串，使用responseText进行接收</strong></p>
+</li>
+<li><p>responseXML ：如果服务器端返回XML数据，使用responseXML进行接收</p>
+</li>
+<li><p><strong>onreadystatechange：当 readyState 状态码发生改变时所触发的回调函数</strong></p>
+</li>
+</ul>
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><ul>
+<li><p><strong>open(method,url,[aycs])：初始化Ajax对象 (打开)</strong><br>method:http请求方式，get/post<br>url:请求的服务器地址<br>aycs:同步与异步 </p>
+</li>
+<li><p><strong>setRequestHeader(header,value)：设置请求头信息</strong><br>header ：请求头名称<br>value ：请求头的值</p>
+</li>
+<li><p>xhr.getAllResponseHeaders() 获取全部响应头信息</p>
+</li>
+<li><p>xhr.getResponseHeader(‘key’) 获取指定头信息</p>
+</li>
+</ul>
+<ul>
+<li><p><strong>send([content]) ：发送Ajax请求</strong><br>content ：    如果是get请求时，此参数为null;</p>
+<p>如果是post请求时，此参数就是要传递的数据</p>
+</li>
+</ul>
+<p>  <strong>注意: 所有相关的事件绑定必须在调用send()方法之前进行.</strong></p>
+  <br>
+
+<h2 id="3-获取服务端响应"><a href="#3-获取服务端响应" class="headerlink" title="3. 获取服务端响应"></a>3. 获取服务端响应</h2><p><strong>onreadyStatechange事件</strong></p>
+<p>当ajax状态码发发生变化时将自动触发该事件。readyState表示ajax状态码。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line"><span class="built_in">console</span>.log(xhr.readyState);</span><br><span class="line"><span class="comment">//-&gt; 0 已经创建了ajax对象，但是还没有对ajax对象进行配置</span></span><br><span class="line"></span><br><span class="line">xhr.open(<span class="string">&#x27;get&#x27;</span>, <span class="string">&#x27;localhost:3000/readystate&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(xhr.readyState);</span><br><span class="line"><span class="comment">//-&gt; 1 已经对ajax对象进行配置，但是还没有发送请求</span></span><br><span class="line"></span><br><span class="line">xhr.onreadystatechange = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(xhr.readyState);</span><br><span class="line">    <span class="comment">// 2 代表请求已经发送了</span></span><br><span class="line">    <span class="comment">// 3 代表以及接收到服务器端的部分数据了</span></span><br><span class="line">    <span class="comment">// 4 服务器端的响应数据已经接收完毕</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://img.imgdb.cn/item/601cf2103ffa7d37b3dabfa8.png"><img src="https://img.imgdb.cn/item/601cf2103ffa7d37b3dabfa8.png"></a></p>
+<br>
+
+<h2 id="4-Ajax错误处理"><a href="#4-Ajax错误处理" class="headerlink" title="4. Ajax错误处理"></a>4. Ajax错误处理</h2><p>1）网络畅通，服务器端能接收到请求，服务器端返回的结果不是预期结果。</p>
+<p><strong>可以判断服务器端返回的状态码，分别进行处理。<code>xhr.status</code> 获取http状态码。</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">xhr.onload = <span class="function">()=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(xhr.responseText);  <span class="comment">//接收返回字符串</span></span><br><span class="line">    <span class="keyword">if</span>(xhr.status == <span class="number">400</span>)</span><br><span class="line">        alert(<span class="string">&#x27;请求出错&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2）网络畅通，服务器端没有接收到请求，返回404状态码。</p>
+<p><strong>检查请求地址是否错误。</strong></p>
+<p>3）网络畅通，服务器能够接收到请求，服务器端返回500状态码。</p>
+<p><strong>服务器端错误，找后端。</strong></p>
+<p>4）网络中断，请求无法发送到服务器。</p>
+<p><strong>会触发xhr对象下面的onerror事件，在onerror事件处理函数中对错误进行处理。</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">xhr.onerror = ()=&#123;</span><br><span class="line">    alert(<span class="string">&#x27;网络中断，无法请求&#x27;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<br>
+
+<h2 id="低版本IE浏览器缓存问题"><a href="#低版本IE浏览器缓存问题" class="headerlink" title="低版本IE浏览器缓存问题"></a>低版本IE浏览器缓存问题</h2><h3 id="问题来源："><a href="#问题来源：" class="headerlink" title="问题来源："></a><strong>问题来源：</strong></h3><p>在Ajax的get请求中，如果运行在IE内核的浏览器下，其如果<strong>向同一个url发送多次请求</strong>时，只有<strong>第一次</strong>请求会真正发送到服务器端，<strong>后续的请求都会从浏览器的缓存中获取结果</strong>。即使服务器端的数据更新了，客户端拿到的依然是缓存中的旧数据。这就是所谓的缓存问题。</p>
+<p>缓存问题最早设计初衷是为了加快应用程序的访问速度，但是其会影响Ajax实时的获取服务器端的数据。</p>
+<h3 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a><strong>解决方案：</strong></h3><p>产生缓存的问题就是 我们的客户端向同一个 url 发送了多次请求；<br>如果我们每次请求的url不同，那么，缓存问题就不会存在了；</p>
+<p>我们可以在请求地址的后面加上一个<strong>无意义</strong>的参数，参数值使用随机数即可，<br>那么每次请求都会产生随机数，URL就会不同，缓存问题就被解决了；</p>
+<p>**Math.random()**：返回 0-1 之间的随机数，包括 0 但不包括 1；</p>
+<p>修改代码如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> url = <span class="string">&#x27;03-1.php?names=&#x27;</span>+inp.value+<span class="string">&#x27;&amp;_=&#x27;</span> + <span class="built_in">Math</span>.random();</span><br><span class="line">xhr.open(<span class="string">&#x27;get&#x27;</span>,url);</span><br></pre></td></tr></table></figure>
+<p>但是，随机数虽然解决了问题，但是，我们不能保证每次生成的随机数都不一样；<br>也就是说，使用随机数存在一定的隐患；</p>
+<p><strong>new Date().getTime()</strong> ： 获取当前时间的毫秒时间戳<br>修改代码如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> url = <span class="string">&#x27;03-1.php?names=&#x27;</span>+inp.value+<span class="string">&#x27;&amp;_=&#x27;</span>+<span class="keyword">new</span> <span class="built_in">Date</span>().getTime();</span><br><span class="line">xhr.open(<span class="string">&#x27;get&#x27;</span>,url);</span><br></pre></td></tr></table></figure>
+<h3 id="设置响应头禁用客户端缓存"><a href="#设置响应头禁用客户端缓存" class="headerlink" title="设置响应头禁用客户端缓存"></a>设置响应头禁用客户端缓存</h3><p>服务器端在相应客户端请求时，可以设置响应头信息，如：<br><code>header(&#39;Content-type:text/html; charset=utf-8&#39;)</code> ：告诉客户端浏览器，使用utf-8的编码格式解析html页面信息。</p>
+<p>设置不缓存的响应头标识即可：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//告诉客户端浏览器不要缓存数据</span></span><br><span class="line">res.setHeader(<span class="string">&#x27;Cache-Control&#x27;</span>,<span class="string">&#x27;no-cache&#x27;</span>);</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>学习笔记</category>
+        <category>ajax</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>学习笔记</tag>
+        <tag>ajax</tag>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Express简单笔记</title>
     <url>/2021/02/05/Express%E7%AE%80%E5%8D%95%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h1 id="Express"><a href="#Express" class="headerlink" title="Express"></a>Express</h1><h2 id="1-安装"><a href="#1-安装" class="headerlink" title="1.安装"></a>1.安装</h2><p>使用 <code> npm install express (--save)</code> 进行安装</p>
@@ -143,7 +259,7 @@
       </tags>
   </entry>
   <entry>
-    <title>《Javascript高级程序设计》红宝书学习笔记（1）</title>
+    <title>《JavaScript高级程序设计》红宝书学习笔记（1）</title>
     <url>/2021/01/21/Javascript%E7%BA%A2%E5%AE%9D%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%881%EF%BC%89/</url>
     <content><![CDATA[<blockquote>
 <p>个人对第四版红宝书的学习笔记。不适合小白阅读。这是part1。</p>
@@ -599,7 +715,7 @@
       </tags>
   </entry>
   <entry>
-    <title>JavaScript数据结构与算法（2）</title>
+    <title>JavaScript数据结构与算法（下）</title>
     <url>/2021/01/19/JavaScript%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%EF%BC%882%EF%BC%89/</url>
     <content><![CDATA[<blockquote>
 <p>注意：原教学视频：<a href="https://www.bilibili.com/video/BV1a5411t7vZ">JavaScript(ES6)数据结构和算法</a>  |  <a href="https://www.bilibili.com/video/BV1r7411n7Pw">JavaScript数据结构与算法</a> (都是CoderWhy老师的教学)</p>
@@ -1738,7 +1854,7 @@
       </tags>
   </entry>
   <entry>
-    <title>Javascript数据结构与算法（1）</title>
+    <title>JavaScript数据结构与算法（上）</title>
     <url>/2021/01/09/js%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%EF%BC%881%EF%BC%89/</url>
     <content><![CDATA[<blockquote>
 <p>注意：原教学视频：<a href="https://www.bilibili.com/video/BV1a5411t7vZ">JavaScript(ES6)数据结构和算法</a>  |  <a href="https://www.bilibili.com/video/BV1r7411n7Pw">JavaScript数据结构与算法</a> (都是CoderWhy老师的教学)</p>
