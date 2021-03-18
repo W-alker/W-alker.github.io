@@ -80,6 +80,13 @@
 <p><strong>服务器端解析cookie中的token：</strong></p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//cookie-parser挂载                                                                         </span></span><br><span class="line">home.use(cookieParser());</span><br><span class="line"></span><br><span class="line"><span class="comment">//express-jwt挂载，验证token</span></span><br><span class="line">home.use(expressJwt(&#123;</span><br><span class="line">    secret:scrict,</span><br><span class="line">    algorithms: [<span class="string">&#x27;HS256&#x27;</span>],   <span class="comment">//解码方式建议加上，否则可能会报错</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">/*重要的是这里，需要改变express-jwt默认取得tokend的方式</span></span><br><span class="line"><span class="comment">      默认模块会从请求头的authorization中取得token，token以&#x27;Bearer&#x27;开头 */</span></span><br><span class="line">    getToken:<span class="function"><span class="keyword">function</span> <span class="title">fromCookie</span>(<span class="params">req</span>)</span>&#123;</span><br><span class="line">        <span class="comment">//尝试从cookie读取token进行验证</span></span><br><span class="line">          <span class="keyword">if</span>(req.cookies.curToken)</span><br><span class="line">            <span class="keyword">return</span> req.cookies.curToken.split(<span class="string">&#x27; &#x27;</span>)[<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;  </span><br><span class="line">    &#125; </span><br><span class="line">    </span><br><span class="line">&#125;).unless(&#123;</span><br><span class="line">    path:[<span class="string">&#x27;/login&#x27;</span>,<span class="string">&#x27;logout&#x27;</span>]  <span class="comment">//白名单，该地址下的不会进行解析</span></span><br><span class="line">&#125;))</span><br><span class="line"><span class="comment">//token校验错误处理中间件</span></span><br><span class="line">home.use(<span class="function"><span class="keyword">function</span> (<span class="params">err, req, res, next</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (err.name === <span class="string">&#x27;UnauthorizedError&#x27;</span>) &#123;	</span><br><span class="line">      <span class="built_in">console</span>.log(err);</span><br><span class="line">      res.status(<span class="number">401</span>).send(<span class="string">&#x27;invalid token...&#x27;</span>);   <span class="comment">//根据具体情况设置</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//通过解析后的处理</span></span><br><span class="line">app.use(<span class="string">&#x27;/user&#x27;</span>,<span class="function">(<span class="params">req,res</span>)=&gt;</span>&#123;</span><br><span class="line">    res.send(&#123;<span class="attr">err</span>:<span class="number">0</span>,<span class="attr">msg</span>:<span class="string">&#x27;token通过解析验证&#x27;</span>&#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 ]]></content>
+      <categories>
+        <category>大创</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>大创</tag>
+      </tags>
   </entry>
   <entry>
     <title>记录大创（1）</title>
@@ -113,9 +120,9 @@
 <br>]]></content>
       <categories>
         <category>大创</category>
-        <category>前端</category>
       </categories>
       <tags>
+        <tag>前端</tag>
         <tag>大创</tag>
       </tags>
   </entry>
