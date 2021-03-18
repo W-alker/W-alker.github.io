@@ -57,6 +57,518 @@
       </tags>
   </entry>
   <entry>
+    <title>记录大创（2）</title>
+    <url>/2021/03/18/%E8%AE%B0%E5%BD%95%E5%A4%A7%E5%88%9B%EF%BC%882%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="express使用JWT和httpOnly-cookie进行登录和安全验证"><a href="#express使用JWT和httpOnly-cookie进行登录和安全验证" class="headerlink" title="express使用JWT和httpOnly cookie进行登录和安全验证"></a>express使用JWT和httpOnly cookie进行登录和安全验证</h1><blockquote>
+<p>一般情况使用JWT作为身份验证的方式可以直接参考这篇文章：<a href="https://www.cnblogs.com/zkqiang/p/11810203.html">Node.js 使用 express-jwt 解析 JWT</a> 。这里主要针对httpOnly类型的cookie进行代码调整。</p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="1-安装和引入"><a href="#1-安装和引入" class="headerlink" title="1. 安装和引入"></a>1. 安装和引入</h2><p>需要使用的模块：<code>express-jwt</code> ，用于解析token； <code>jsonwebtoken</code> ，用于生成token ； <code>cookie-parser</code>，用于解析cookie（据说express已经内置，但是为可能没有该模块导致避免取不到cookie，安装该模块）。</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">npm i express<span class="literal">-jwt</span> jsonwebtoken cookie<span class="literal">-parser</span> -<span class="literal">-save</span></span><br></pre></td></tr></table></figure>
+<p><strong>引入：</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> jwt = <span class="built_in">require</span>(<span class="string">&#x27;jsonwebtoken&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> expressJwt = <span class="built_in">require</span>(<span class="string">&#x27;express-jwt&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> cookieParser = <span class="built_in">require</span>(<span class="string">&#x27;cookie-parser&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = express();</span><br></pre></td></tr></table></figure>
+<h2 id="2-生成token，放入cookie"><a href="#2-生成token，放入cookie" class="headerlink" title="2. 生成token，放入cookie"></a>2. 生成token，放入cookie</h2><p><strong>封装一个生成token的方法：</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//设置一个私钥</span></span><br><span class="line"><span class="keyword">const</span> scrict = <span class="string">&#x27;examplev8w9egf&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createToken</span> = <span class="title">palyload</span> =&gt;</span>&#123;</span><br><span class="line">    <span class="comment">//给palyload添加一个生成时间戳的属性</span></span><br><span class="line">    palyload.curtime = <span class="built_in">Date</span>.now();</span><br><span class="line">    <span class="comment">//这里添加Bearer是因为express-jwt模块默认获取到token的方法</span></span><br><span class="line">    <span class="comment">//当然这里也没必要添加，因为后续我们不会使用默认的解析方式</span></span><br><span class="line">    <span class="keyword">const</span> token = <span class="string">&#x27;Bearer &#x27;</span> +　jwt.sign(</span><br><span class="line">        palyload,</span><br><span class="line">        scrict, &#123; </span><br><span class="line">            expiresIn: <span class="number">3600</span> * <span class="number">24</span> * <span class="number">3</span>   <span class="comment">//过期时间</span></span><br><span class="line">        &#125;)</span><br><span class="line">    <span class="keyword">return</span> token;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>在需要的位置生成和发送token到cookie：</strong></p>
+<blockquote>
+<p>如果不知道express中怎么使用cookie，可以参考：<a href="https://blog.csdn.net/cckevincyh/article/details/79815666">Express Cookie的使用</a></p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">app.use(<span class="string">&#x27;/&#x27;</span>,<span class="function">(<span class="params">req,res</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> token = createToken(&#123;<span class="attr">login</span>:<span class="literal">true</span>,<span class="attr">name</span>:user&#125;)   <span class="comment">//这里的palyload参数可以自行设定</span></span><br><span class="line">    <span class="comment">//将token存入cookie，设置最大失效时间和httpOnly</span></span><br><span class="line">    res.cookie(<span class="string">&#x27;token&#x27;</span>,token,&#123; <span class="attr">maxAge</span>:<span class="number">1000</span>*<span class="number">3600</span>*<span class="number">24</span>, <span class="attr">path</span>:<span class="string">&#x27;/&#x27;</span>, <span class="attr">httpOnly</span>:<span class="literal">true</span> &#125;);</span><br><span class="line">    <span class="comment">//响应客户端</span></span><br><span class="line">    res.send(&#123;<span class="attr">msg</span>:<span class="string">&#x27;cookie设置成功&#x27;</span>&#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><strong>客户端携带cookie请求：</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//这里使用JQ封装的ajax，默认是会自动携带cookie的，无需单独设置：</span></span><br><span class="line">$.ajax(&#123;</span><br><span class="line">    <span class="comment">//一般情况携带token的方式。但这里设置的是httpOnly无法获取，交给服务端处理</span></span><br><span class="line"><span class="comment">/*     headers:&#123;</span></span><br><span class="line"><span class="comment">        Accept: &quot;application/json; charset=utf-8&quot;,</span></span><br><span class="line"><span class="comment">        Authorization:token</span></span><br><span class="line"><span class="comment">    &#125;, */</span></span><br><span class="line">    url: <span class="string">&#x27;/&#x27;</span>,</span><br><span class="line">    type: <span class="string">&#x27;put&#x27;</span>,</span><br><span class="line">    contentType: <span class="string">&quot;application/json&quot;</span>,  </span><br><span class="line">    success: <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    error: <span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(err);</span><br><span class="line">    &#125;,</span><br><span class="line">    statesCode:&#123;</span><br><span class="line">        <span class="number">401</span>:<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">           <span class="comment">//token验证失败 异常处理</span></span><br><span class="line">           alert(<span class="string">&#x27;token验证失败！&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p><strong>服务器端解析cookie中的token：</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//cookie-parser挂载                                                                         </span></span><br><span class="line">home.use(cookieParser());</span><br><span class="line"></span><br><span class="line"><span class="comment">//express-jwt挂载，验证token</span></span><br><span class="line">home.use(expressJwt(&#123;</span><br><span class="line">    secret:scrict,</span><br><span class="line">    algorithms: [<span class="string">&#x27;HS256&#x27;</span>],   <span class="comment">//解码方式建议加上，否则可能会报错</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">/*重要的是这里，需要改变express-jwt默认取得tokend的方式</span></span><br><span class="line"><span class="comment">      默认模块会从请求头的authorization中取得token，token以&#x27;Bearer&#x27;开头 */</span></span><br><span class="line">    getToken:<span class="function"><span class="keyword">function</span> <span class="title">fromCookie</span>(<span class="params">req</span>)</span>&#123;</span><br><span class="line">        <span class="comment">//尝试从cookie读取token进行验证</span></span><br><span class="line">          <span class="keyword">if</span>(req.cookies.curToken)</span><br><span class="line">            <span class="keyword">return</span> req.cookies.curToken.split(<span class="string">&#x27; &#x27;</span>)[<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;  </span><br><span class="line">    &#125; </span><br><span class="line">    </span><br><span class="line">&#125;).unless(&#123;</span><br><span class="line">    path:[<span class="string">&#x27;/login&#x27;</span>,<span class="string">&#x27;logout&#x27;</span>]  <span class="comment">//白名单，该地址下的不会进行解析</span></span><br><span class="line">&#125;))</span><br><span class="line"><span class="comment">//token校验错误处理中间件</span></span><br><span class="line">home.use(<span class="function"><span class="keyword">function</span> (<span class="params">err, req, res, next</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (err.name === <span class="string">&#x27;UnauthorizedError&#x27;</span>) &#123;	</span><br><span class="line">      <span class="built_in">console</span>.log(err);</span><br><span class="line">      res.status(<span class="number">401</span>).send(<span class="string">&#x27;invalid token...&#x27;</span>);   <span class="comment">//根据具体情况设置</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//通过解析后的处理</span></span><br><span class="line">app.use(<span class="string">&#x27;/user&#x27;</span>,<span class="function">(<span class="params">req,res</span>)=&gt;</span>&#123;</span><br><span class="line">    res.send(&#123;<span class="attr">err</span>:<span class="number">0</span>,<span class="attr">msg</span>:<span class="string">&#x27;token通过解析验证&#x27;</span>&#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+]]></content>
+  </entry>
+  <entry>
+    <title>记录大创（1）</title>
+    <url>/2021/03/18/%E8%AE%B0%E5%BD%95%E5%A4%A7%E5%88%9B%EF%BC%881%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="JQ中使用FormData-Ajax发送请求及使用express接收处理FormData数据"><a href="#JQ中使用FormData-Ajax发送请求及使用express接收处理FormData数据" class="headerlink" title="JQ中使用FormData+Ajax发送请求及使用express接收处理FormData数据"></a>JQ中使用FormData+Ajax发送请求及使用express接收处理FormData数据</h1><blockquote>
+<p>最近写大创项目的时候，要做登录功能，考虑到之后还需要上传头像图片，因此决定使用FormData发送表单请求。项目中用的是JQ封装的ajax，配合FormData使用的时候出现了一些问题。</p>
+</blockquote>
+<p>首先这里就不再说明FormData的作用和用法，如果不清楚的可以看看这篇文章：<a href="https://www.cnblogs.com/crackedlove/p/10292867.html">FormData对象的使用</a>。</p>
+<a id="more"></a>
+
+<h2 id="1-可能出现的问题"><a href="#1-可能出现的问题" class="headerlink" title="1. 可能出现的问题"></a>1. 可能出现的问题</h2><ol>
+<li><p>JQ中初始化FormData对象</p>
+<p>在JQ中，如果想使用一个已经存在的表单初始化FormData对象，在选中这个表单DOM的时候，<strong>不能使用JQ自带的 <code>$(&#39;form&#39;)</code> 方法</strong>，而是应该使用JS原生写法：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//错误的写法：</span></span><br><span class="line"><span class="keyword">let</span> formData = <span class="keyword">new</span> FormData($(<span class="string">&#x27;form&#x27;</span>));</span><br><span class="line"><span class="comment">//正确的写法：</span></span><br><span class="line"><span class="keyword">let</span> formData = <span class="keyword">new</span> FormData(<span class="built_in">document</span>.querySelector(<span class="string">&#x27;form&#x27;</span>));</span><br></pre></td></tr></table></figure>
+<p>如果使用JQ的选择器写法，那么会报错，大致意思应该是FormData初始化的参数不正确。使用JS原生写法就没问题了。</p>
+</li>
+<li><p>配合ajax无法发送请求</p>
+<p>如果在JQ封装的ajax中发送FormData数据，发生报错：<code>TypeError: &#39;append&#39; called on an object that does not implement interface FormData</code> 。加入这两行：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">processData: <span class="literal">false</span>,</span><br><span class="line">contentType: <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<br>
+
+</li>
+</ol>
+<h2 id="2-完整的发送请求代码"><a href="#2-完整的发送请求代码" class="headerlink" title="2. 完整的发送请求代码"></a>2. 完整的发送请求代码</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//使用Formdata提交登录信息</span></span><br><span class="line"><span class="comment">//初始化表单</span></span><br><span class="line"><span class="keyword">let</span> formData = <span class="keyword">new</span> FormData(<span class="built_in">document</span>.querySelector(<span class="string">&#x27;form&#x27;</span>));</span><br><span class="line"><span class="comment">//有需要的话可以修改formdata数据</span></span><br><span class="line"><span class="comment">//formdata.set(&#x27;identiy&#x27;, identiy);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//发送ajax请求</span></span><br><span class="line">$.ajax(&#123;</span><br><span class="line">    url: <span class="string">&#x27;./login&#x27;</span>,</span><br><span class="line">    type: <span class="string">&#x27;post&#x27;</span>,</span><br><span class="line">    data: formData,</span><br><span class="line">    processData: <span class="literal">false</span>,  <span class="comment">//不处理数据</span></span><br><span class="line">    contentType: <span class="literal">false</span>,  <span class="comment">//不设置内容类型</span></span><br><span class="line">    success: <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(data)</span><br><span class="line">    &#125;,</span><br><span class="line">    error: <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(err)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<br>
+
+<h2 id="3-服务器端使用express接收处理FormData数据"><a href="#3-服务器端使用express接收处理FormData数据" class="headerlink" title="3. 服务器端使用express接收处理FormData数据"></a>3. 服务器端使用express接收处理FormData数据</h2><p>需要安装 <code>express-formidable</code> 模块：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">npm i express<span class="literal">-formidable</span></span><br></pre></td></tr></table></figure>
+<p>使用：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> app = express();</span><br><span class="line"></span><br><span class="line"><span class="comment">//引入模块</span></span><br><span class="line"><span class="keyword">const</span> formidable = <span class="built_in">require</span>(<span class="string">&#x27;express-formidable&#x27;</span>);</span><br><span class="line"><span class="comment">//挂载</span></span><br><span class="line">app.use(formidable());</span><br><span class="line"></span><br><span class="line"><span class="comment">//接收请求</span></span><br><span class="line">router.post(<span class="string">&#x27;/formdata&#x27;</span>,<span class="function">(<span class="params">req,res,next</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(req.fields);  <span class="comment">// formData中的参数</span></span><br><span class="line">    <span class="built_in">console</span>.log(req.files);  <span class="comment">// formData中的文件</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<br>]]></content>
+      <categories>
+        <category>大创</category>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>大创</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JavaScript红宝书学习笔记（2）</title>
+    <url>/2021/03/18/JavaScript%E7%BA%A2%E5%AE%9D%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%882%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="第四章：变量、作用域与内存"><a href="#第四章：变量、作用域与内存" class="headerlink" title="第四章：变量、作用域与内存"></a>第四章：变量、作用域与内存</h1><h2 id="4-1-原始值与引用值"><a href="#4-1-原始值与引用值" class="headerlink" title="4.1 原始值与引用值"></a>4.1 原始值与引用值</h2><p>ECMAScript变量可以包含两种不同类型的数据：<strong>原始值</strong>和<strong>引用值</strong>。原始值(primitive value)就是最简单的数据，引用值(reference value)则是由多个值构成的对象。</p>
+<p>在把一个值赋给变量时，JavaScript引擎必须确定这个值是原始值还是引用值。上一章讨论了6种原始值：Undefined、Nu11、Boolean、Number、String和Symbol。保存原始值的变量是<strong>按值</strong>(byvalue)访问的，因为我们操作的就是存储在变量中的实际值。</p>
+<p>引用值是保存在内存中的对象。与其他语言不同，<strong>JavaScript不允许直接访问内存位置</strong>，因此也就不能直接操作对象所在的内存空间。在操作对象时，实际上操作的是对该对象的<strong>引用</strong>(reference)而非实际的对象本身。为此，保存引用值的变量是<strong>按引用</strong>(by reference)访问的。</p>
+<blockquote>
+<p> 注意：在很多语言中，字符串是使用对象表示的，因此被认为是引用类型。ECMAScript打破了这个惯例。</p>
+</blockquote>
+<br>
+
+<a id="more"></a>
+
+<h3 id="4-1-1-动态属性"><a href="#4-1-1-动态属性" class="headerlink" title="4.1.1 动态属性"></a>4.1.1 动态属性</h3><p>原始值和引用值的定义方式很类似，都是创建一个变量，然后给它赋一个值。不过，在变量保存了这个值之后，可以对这个值做什么，则大有不同。</p>
+<ul>
+<li><p><strong>对于引用值而言，可以随时添加、修改和删除其属性和方法</strong>。</p>
+</li>
+<li><p><strong>原始值不能有属性</strong>，尽管尝试给原始值添加属性不会报错。</p>
+</li>
+</ul>
+<p>注意，原始类型的初始化可以只使用原始字面量形式。如果使用的是new关键字，则JavaScript会创建一个Object类型的实例，但其行为类似原始值，下面来看看这两种初始化方式的差异：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> name1 <span class="string">&quot;Nicholas&quot;</span>:</span><br><span class="line"><span class="keyword">let</span> name2 = <span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">&quot;Matt&quot;</span>);</span><br><span class="line">name1.age = <span class="number">27</span>;</span><br><span class="line">name2.age = <span class="number">26</span>:</span><br><span class="line"><span class="built_in">console</span>.log(name1.age):     <span class="comment">//-&gt; undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(name2.age);     <span class="comment">//-&gt; 26</span></span><br><span class="line"><span class="built_in">console</span>.10g(<span class="keyword">typeof</span> name1);  <span class="comment">//-&gt; string</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> name2);  <span class="comment">// object</span></span><br></pre></td></tr></table></figure>
+<br>
+
+<h3 id="4-1-2-复制值"><a href="#4-1-2-复制值" class="headerlink" title="4.1.2 复制值"></a>4.1.2 复制值</h3><p>除了存储方式不同，原始值和引用值在通过变量复制时也有所不同。</p>
+<p>1）在通过变量把一个原始值赋到另一个变量时，原始值会被复制到新变量的位置：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> num1 = <span class="number">5</span>:</span><br><span class="line"><span class="keyword">let</span> num2 = num1;</span><br></pre></td></tr></table></figure>
+<p>这里，num1包含数值5。当把num2初始化为num1时，num2也会得到数值5。这个值跟存储在numl 中的5是完全独立的，因为它是那个值的副本。<strong>这两个变量可以独立使用，互不干扰</strong>。这个过程如图4-1所示。</p>
+<img src="https://img.imgdb.cn/item/600a950a3ffa7d37b31fb0f1.jpg" style="zoom: 33%;">
+
+<p>2）在把引用值从一个变量赋给另一个变量时，存储在变量中的值也会被复制到新变量所在的位置。区别在于，<strong>这里复制的值实际上是一个指针，它指向存储在堆内存中的对象</strong>。操作完成后，<strong>两个变量实际上指向同一个对象</strong>，因此一个对象上面的变化会在另一个对象上反映出来，如下面的例子所示：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj1 = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line"><span class="keyword">let</span> obj2 = obj1:</span><br><span class="line">obj1.name = <span class="string">&quot;Nicholas&quot;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(obj2.name); <span class="comment">// “Nicholas&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，变量obj1保存了一个新对象的实例。然后，这个值被复制到obj2，此时两个变量都指向了同一个对象。在给obj1创建属性name并赋值后，通过obj2也可以访问这个属性，因为它们都指向同一个对象。图4-2展示了变量与堆内存中对象之间的关系：</p>
+<img src="https://img.imgdb.cn/item/600a97143ffa7d37b3209b1e.jpg">
+
+<br>
+
+<h3 id="4-1-3-传递参数"><a href="#4-1-3-传递参数" class="headerlink" title="4.1.3 传递参数"></a>4.1.3 传递参数</h3><p>ECMAScript中所有函数的参数都是<strong>按值传递</strong>的。这意味着函数外的值会被复制到函数内部的参数中，就像从一个变量复制到另一个变量一样。如果是原始值，那么就跟原始值变量的复制一样，如果是引用值，那么就跟引用值变量的复制一样。</p>
+<p>在<strong>按值</strong>传递参数时，值会被复制到一个局部变量（即一个命名参数，或者用ECMAScript的话说，就是arguments对象中的一个槽位）。在<strong>按引用</strong>传递参数时，值在内存中的位置会被保存在一个局部变量，这意味着<em>对本地变量的修改会反映到函数外部</em>（这在ECMAScript中是不可能的）。</p>
+<p>1）“Javascript中函数按值传参”这个性质在原始值上可以很明显的看到：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addTen</span>(<span class="params">num</span>)</span>&#123;</span><br><span class="line">  num += <span class="number">10</span>;</span><br><span class="line">  <span class="keyword">return</span> num;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> count = <span class="number">20</span>;</span><br><span class="line"><span class="keyword">let</span> result = addTen(count);</span><br><span class="line"><span class="built_in">console</span>.log(count);   <span class="comment">//-&gt; 20，没有变化，原始值没有受到影响</span></span><br><span class="line">conaole.log(result);  <span class="comment">//-&gt; 30</span></span><br></pre></td></tr></table></figure>
+<p>2）而对于引用值来说：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setName</span> (<span class="params">obj</span>)</span>&#123;</span><br><span class="line">  obj.name = <span class="string">&quot;Nicholas&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> person = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">setName (person);</span><br><span class="line"><span class="built_in">console</span>.log(person.name);  <span class="comment">//-&gt; &quot;Nicholas&quot;   </span></span><br><span class="line"><span class="comment">//看的出来，传入person对象之后，person对象多了一个name属性</span></span><br></pre></td></tr></table></figure>
+<p><strong>局部作用域中修改对象，这种变化反映到了全局作用域</strong>。但这是不是意味着对象的传参是<strong>按引用</strong>传参呢？再看下一个例子：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setName</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">  obj.name =<span class="string">&quot;Nicholas&quot;</span>;</span><br><span class="line">    <span class="comment">//添加两条语句：</span></span><br><span class="line">  obj = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">  obj.name = <span class="string">&quot;Greg&quot;</span>;</span><br><span class="line">    <span class="comment">//这里试图将obj重新定义为一个有着不同name属性的新对象</span></span><br><span class="line">    <span class="comment">//如果person是按引用传递的，那么person应该自动将指针改为指向  name为&#x27;Greg&#x27;的新对象</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> person = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">setName(person);</span><br><span class="line"><span class="built_in">console</span>.log(person.name);  <span class="comment">//-&gt; &quot;Nicholas&quot;</span></span><br></pre></td></tr></table></figure>
+<p>person对象的name属性值仍然是”Nicholas”，这意味着：<strong>函数中参数的值改变后，原始的引用仍然没变</strong>。当obj在函数内部被重写时，它变成了一个指向本地对象的指针。而那个对象在函数执行结束时就被销毁了。</p>
+<blockquote>
+<p>注意：ECMAScript中函数的参数就是局部变量。</p>
+</blockquote>
+<br>
+
+<h3 id="4-1-4-确定类型"><a href="#4-1-4-确定类型" class="headerlink" title="4.1.4 确定类型"></a>4.1.4 确定类型</h3><p>前一章提到的<code>typeof</code>操作符<strong>最适合用来判断一个变量是否为原始类型</strong>。更确切地说，它是判断一个变量是否为字符串、数值、布尔值或undefined的最好方式。如果值是对象或nu11，那么<code>typeof</code> 会返回”object”。</p>
+<p>看的出来，<code>typeof</code>操作符对于引用值的用处不大。所以，ECMAScript提供了一个<code>instanceof</code>操作符：</p>
+<p><code>result = variable instanceof constructor</code></p>
+<p>如果变量是给定引用类型（由其原型链决定，将在第8章详细介绍）的实例，则 <code>instanceof</code> 操作符返回true。如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log (person <span class="keyword">instanceof</span> <span class="built_in">Object</span>);    <span class="comment">//变量person是Object 吗？</span></span><br><span class="line"><span class="built_in">console</span>.log (colors <span class="keyword">instanceof</span> <span class="built_in">Array</span>);     <span class="comment">//变量 colors是Array 吗？</span></span><br><span class="line"><span class="built_in">console</span>.log (pattern <span class="keyword">instanceof</span> <span class="built_in">RegExp</span>);   <span class="comment">//变量 pattern是RegExp吗?</span></span><br></pre></td></tr></table></figure>
+<p><code>instanceof</code> 检测任何引用值和Object构造函数都会返回true，因为所有引用值都是Object的实例。当然，对于原始值而言，<code>instanceof </code>则会返回false。</p>
+<blockquote>
+<p>注意：typeof 操作符在用于检测函数时也会返回“function”。当在 Safari（直到 SafariS)和 Chrome(直到 Chrome 7)中用于检测正则表达式时，由于实现细节的原因，typeof也会返回“function”。ECMA-262 规定，任何实现内部<code>[[Ca11]]</code>方法的对象都应该在typeof检测时返回“function”。因为上述浏览器中的正则表达式实现了这个方法，所以typeof 对正则表达式也返回“function”。在IE和Firefox中，typeof 对正则表达式返回”object”。</p>
+</blockquote>
+<br>
+
+<h2 id="4-2-执行上下文与作用域"><a href="#4-2-执行上下文与作用域" class="headerlink" title="4.2 执行上下文与作用域 `"></a>4.2 执行上下文与作用域 `</h2><p><strong>执行上下文</strong>（以下简称“上下文”）的概念在JavaScript中是颇为重要的。变量或函数的上下文决定了它们可以访问哪些数据，以及它们的行为。每个上下文都有一个关联的<strong>变量对象</strong>（variable object），而这个上下文中定义的所有变量和函数都存在于这个对象上。虽然无法通过代码访问变量对象，但后台处理数据会用到它。</p>
+<p>1）<strong>全局上下文</strong>是最外层的上下文。根据 ECMAScript实现的宿主环境，表示全局上下文的对象可能不一样。</p>
+<p><strong>在浏览器中，全局上下文就是我们常说的window对象</strong>（第12章会详细介绍）。<em>因此所有通过 <code>var </code>定义的全局变量和函数都会成为 window 对象的属性和方法。使用 <code>let</code> 和 <code>const</code> 的顶级声明不会定义在全局上下文中</em>，但在作用域链解析上效果是一样的。</p>
+<p><strong>上下文在其所有代码都执行完毕后会被销毁</strong>，包括定义在它上面的所有变量和函数（全局上下文在应用程序退出前才会被销毁，比如关闭网页或退出浏览器）。</p>
+<p>2）每个函数调用都有自己的上下文，即<strong>函数上下文</strong>。当代码执行流进入函数时，函数的上下文被推到一个上下文栈上，在函数执行完之后，上下文栈会弹出该函数上下文，将控制权返还给之前的执行上下文。ECMAScript程序的执行流就是通过这个上下文栈进行控制的。</p>
+<p>3）上下文中的代码在执行的时候，会创建变量对象的一个<strong>作用域链</strong>(scope chain)。这个作用域链决定了各级上下文中的代码在访问变量和函数时的顺序，<em>代码正在执行的上下文的变量对象始终位于作用域链的最前端</em>。</p>
+<p>如果上下文是函数，则其活动对象(activation object)用作变量对象。活动对象最初只有一个定义变量：arguments（全局上下文中没有这个变量）。作用域链中的下一个变量对象来自包含上下文，再下一个对象来自再下一个包含上下文。以此类推直至全局上下文；<em>全局上下文的变量对象始终是作用域链的最后一个变量对象</em>。</p>
+<p>代码执行时的标识符解析是通过沿作用域链逐级搜索标识符名称完成的。搜索过程始终从作用域链的最前端开始，然后逐级往后，直到找到标识符。(如果没有找到标识符，那么通常会报错）</p>
+<p>看一看下面这个例子：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> color = <span class="string">&quot;blue&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">changeColor</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(color === <span class="string">&quot;blue&quot;</span>)&#123;</span><br><span class="line">    color = <span class="string">&#x27;red&#x27;</span>;   </span><br><span class="line">  &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">    color = <span class="string">&#x27;blue&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">changeColor();</span><br></pre></td></tr></table></figure>
+<p>对这个例子而言，函数<code>changeColor()</code>的作用域链包含两个对象：一个是它自己的变量对象（就是定义arguments对象的那个），另一个是全局上下文的变量对象。这个函数内部之所以能够访问变量color，就是因为可以在作用域链中找到它。</p>
+<p><strong>局部作用域中定义的变量可用于在局部上下文中替换全局变量。</strong></p>
+<p><strong>内部上下文可以通过作用域链访问外部上下文中的一切，但外部上下文无法访问内部上下文中的任何东西</strong>。上下文之间的连接是线性的、有序的。</p>
+<blockquote>
+<p>注意：函数参数被认为i是当前上下文中的变量，因此也跟上下文中的其他变量遵循相同规则。</p>
+<p>PS：上下文还是很好理解的，这里不再多讨论。</p>
+</blockquote>
+<br>
+
+<h3 id="4-2-1-作用域链增强"><a href="#4-2-1-作用域链增强" class="headerlink" title="4.2.1 作用域链增强"></a>4.2.1 作用域链增强</h3><p>虽然执行上下文主要有全局上下文和函数上下文两种（<code>eva1()</code>调用内部存在第三种上下文），但有其他方式来增强作用域链。某些语句会导致在作用域链前端临时添加一个上下文，这个上下文在代码执行后会被删除。通常在两种情况下会出现这个现象，即代码执行到下面任意一种情况时：</p>
+<ul>
+<li>try/catch 语句的catch块</li>
+<li>with语句</li>
+</ul>
+<p>这两种情况下，都会在作用域链前端添加一个变量对象。对with语句来说，会向作用域链前端添加指定的对象；对catch语句而言，则会创建一个新的变量对象，这个变量对象会包含要抛出的错误对象的声明。看下面的例子：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">buildUrl</span>(<span class="params"></span>)(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  <span class="keyword">let</span> qs = <span class="string">&quot;?debug=true&quot;</span>;</span></span></span><br><span class="line"><span class="function"><span class="params">  <span class="keyword">with</span>(location)&#123;</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="keyword">let</span> url = href + qs;   <span class="regexp">//</span>这里引用href实际是引用location.href</span></span></span><br><span class="line"><span class="function"><span class="params">                           <span class="regexp">//</span>而引用qs时引用的其实是buildUrl()中定义的qs变量</span></span></span><br><span class="line"><span class="function"><span class="params">  &#125;</span></span></span><br><span class="line"><span class="function"><span class="params">  <span class="keyword">return</span> url;    <span class="comment">//这里url没有定义，因为let声明被限制在了块级作用域</span></span></span></span><br><span class="line"><span class="function"><span class="params">&#125;</span></span></span><br></pre></td></tr></table></figure>
+<p>这里，with 语句将 location对象作为上下文，因此 location会被添加到作用域链前端。bui1dUrl() 函数中定义了一个变量qs。当 with 语句中的代码引用变量href 时，实际上引用的是<code>location.href</code>，也就是自己变量对象的属性。在引用qs时，引用的则是定义在 bui1dUrl() 中的那个变量，它定义在函数上下文的变量对象上。而在with语句中使用 var声明的变量url会成为函数上下文的一部分，可以作为函数的值被返回；但像这里使用let声明的变量ur1，因为被限制在块级作用域(稍后介绍)，所以在with块之外没有定义。</p>
+<br>
+
+<h3 id="4-2-2-变量声明"><a href="#4-2-2-变量声明" class="headerlink" title="4.2.2 变量声明 *"></a>4.2.2 变量声明 *</h3><p>ES6之后，JavaScript的变量声明经历了翻天覆地的变化。直到ECMAScript5.1，var都是声明变量的唯一关键字。ES6不仅增加了1et和const两个关键字，而且还让这两个关键字压倒性地超越var成为首选。</p>
+<p>1）使用 var的函数作用域声明</p>
+<p><strong>在使用var声明变量时，变量会被自动添加到最接近的上下文</strong>。在函数中，最接近的上下文就是函数的局部上下文。在with语句中，最接近的上下文也是函数上下文。<em>如果变量未经声明就被初始化了，那么它就会自动被添加到全局上下文</em>，如下面的例子所示：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">num1,num2</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> sum = num1 + num2;</span><br><span class="line">  <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> result = add(<span class="number">10</span>, <span class="number">20</span>);   <span class="comment">//-&gt; 30</span></span><br><span class="line"><span class="built_in">console</span>.log(sum);   <span class="comment">//-&gt; 报错：sum 在这里不是有效变量  这里访问不到函数内部var声明的变量</span></span><br></pre></td></tr></table></figure>
+<p>但如果省略上面例子中的关键字var，那么sum 在add()被调之后就变成可以访问的了，如下所示：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">num1,num2</span>)</span>&#123;</span><br><span class="line">  sum = num1 + num2;</span><br><span class="line">  <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> result = add(<span class="number">10</span>, <span class="number">20</span>);   <span class="comment">//-&gt; 30</span></span><br><span class="line"><span class="built_in">console</span>.log(sum);   <span class="comment">//-&gt; 30  可以访问，因为sum未经声明就被初始化，它被直接添加到了全局上下文</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：未经声明而初始化变量是Javascript编程中一个常见的错误，会导致很多问题。务必注意。</p>
+<p>严格模式下，未经声明而初始化变量会报错。</p>
+</blockquote>
+<blockquote>
+<p>PS：变量提升这里不再提及。</p>
+</blockquote>
+<p>2）使用let的块级作用域声明</p>
+<p><strong>块级作用域由最近的一对花括号界定</strong>。换言之，if块、while块、function块，甚至是单独的块（也就是仅仅只有两个花括号）也是let变量声明的作用域。</p>
+<p>let和var的第二个不同是：在同一作用域不能声明两次。重复的var声明会被忽略，但重复的let声明会抛出SyntaxError。</p>
+<p>严格来说，let在Javascript运行时也会被提升，但是由于“暂时性死区”的缘故，（上一章提到过）实际上不能在声明之前使用let变量。</p>
+<p>3）使用const的变量声明</p>
+<p>const声明只应用到顶级原语或者对象。换言之，赋值为对象的const变量不能再被重新赋值为其他引用值，但对象的键不受限制。如果想让整个对象都不能修改，可以使用<code>Object.freeze()</code>，这样再给属性赋值时虽然不会报错，但会静默失败：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> o1 = &#123;&#125;;</span><br><span class="line">o1 = &#123;&#125;;    <span class="comment">//TypeError:给常量赋值</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> o2 = &#123;&#125;;</span><br><span class="line">o2.name = <span class="string">&#x27;Jake&#x27;</span>;</span><br><span class="line">alert(o2.name);    <span class="comment">//-&gt; Jake   //对象的键不受限制</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> o3 = <span class="built_in">Object</span>.freeze(&#123;&#125;);</span><br><span class="line">o3.name = <span class="string">&#x27;Jake&#x27;</span>;     <span class="comment">//这一步没有意义，因为整个对象都不可被修改了</span></span><br><span class="line">alert(o3.name);   <span class="comment">//-&gt; undefined  </span></span><br></pre></td></tr></table></figure>
+<p>由于const声明暗示变量的值是单一类型且不可修改，JavaScript运行时编译器可以将其所有实例都替换成实际的值，而不会通过查询表进行变量查找。谷歌的V8引擎就执行这种优化。</p>
+<blockquote>
+<p>注意：开发实践表明，如果开发流程并不会因此而受很大影响，<strong>就应该尽可能地多使用const 声明</strong>，除非确实需要一个将来会重新赋值的变量。这样可以从根本上保证提前发现重新赋值导致的bug。</p>
+</blockquote>
+<p>4）标识符查找</p>
+<p>当在特定上下文中为读取或写入而引用一个标识符时，必须通过搜索确定这个标识符表示什么。搜索开始于作用域链前端，以给定的名称搜索对应的标识符。如果在局部上下文中找到该标识符，则搜索停止，变量确定；如果没有找到变量名，则继续沿作用域链搜索。（注意，作用域链中的对象也有一个原型链，因此搜索可能涉及每个对象的原型链。）这个过程一直持续到搜索至全局上下文的变量对象。如果仍然没有找到标识符，则说明其未声明。</p>
+<br>
+
+<h2 id="4-3-垃圾回收"><a href="#4-3-垃圾回收" class="headerlink" title="4.3 垃圾回收 `"></a>4.3 垃圾回收 `</h2><p>JavaScript是使用垃圾回收的语言，也就是说执行环境负责在代码执行时管理内存。JavaScript通过自动内存管理实现内存分配和闲置资源回收。基本思路很简单：确定哪个变量不会使用，然后释放它占用的内存。这个过程是周期性的，即垃圾回收程序每隔一段时间就会自动运行。</p>
+<p>浏览器发展史上，用到过两种标记策略：标记清理和引用技术。JavaScript最常用的垃圾回收策略是<strong>标记清理</strong>。</p>
+<p><strong>内存管理：</strong></p>
+<p>将内存占用量保持在一个较小的值可以让页面性能更好。优化内存占用的最佳手段就是保证在执行代码时只保存必要的数据。<strong>如果数据不再必要，就把它设置成null</strong>，从而释放其引用。这也可以叫做<strong>释放引用</strong>。这个建议最适合全局变量和全局对象的属性。局部变量在超出作用域后会被自动解除引用。</p>
+<p>不过要注意，解除对一个值得引用并不会导致相关内存被回收。解除引用的关键在于确保相关的值已经不在上下文中了，因此<strong>它在下次垃圾回收时会被回收</strong>。</p>
+<p>1）<strong>通过<code>let</code>和<code>const</code>声明提升性能</strong></p>
+<p>因为const和let都以块（而非函数）为作用域，所以这两个关键字可能会更早的让回收程序介入，尽早回收应该回收的内存。</p>
+<p>2）<strong>隐藏类和删除操作</strong></p>
+<p>根据Javascript所在的运行环境，有时候需要根据浏览器使用的JavaScript引擎来采取不同的性能优化策略。截至2017年，Chrome是最流行的浏览器，使用V8 JavaScript引擎。V8在将解释后的JavaScript代码编译为实际的机器码时会利用“隐藏类”。如果你的代码非常注重性能，那么这一点可能对你很重要。</p>
+<p>运行期间，V8 会将创建的对象与隐藏类关联起来，以跟踪它们的属性特征。能够共享相同隐藏类的对象性能会更好，V8会针对这种情况进行优化，但不一定总能够做到。比如下面的代码：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Article</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.title = <span class="string">&#x27;Inauguration Ceremony Features Kazoo Band&#x27;</span>；</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> a1 = <span class="keyword">new</span> Article();</span><br><span class="line"><span class="keyword">let</span> a2 = <span class="keyword">new</span> Article();</span><br></pre></td></tr></table></figure>
+<p>V8会在后台配置，让这两个类实例共享相同的隐藏类，因为这两个实例共享同一个构造函数和原型。假设之后又添加了下面这行代码：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">a2.author =<span class="string">&#x27;Jake&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p>此时两个Article实例就会对应两个不同的隐藏类。根据这种操作的频率和隐藏类的大小，这有可能对性能产生明显影响。</p>
+<p>当然，解决方案就是<strong>避免JavaScript的“先创建再补充”</strong>(ready-fire-aim)式的动态属性赋值，并在构造函数中一次性声明所有属性，如下所示：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Article</span>(<span class="params">opt_author</span>)</span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.title = <span class="string">&#x27;Inauguration Cerenony Features Kazoo Band&#x27;</span>;</span><br><span class="line">  <span class="built_in">this</span>.author = opt_author;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> al = <span class="keyword">new</span> Article();</span><br><span class="line"><span class="keyword">let</span> a2 = <span class="keyword">new</span> Article(<span class="string">&#x27;Jake&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<p>这样，两个实例基本上就一样了（不考虑hasOwnProperty的返回值），因此可以共享一个隐藏类从而带来潜在的性能提升。不过要记住，使用<code>delete</code>关键字会导致生成相同的隐藏类片段。看一下这个例子：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Article</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.title= <span class="string">&#x27;Inauguration Ceremony Features Kazoo Band&#x27;</span>;</span><br><span class="line">  <span class="built_in">this</span>.author =<span class="string">&#x27;Jake&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> a1 = <span class="keyword">new</span> Article():</span><br><span class="line"><span class="keyword">let</span> a2 = <span class="keyword">new</span> Article();</span><br><span class="line"><span class="keyword">delete</span> a1.author;</span><br></pre></td></tr></table></figure>
+
+<p>在代码结束后，即使两个实例使用了同一个构造函数，它们也不再共享一个隐藏类。动态删除属与动态添加属性导致的后果一样。最佳实践是<strong>把不想要的属性设置为nu11</strong>。这样可以保持隐藏类不和继续共享，同时也能达到删除引用值供垃圾</p>
+<p>3）<strong>内存泄漏</strong></p>
+<ol>
+<li><p>意外声明全局变量</p>
+<p>也就是局部作用域中声明变量时缺少声明操作符，而导致该变量变成了全局变量。加上<code>var</code> / <code>const</code> / <code>let</code>即可。 </p>
+</li>
+<li><p>定时器</p>
+<p>定时器的回调通过闭包引用外部变量时，如：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> name = <span class="string">&#x27;Jake&#x27;</span>;</span><br><span class="line"><span class="built_in">setInterval</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(name);</span><br><span class="line">&#125;,<span class="number">100</span>)</span><br><span class="line"><span class="comment">//定时器只要一直运行，回调函数中引用的name就会一直占用内存，垃圾回收程序自然不会清理外部变量</span></span><br></pre></td></tr></table></figure></li>
+<li><p>使用闭包</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> outer = <span class="function">() =&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> name = <span class="string">&#x27;Jake&#x27;</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//上述代码创建了一个内部闭包，只要outer函数存在就不能清理name，因为闭包一直在引用它。如果name的内容很大，就会出现很大的问题了</span></span><br></pre></td></tr></table></figure>
+<p>4）<strong>静态分配与对象池</strong></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>JavaScript</category>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Javascript红宝书学习笔记（3）</title>
+    <url>/2021/03/18/h%E7%BA%A2%E5%AE%9D%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%AC%AC%E4%BA%94%E7%AB%A0/</url>
+    <content><![CDATA[<h1 id="第五章：基本引用类型"><a href="#第五章：基本引用类型" class="headerlink" title="第五章：基本引用类型"></a>第五章：基本引用类型</h1><p>引用值（或者对象）是某个特定<strong>引用类型</strong>的<strong>实例</strong>。新对象通过使用new操作符后跟一个构造函数（constructor）来创建。</p>
+<a id="more"></a>
+
+<h2 id="5-1-Date"><a href="#5-1-Date" class="headerlink" title="5.1 Date"></a>5.1 Date</h2><blockquote>
+<p>这里不对Date进行详细深入，仅基于书本列出一些常用方法。更多方法和用法请参考：<a href="https://www.runoob.com/jsref/jsref-obj-date.html%E3%80%82">https://www.runoob.com/jsref/jsref-obj-date.html。</a></p>
+</blockquote>
+<p>1）基于其他其他日期和时间创建日期对象：</p>
+<p><code>Date.parse</code>  和  <code>Date.UTC</code></p>
+<p><code>Date.now</code> 返回表示方法执行日期和时间的毫秒数。</p>
+<p>2）继承的方法：</p>
+<p>Date类型重写了 <code>toLocaleString()</code> 、<code>toString()</code> 、<code>valueOf()</code> 方法。</p>
+<ul>
+<li><p> <code>toLocaleString()</code> 方法返回与浏览器运行的本地环境一致的日期和时间。</p>
+</li>
+<li><p> <code>toString()</code> 方法通常返回带时区信息的日期和时间。</p>
+</li>
+<li><p> <code>valueOf</code> 被重写后返回的是日期的毫秒表示。</p>
+</li>
+</ul>
+<p>3）日期格式化方法：</p>
+<p>Date类型有几个专门用于格式化日期的方法，它们都会返回字符串：</p>
+<ul>
+<li><p><code>toDateString() </code>显示日期中的周几、月、日、年(格式特定于实现)；</p>
+</li>
+<li><p><code>toTimeString()</code> 显示日期中的时、分、秒和时区(格式特定于实现)；</p>
+</li>
+<li><p><code>toLocaleDateString()</code> 显示日期中的周几、月、日、年(格式特定于实现和地区)；tolocaleTimeString()显示日期中的时、分、秒(格式特定于实现)；</p>
+</li>
+<li><p><code>toUTCString()</code> 显示完整的UTC日期(格式特定于实现)。</p>
+</li>
+</ul>
+<p>这些方法的输出与tolocaleString()和 tostring()一样，会因浏览器而异。因此不能用于在用户界面上一致地显示日期。</p>
+<blockquote>
+<p>注意 还有一个方法叫 <code>toGMTString()</code>，这个方法跟 <code>toUTCString()</code> 是一样的，目的<br>是为了向后兼容。不过，规范建议新代码使用 <code>toUTCString()</code>。 </p>
+</blockquote>
+<p>4）日期/时间组件方法。</p>
+<br>
+
+<h2 id="5-2-RegExp"><a href="#5-2-RegExp" class="headerlink" title="5.2 RegExp `"></a>5.2 RegExp `</h2><p>ECMAScript通过RegExp类型支持正则表达式。正则表达式使用类似Perl的简洁语法来创建：</p>
+<p><code>let expression = /pattern/flags;</code></p>
+<p>这个正则表达式的pattern(模式)可以是任何简单或复杂的正则表达式，包括字符类、限定符、分组、向前查找和反向引用。每个正则表达式可以带零个或多个 flags(标记)，用于控制正则表达式的行为。下面给出了表示匹配模式的标记。</p>
+<ul>
+<li><p>g：全局模式，表示查找字符串的全部内容，而不是找到第一个匹配的内容就结束。</p>
+</li>
+<li><p>i：不区分大小写，表示在查找匹配时忽略pattern和字符串的大小写。</p>
+</li>
+<li><p>m：多行模式，表示查找到一行文本末尾时会继续查找。</p>
+</li>
+<li><p>y：粘附模式，表示只查找从1astIndex开始及之后的字符串。</p>
+</li>
+<li><p>u：Unicode模式，启用Unicode匹配。</p>
+</li>
+<li><p>s：dotA11模式，表示元字符，匹配任何字符(包括\n或\r)。</p>
+</li>
+</ul>
+<h3 id="5-2-1-RegExp实例属性"><a href="#5-2-1-RegExp实例属性" class="headerlink" title="5.2.1 RegExp实例属性"></a>5.2.1 RegExp实例属性</h3><p>每个RegExp实例都有下列属性，提供有关模式的各方面信息。</p>
+<p>+　global：布尔值，表示是否设置了g标记。</p>
+<p>+　ignoreCase：布尔值，表示是否设置了1标记。</p>
+<p>+　unicode：布尔值，表示是否设置了u标记。</p>
+<p>+　sticky：布尔值，表示是否设置了y标记</p>
+<p>+　astIndex：整数，表示在源字符串中下一次搜索的开始位置，始终从0开始。</p>
+<p>+　multiline：布尔值，表示是否设置了m标记。</p>
+<p>+　dotA11：布尔值，表示是否设置了。标记。</p>
+<p>+　source：正则表达式的字面量字符串(不是传给构造函数的模式字符串)，没有开头和结尾的斜杠。</p>
+<p>+　f1ags：正则表达式的标记字符串。始终以字面量而非传入构造函数的字符串模式形式返回(没5有前后斜杠)。</p>
+<p>通过这些属性可以全面了解正则表达式的信息，不过实际开发中用得并不多，因为模式声明中包含这些信息。</p>
+<h3 id="5-2-2-实例方法"><a href="#5-2-2-实例方法" class="headerlink" title="5.2.2 实例方法"></a>5.2.2 实例方法</h3><p>1）<code>exex()</code></p>
+<p>Regexp实例的主要方法是 <code>exec()</code> ，主要用于配合<strong>捕获组</strong>使用。</p>
+<p>这个方法只接收一个参数，即要应用模式的字符串。如果找到了匹配项，则返回包含第一不匹配信息的数组；如果没找到匹配项，则返回null。</p>
+<p>返回的数组虽然是Array的实例，但包含两个额外的属性：index和input。index是字符串中匹配模式的起始位置，input是要查找的字符串。这个数组的第一个元素是匹配整个模式的字符串，其他元素是与表达式中的捕获组匹配的字符串。如果模式中没有捕获组，则数组只包含一个元素。</p>
+<blockquote>
+<p>这里不再继续讨论 <code>exec()</code> 方法的使用，可以自行百度详细用法。或者这里我搜了两篇说的还不错的文章：</p>
+<p><a href="https://blog.csdn.net/qq_35087256/article/details/79966865">https://blog.csdn.net/qq_35087256/article/details/79966865</a> | <a href="https://segmentfault.com/a/1190000018864720">https://segmentfault.com/a/1190000018864720</a></p>
+</blockquote>
+<p>2）<code>test()</code></p>
+<p>正则表达式的另一个方法是 <code>test()</code>，接收一个字符串参数。如果输入的文本与模式匹配，则参数返回true，否则返回false。</p>
+<p>这个方法适用于只想测试模式是否匹配，而不需要实际匹配内容的情况。<code>test()</code> 经常用在if语句中：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> text =<span class="string">&quot;000-00-0000°;</span></span><br><span class="line"><span class="string">let pattern/\d&#123;3&#125;-\d&#123;2&#125;-\d&#123;4&#125;/；</span></span><br><span class="line"><span class="string">if (pattern.test(text))</span></span><br><span class="line"><span class="string">    console.log (&quot;</span>The pattern was matched.<span class="string">&quot;);</span></span><br></pre></td></tr></table></figure>
+<p>在这个例子中，正达式用于测试特定的数值序列。如果输入的文本与模式匹配，则显示匹配成功的消息。这个用法常用于验证用户输入，此时我们只在乎输入是否有效，不关心为什么无效。</p>
+<p>无论正则表达式是怎么创建的，继承的方法 <code>toLocaleString()</code> 和 <code>toString()</code>都返回正则表达式的字面量表示。</p>
+<blockquote>
+<p>注意：正则表达式的 <code>valueOf()</code>方法返回正则表达式本身。 </p>
+</blockquote>
+<h3 id="5-2-3-RegExp构造函数属性"><a href="#5-2-3-RegExp构造函数属性" class="headerlink" title="5.2.3 RegExp构造函数属性"></a>5.2.3 RegExp构造函数属性</h3><blockquote>
+<p>这里不进行讨论。</p>
+</blockquote>
+<blockquote>
+<p>注意：RegExp构造函数的所有属性都没有任何Web标准出处，因此不要在生成环境中使用它们。</p>
+</blockquote>
+<br>
+
+<h2 id="5-3-原始值包装类型"><a href="#5-3-原始值包装类型" class="headerlink" title="5.3 原始值包装类型"></a>5.3 原始值包装类型</h2><p>为了方便操作原始值，ECMAScript提供了3种特殊的引用类型：Boolean、Number和String。</p>
+<p>这些类型具有本章介绍的其他引用类型一样的特点，但也具有与各自原始类型对应的特殊行为。每当用到某个原始值的方法或属性时，后台都会创建一个相应原始包装类型的对象，从而暴露出操作原始值的各种方法。来看下面的例子：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> sl = <span class="string">&quot;some text&quot;</span>;</span><br><span class="line"><span class="keyword">let</span> s2 = sl.substring(<span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+<p>在这里，s1是一个包含字符串的变量，它是一个原始值。第二行紧接着在s1上调用了substring()方法，并把结果保存在s2中。我们知道，<strong>原始值本身不是对象，因此逻辑上不应该有方法</strong>。而实际上这个例子又确实按照预期运行了。这是因为后台进行了很多处理，从而实现了上述操作。具体来说，当第二行访问s1时，是以读模式访问的，也就是要从内存中读取变量保存的值。</p>
+<p>在以读模式访问字符串值的任何时候，后台都会执行以下3步：</p>
+<ol>
+<li><p><strong>创建一个string类型的实例；</strong></p>
+</li>
+<li><p><strong>调用实例上的特定方法；</strong></p>
+</li>
+<li><p><strong>销毁实例。</strong></p>
+</li>
+</ol>
+<p>可以把这3步想象成执行了如下3行ECMAScript代码：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> s1 = <span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">&quot;some text&quot;</span>);</span><br><span class="line"><span class="keyword">let</span> s2 = s1.substring(<span class="number">2</span>);</span><br><span class="line">s1 = <span class="literal">null</span>;</span><br></pre></td></tr></table></figure>
+<p>这种行为可以<strong>让原始值拥有有对象的行为</strong>，对布尔值和数值而言，以上3步也会在后台发生，只不过使用的是Boolean和Number包装类型而已。</p>
+<p><strong>引用类型与原始值包装类型的主要区别在于对象的生命周期</strong>，<strong>在通过new实例化引用类型后，得到的实例会在离开作用域时被销毁，而自动创建的原始值包装对象则只存在于访同它的那行代码执行期间。</strong></p>
+<p><strong>这意味着不能在运行时给原始值添加属性和方法</strong>。比如下面的倒子：</p>
+<p>可以显式地使用Boolean、Number和string构造函数创建原始值包装对象。不过应该在确实必要时再这么做，否则容易让开发者疑惑，分不清它们到底是原始值还是引用值。在原始值包装类型的实例上调用 <code>typeof</code> 会返回object，<strong>所有原始值包装对象都会转换为布尔值true</strong>。</p>
+<p>另外，Object 构透函数作为一个工厂方法，能够根据传入值的类型返回相应原始值包装类型的实例。比如：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = <span class="keyword">new</span> <span class="built_in">Object</span> (<span class="string">&quot;sometext&quot;</span>)；</span><br><span class="line"><span class="built_in">console</span>.log(obj intanceof string); <span class="comment">//-&gt; true</span></span><br><span class="line"><span class="comment">//如果传给Object的是字符串，则会创建一个String的实例。如果是数值，则会创建Number的实例。布尔值则会得到Boolean的实例。</span></span><br></pre></td></tr></table></figure>
+<p>注意，<strong>使用new调用原始值包装类型的构造函数，与调用同名的转型函数并不一样</strong>。例如：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> value = <span class="string">&quot;25&quot;</span>;</span><br><span class="line"><span class="keyword">let</span> number = <span class="built_in">Number</span>(value); <span class="comment">// 转型函数</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> number), <span class="comment">//-&gt; &quot;number”</span></span><br><span class="line"><span class="keyword">let</span> obj = <span class="keyword">new</span> <span class="built_in">Number</span>(value); <span class="comment">// 构造函數</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> obj); <span class="comment">//-&gt; &quot;object&quot;</span></span><br></pre></td></tr></table></figure>
+<p>虽然不推荐显式创建原始值包装类型的实例，但它们对于操作原始值的功能是很重要的。每个原值包装类型都有相应的一套方法来方便数据操作</p>
+<h3 id="5-3-1-Boolean"><a href="#5-3-1-Boolean" class="headerlink" title="5.3.1 Boolean"></a>5.3.1 Boolean</h3><p>Boolean是对应布尔值的引用类型。要创建一个Boolean对象，就使用Boolean构造函数并传true或false，如下例所示：</p>
+<p><code>let booleanobject = new Boolean(true);</code></p>
+<p>Boolean 的实例会重写 <code>valueOf()</code>方法，返回一个原始值true 或 false。<code>toString()</code>方法被调用时也会被覆盖，返回字符串”true”或”false”。不过，Boolean对象在ECMAScript中用得很少。不仅如此，它们还容易引起误会，尤其是在布尔表达式中使用Boolean对象时。</p>
+<p>除此之外，原始值和引用值(Boolean对象)还有几个区别。首先，<code>typeof</code>操作符对原始值返回“boolean”，但对引用值返回“object”。同样，Boolean对象是 Boolean 类型的实例，在使用 <code>instanceof</code> 操作符时返回true，但对原始值则返回false，如下所示：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> falseObject); <span class="comment">//-&gt; object</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> falseValue);  <span class="comment">//-&gt; boolean</span></span><br><span class="line"><span class="built_in">console</span>.log(falseObject <span class="keyword">instanceof</span> <span class="built_in">Boolean</span>);  <span class="comment">//-&gt; true</span></span><br><span class="line"><span class="built_in">console</span>.log(falseValue <span class="keyword">instanceof</span> <span class="built_in">Boolean</span>): <span class="comment">//-&gt; false</span></span><br></pre></td></tr></table></figure>
+<p><strong>理解原始布尔值和Boolean对象之间的区别非常重要，强烈建议永远不要使用后者</strong>。</p>
+<h3 id="5-3-2-Number"><a href="#5-3-2-Number" class="headerlink" title="5.3.2 Number `"></a>5.3.2 Number `</h3><p>Number是对应数值的引用类型。要创建一个Number对象，就使用Number构造函数并传入一个数值，如下例所示：</p>
+<p><code>let NumberObject = new Number(10);</code></p>
+<h4 id="1）继承的方法："><a href="#1）继承的方法：" class="headerlink" title="1）继承的方法："></a>1）继承的方法：</h4><p>与Boolean 类型一样，Number 类型重写了 <code>valueOf()</code> 、<code>totocalestring()</code> 和<code> toString()</code> 方法。</p>
+<p><code>valueOf()</code>方法返回Number对象表示的原始数值，另外两个方法返回数值字符串。</p>
+<p><code>toString()</code> 方法可选地接收一个表示基数的参数，并返回相应基数形式的数值字符串。</p>
+<h4 id="2）将数值格式化为字符串的方法："><a href="#2）将数值格式化为字符串的方法：" class="headerlink" title="2）将数值格式化为字符串的方法："></a>2）将数值格式化为字符串的方法：</h4><p><code>toFixed()</code> 方法返回包含指定小数点位数的数值字符串，如：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> num = <span class="number">10</span>;</span><br><span class="line"><span class="built_in">console</span>.log(num.toFixed(<span class="number">2</span>));  <span class="comment">//-&gt; &quot;10.00&quot;</span></span><br></pre></td></tr></table></figure>
+<p>如果数值本身的小数位超过了参数指定的位数，则四舍五入到最接近的小数位。这个特点可以用于处理货币。但是要注意，多个浮点数值的数学计算不一定得到精确的结果。</p>
+<blockquote>
+<p> 注意：<code>toFixed()</code>方法可以表示有0-20个小数位的数值。某些浏览器可能支持更大的范围，但这是通常被支持的范围。</p>
+</blockquote>
+<p><code>toExponential()</code>，返回以科学记数法(也称为指数记数法)表示的数值字符串。与<code>toFixed()</code>一样，该方法也接收一个参数，表示结果中小数的位。</p>
+<p><code>toPrecision()</code>方法会给根据情况返回最合理的验出结果。可能是固定长度，也可能是科学记数形式。这个方法接收一个参数，表示结果中数字的总位数(不包含指数)。来看几个例子：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> num = <span class="number">99</span>;</span><br><span class="line"><span class="built_in">console</span>.log(num.toprecision(<span class="number">1</span>));  <span class="comment">//-&gt; &quot;1e+2&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(num.toPrecision(<span class="number">2</span>));  <span class="comment">//-&gt; &quot;99&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(num.toPrecision(<span class="number">3</span>));  <span class="comment">//-&gt; &quot;99.0&quot;</span></span><br></pre></td></tr></table></figure>
+<p>在这个例子中，首先要用1位数字表示数值99，得到“1e+2”，也就是100。因为99不能只用1数字来精确表示，所以这个方法就将它舍入为100，这样就可以只用1位数字（及其科学记数法形式）来表示了。</p>
+<p>用2位数字表示99得到“99”，用3位数字则是“99.0”。本质上，<code>toPrecision()</code> 方法根据数值和精度来决定调用<code>toFixed()</code>还是<code>toExponentia1()</code>。为了以正确的小数位精确表示数值，这3个方法都会向上或向下s舍入。</p>
+<blockquote>
+<p>注意 <code>toprecisionl()</code>方法可以表示带1-21个小数位的数值。某些浏览器可能支持更大的范围，但这是通常被支持的范围。</p>
+</blockquote>
+<h4 id="3）-isInteger-方法与安全整数"><a href="#3）-isInteger-方法与安全整数" class="headerlink" title="3）**isInteger() 方法与安全整数** *"></a>3）**<code>isInteger()</code> 方法与安全整数** *</h4><p>ES6新增了 <code>Number.isInteger()</code> 方法，用于辨别一个数值是否保存为整数。</p>
+<p>IEEE 754数值格式有一个特殊的数值范围，在这个范围内二进制值可以表示一个整数值。这个数值范围从<code>Number.MIN_SAFE_INTEGER</code> (-2^53+1) 到 <code>Number.MAX_SAFE_INTEGER</code> (2^53-1)。对超出这个范围的数值，即使尝试保存为整数，IEEE754 编码格式也意味着二进制值可能会表示一个完全不同的数值。为了鉴别整数是否在这个范围内，可以使用 <code>Number.isSafeInteger()</code>方法：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Number</span>.isSafeInteger(-<span class="number">1</span> * (<span class="number">2</span> ** <span class="number">53</span>)));  <span class="comment">//-&gt;  false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Number</span>.isSafeInteger(-<span class="number">1</span> * (<span class="number">2</span> ** <span class="number">53</span>) + <span class="number">1</span>));  <span class="comment">//-&gt; true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Number</span>.isSafeInteger(<span class="number">2</span> ** <span class="number">53</span>)); <span class="comment">//-&gt; false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Number</span>.isSafeInteger((<span class="number">2</span> ** <span class="number">53</span>) - <span class="number">1</span>)); <span class="comment">//-&gt; true</span></span><br></pre></td></tr></table></figure>
+<br>
+
+<h3 id="5-3-3-String"><a href="#5-3-3-String" class="headerlink" title="5.3.3 String `"></a>5.3.3 String `</h3><p>String 是对应字符串的引用类型。要创建一个String对象，使用String构造函数并传入一个数值，如下例所示：</p>
+<p><code>let stringobject = new String(hello wor1d&quot;);</code></p>
+<p><strong>String对象的方法可以在所有字符串原始值上调用</strong>。3个继承的方法 <code>valueOf()</code>、<code>toLocaleString()</code>和<code>toString()</code>都返回对象的原始字符串值。每个String对象都有一个1ength属性，表示字符串中字符的数量。</p>
+<h4 id="1-JavaScript字符"><a href="#1-JavaScript字符" class="headerlink" title="1. JavaScript字符"></a>1. JavaScript字符</h4><p>1）<strong>16位码元字符</strong></p>
+<p>JavaScript字符串由<strong>16位码元</strong>(code unit)组成。对多数字符来说，每16位码元对应一个字符。换句话说，字符串的 <code>1ength</code>属性表示字符串包含多少16位码元；</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> message =<span class="string">&quot;abcde&quot;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(message.length); <span class="comment">//-&gt; 5</span></span><br></pre></td></tr></table></figure>
+<p><code>charAt ()</code> 方法返回给定索引位置的字符，由传给方法的整数参数指定。具体来说，这个方法查找指定索引位置的16位码元，并返回该码元对应的字符。</p>
+<p> <code>charCodeAt()</code>为法可以查看指定码元的字将编码码，这个方法返回指定索引位置的码元值，索引以整数指定：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> message = <span class="string">&#x27;abcde&#x27;</span>;</span><br><span class="line"><span class="comment">// Unicode &quot;Latin small letter C&quot; 的编码是 U+0063</span></span><br><span class="line"><span class="built_in">console</span>.log(message.charCodeAt(<span class="number">2</span>));  <span class="comment">//-&gt; 99</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//十进制 99 等于十六进制 63</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">99</span> === <span class="number">0x63</span>); <span class="comment">//-&gt; true</span></span><br></pre></td></tr></table></figure>
+<p><code>fromcharCode()</code>方法用于根据价定的UTF-16码元创建字符串中的字符。这个方法可以接受任意多个数值，并返回将所有数值对应的字符拼接起来的字符申：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Unicode &quot;Latin small letter a&quot; 的编码是 U+0061</span></span><br><span class="line"><span class="comment">//Unicode &quot;Latin small letter b&quot; 的编码是 U+0062</span></span><br><span class="line"><span class="comment">//Unicode &quot;Latin small letter C&quot; 的编码是 U+0063</span></span><br><span class="line"><span class="comment">//Unicode &quot;Latin small letter d&quot; 的编码是 U+0064</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">String</span>.fromCharCode(<span class="number">0x61</span>,<span class="number">0x62</span>,<span class="number">0x63</span>,<span class="number">0x64</span>));  <span class="comment">//-&gt; abcd</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//0x0061 === 97</span></span><br><span class="line"><span class="comment">//0x0062 === 98</span></span><br><span class="line"><span class="comment">//0x0063 === 99</span></span><br><span class="line"><span class="comment">//0x0064 === 100</span></span><br><span class="line"><span class="built_in">console</span>.log (<span class="built_in">String</span>.fromCharCode(<span class="number">97</span>,<span class="number">98</span>,<span class="number">99</span>,<span class="number">100</span>); <span class="comment">//-&gt; abcd</span></span><br></pre></td></tr></table></figure>
+<p><em>JavaScript字符串使用了两种Unicode编码混合的策略：UCS-2和UTF-16。对于可以采用16位编码的字符(U+0000 ~ U+FFFF)，这两种编码实际上是一样的。</em></p>
+<p>2）<strong>代理对</strong></p>
+<p>对于U+0000-U+FFFF范围内的字符，<code>length</code>、 <code>charAt()</code>、<code>charCodeAt()</code>和 <code>fromCharCode()</code> 返回的结果都跟预期是一样的。这是因为在这个范围内，每个字符都是用16位表示的，而这几个方法也都基于16位码元完成操作。只要字符编码大小与码元大小一一对应，这些方法就能如期工作。</p>
+<p>这个对应关系在扩展到 Unicode增补字符平面时就不成立了。问题很简单，即16位只能唯一表示<strong>65536</strong>个字符。这对于大多数语言字符集是足够了，在 Unicode中称为<strong>基本多语言平面</strong>(BMP)。为了表示更多的字符，Unicode采用了一个策略，即每个字符使用另外16位去选择一个<strong>增补平面</strong>。</p>
+<p>这种<strong>每字符使用两个16位码元</strong>的策略称为<strong>代理对</strong>。</p>
+<p>在涉及增补平面的字符时，前面讨论的字符串方法就会出问题。比如，下面的例子中使用了一个笑脸表情符号，也就是一个使用代理对编码的字符：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//&quot;smiling face with smiling eyes&quot;表情符号的編码是 U+1F60A</span></span><br><span class="line"><span class="comment">//0x1F60A === 128522</span></span><br><span class="line"><span class="keyword">let</span> message=<span class="string">&quot;ab☻de&quot;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(message.length); <span class="comment">//-&gt; 6</span></span><br><span class="line"><span class="built_in">console</span>.log(message.charAt(<span class="number">1</span>)); <span class="comment">//-&gt; b</span></span><br><span class="line"><span class="built_in">console</span>.log(message.charAt(<span class="number">2</span>)); <span class="comment">//-&gt; &lt;?&gt;</span></span><br><span class="line"><span class="built_in">console</span>.log(message.charAt(<span class="number">3</span>)); <span class="comment">//-&gt; &lt;?&gt;</span></span><br><span class="line"><span class="built_in">console</span>.log(message.charAt(<span class="number">4</span>)); <span class="comment">//-&gt; d</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(message.charCodeAt(<span class="number">1</span>)); <span class="comment">//-&gt; 98</span></span><br><span class="line"><span class="built_in">console</span>.log(message.charCodeAt(<span class="number">2</span>)); <span class="comment">//-&gt; 55357</span></span><br><span class="line"><span class="built_in">console</span>.log(message.charCodeAt(<span class="number">3</span>)); <span class="comment">//-&gt; 56842</span></span><br><span class="line"><span class="built_in">console</span>.log(message.charCodeAt(<span class="number">4</span>)); <span class="comment">//-&gt; 100</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">String</span>.fromCodePoint(<span class="number">0x1F60A</span>));  <span class="comment">//-&gt; ☻</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">String</span>.fromCharCode(<span class="number">97</span>,<span class="number">98</span>,<span class="number">55357</span>,<span class="number">56842</span>,<span class="number">100</span>,<span class="number">101</span>)); <span class="comment">//-&gt; ab☻de</span></span><br></pre></td></tr></table></figure>
+<p>这些方法仍然将16位码元当作一个字符，事实上<strong>索引2和索引3对应的码元应该被看成一个代理对，只对应一个字符</strong>。<code>fromCharCode()</code>方法仍然返回正确的结果，因为它实际上是基于提供的二进制表示直接组合成字符串。浏览器可以正确解析代理对(由两个码元构成)，并正确地将其识别为一个Unicode笑脸字符。</p>
+<p>为正确解析既包含单码元字符又包含代理对字符的字符串，可以使用 <code>codePointAt()</code> 来代替 <code>charCodeAt()</code> 。跟使用<code>charCodeAt()</code>时类似，<code>codePointAt()</code> 接收16位码元的索引并返回该索引位置上的码点(code point)。码点是Unicode中一个字符的完整标识。比如，“ c ”的码点是0x0063，而“ ☻ ”的码点是0x1F60A。码点可能是16位，也可能是32位，而 <code>codePointAt()</code>方法可以从指定码元位置识别完整的码点。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> message = <span class="string">&quot;ab☻de&quot;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(message.codePointAt(<span class="number">1</span>));  <span class="comment">//-&gt; 98</span></span><br><span class="line"><span class="built_in">console</span>.log(message.codePointAt(<span class="number">2</span>));  <span class="comment">//-&gt; 128522</span></span><br><span class="line"><span class="built_in">console</span>.log(measage.codePointAt(<span class="number">3</span>));  <span class="comment">//-&gt; 56842</span></span><br><span class="line"><span class="built_in">console</span>.log(message.codePointAt(<span class="number">4</span>));  <span class="comment">//-&gt; 100</span></span><br></pre></td></tr></table></figure>
+<p>注意，如果传入的码元索引并非代理对的开头，就会返回错误的码点。这种错误只有检测单个字的时候才会出现，可以通过从左到右按正确的码元数遍历字符串来规避。迭代字符串可以智能地识别理对的码点：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log([...<span class="string">&quot;ab☻de&quot;</span>]);  <span class="comment">//-&gt; [&quot;a&quot;,&quot;b&quot;,&quot;☻&quot;,&quot;d&quot;,&quot;e&quot;]</span></span><br></pre></td></tr></table></figure>
+<p><code>fromCharCode()</code>也有一个对应的 <code>fromcodePoint()</code>。 这个方法接收任意数量的码点，返回对应字符拼接起来的字符串：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">String</span>.fromCharCode(<span class="number">97</span>,<span class="number">98</span>,<span class="number">55357</span>,<span class="number">56842</span>,<span class="number">100</span>,<span class="number">101</span>));  <span class="comment">//-&gt; ab☻de </span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">String</span>.fromCodePoint(<span class="number">97</span>,<span class="number">98</span>,<span class="number">128522</span>,<span class="number">100</span>,<span class="number">101</span>));  <span class="comment">//-&gt; ab☻de</span></span><br></pre></td></tr></table></figure>
+
+
+<h4 id="2-normalize-方法"><a href="#2-normalize-方法" class="headerlink" title="2. normalize()方法"></a>2. normalize()方法</h4><p>某些 Unicode字符可以有多种编码方式。有的字符既可以通过一个BMP字符表示，也可以通过代理对表示。</p>
+<blockquote>
+<p>该方法主要是为字符串应用四种规范化形式：NFD、NFC，NFKD和NFKC。至于这四种形式具体含义和该方法的使用，因为应用情况的罕见这里不作总结。可以自行百度了解。</p>
+</blockquote>
+<h4 id="3-字符串操作方法"><a href="#3-字符串操作方法" class="headerlink" title="3. 字符串操作方法"></a>3. 字符串操作方法</h4><p><code>concat()</code> 用于将一个或多个字符串拼接成一个新字符串。</p>
+<p><code>slice()</code>、<code>substr()</code>、<code>subString()</code> 用于从字符串中提取子字符串。</p>
+<h4 id="4-字符串位置方法"><a href="#4-字符串位置方法" class="headerlink" title="4. 字符串位置方法"></a>4. 字符串位置方法</h4><p><code>indexOf()</code> 和 <code>lastIndexOf()</code> 用于在字符串中定位子字符串。</p>
+<h4 id="5-字符串包含方法"><a href="#5-字符串包含方法" class="headerlink" title="5. 字符串包含方法 *"></a>5. 字符串包含方法 *</h4><p>ES6新增了3个用于判断字符串中是否包含另一个字符串的方法：<code>startsWith()</code> 、 <code>endWith()</code> 和 <code>includes()</code>。</p>
+<h4 id="6-trim-方法"><a href="#6-trim-方法" class="headerlink" title="6. trim()方法"></a>6. trim()方法</h4><p>ECMAScript在所有字符串上都提供了 <code>trim()</code> 方法。这个方法会创建字符串的一个副本，删除前、后所有空格符，再返回结果。原始字符串不会受影响。</p>
+<p><code>trimLeft()</code> 和 <code>trimRight()</code> 方法分别用于从字符串开始和结尾清理空格符。</p>
+<h4 id="7-repeat-方法"><a href="#7-repeat-方法" class="headerlink" title="7. repeat()方法"></a>7. repeat()方法</h4><p>ECMAScript在所有字符串上都提供了 <code>repeat()</code> 方法。这个方法接收一个整数参数，表示要将字符串复制多少次，然后返回拼接所有副本后的结果。</p>
+<h4 id="8-padStart-和-padEnd-方法"><a href="#8-padStart-和-padEnd-方法" class="headerlink" title="8. padStart() 和 padEnd() 方法"></a>8. padStart() 和 padEnd() 方法</h4><p> <code>padStart()</code> 和 <code>padEnd()</code> 方法会复制字符串，如果小于指定长度，则在相应一边填充字符，直至满足长度条件。这两个方法的第一个参数是长度，第二个参数是可选的填充字符串，默认为空格（U+0020）。</p>
+<h4 id="9-字符串迭代与解构"><a href="#9-字符串迭代与解构" class="headerlink" title="9. 字符串迭代与解构"></a>9. 字符串迭代与解构</h4><p>字符中的原型上暴露了一个<code>@@iterator</code>方法，表示可以迭代字符串的每个字符。可以像下面这样手动使用迭代器：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> message = <span class="string">&quot;abc&quot;</span>;</span><br><span class="line"><span class="keyword">let</span> stringIterator = message[<span class="built_in">Symbol</span>.iterator]();</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(stringIterator.next());  <span class="comment">//-&gt; (value:&quot;a&quot;, done:false)</span></span><br><span class="line"><span class="built_in">console</span>.log(stringIterator.next());  <span class="comment">//-&gt; (value:&quot;b&quot;, done:false)</span></span><br><span class="line"><span class="built_in">console</span>.log(stringIterator.next());  <span class="comment">//-&gt; (value:&quot;c&quot;, done:false)</span></span><br><span class="line"><span class="built_in">console</span>.log(stringIterator.next());  <span class="comment">//-&gt; (value: undefined, done: true)</span></span><br></pre></td></tr></table></figure>
+
+<p>在for-of循环中可以通过这个迭代器按序访问每个字符：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> c <span class="keyword">of</span> <span class="string">&quot;abcde&quot;</span>)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(c);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//-&gt; a</span></span><br><span class="line"><span class="comment">//-&gt; b</span></span><br><span class="line"><span class="comment">//-&gt; c</span></span><br><span class="line"><span class="comment">//-&gt; d</span></span><br><span class="line"><span class="comment">//-&gt; e</span></span><br></pre></td></tr></table></figure>
+
+<p>有了这个迭代器之后，字符串就可以通过解构操作符来解构了。比如，可以更方便地把字符串分割为字符数组：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> message = <span class="string">&quot;abcde&quot;</span>;</span><br><span class="line"><span class="built_in">console</span>.log([...message]); <span class="comment">//-&gt; [&quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;d&quot;,&quot;e&quot;]</span></span><br></pre></td></tr></table></figure>
+<h4 id="10-字符串大小写转换"><a href="#10-字符串大小写转换" class="headerlink" title="10.字符串大小写转换"></a>10.字符串大小写转换</h4><p>下一组方法涉及大小写转换，包括4个方法：<code>toLowerCase()</code>、<code>tolocaleLowerCase()</code> 、<code>toUpperCase()</code> 和 <code>toLocaleCase()</code>。</p>
+<h4 id="11-字符串模式匹配方法"><a href="#11-字符串模式匹配方法" class="headerlink" title="11. 字符串模式匹配方法"></a>11. 字符串模式匹配方法</h4><p>匹配字符串：<code>match()</code> 。本质上与RegExp对象的 <code>exec()</code> 方法相同。</p>
+<p>查找字符串：<code>search()</code> 。</p>
+<p>替换字符串：<code>replace()</code> 。</p>
+<p>拆分字符串：<code>split()</code> 。</p>
+<h4 id="12-localeCompare-方法"><a href="#12-localeCompare-方法" class="headerlink" title="12. localeCompare() 方法"></a>12. localeCompare() 方法</h4><h2 id="5-4-单例内置对象"><a href="#5-4-单例内置对象" class="headerlink" title="5.4 单例内置对象"></a>5.4 单例内置对象</h2><p>ECMA-262对内置对象的定义是“<strong>任何由ECMAScript实现提供、与宿主环境无关，并在ECMAScript程序开始执行时就存在的对象</strong>”。这就意味着，开发者不用显式地实例化内置对象，因为它们已经实例化好了。前面我们已经接触了大部分内置对象，包括Object、Array和String。本节介绍 ECMA-262定义的另外两个单例内置对象：G1obal和Math。</p>
+<h3 id="5-4-1-Global"><a href="#5-4-1-Global" class="headerlink" title="5.4.1 Global"></a>5.4.1 Global</h3><p>G1obal对象是ECMAScript中最特别的对象，因为代码不会显式地访问它。ECMA-262规定G1obal对象为一种兜底对象，它所针对的是不属于任何对象的属性和方法。</p>
+<p><strong>事实上，不存在全局变量或全局函数这种东西。在全局作用域中定义的变量和函数都会变成G1obal对象的属性。</strong></p>
+<p>本书前面介绍的函数，包括 <code>isNaN()</code>、<code>isFinite()</code>、<code>parseInt()</code>和 <code>parseFloat()</code>，实际上都是G1obal对象的方法。除了这些，G1obal对象上还有另外一些方法。</p>
+<h4 id="1-URL编码方法"><a href="#1-URL编码方法" class="headerlink" title="1. URL编码方法"></a>1. URL编码方法</h4><p><code>encodeURI()</code>和 <code>encodeURIComponent()</code>方法用于编码统一资源标识符(URI)，以便传给浏览器。有效的URI不能包含某些字符，比如空格。使用URI编码方法来编码URI可以让浏览器能够理解它们，同时又以特殊的UTF-8编码替换掉所有无效字符。</p>
+<p><code>ecnodeURI()</code>方法用于对整个URI进行编码，比如 “<a href="http://www.wrox.com/illegal">www.wrox.com/illegal</a> value.js”。而<code>encodeURIComponent()</code>方法用于编码URI中单独的组件，比如前面URL中的 “i11egal value.js”。</p>
+<h4 id="2-eval-方法"><a href="#2-eval-方法" class="headerlink" title="2. eval() 方法"></a>2. eval() 方法</h4><p>这个方法可能是整个ECMAScript语言中最强大的了。这个方法就是一个完整的ECMAScript解释器，它接收一个参数，即一个要执行的ECMAScript字符串：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">eval</span>(<span class="string">&quot;alert(&#x27;hello&#x27;)&quot;</span><span class="string">&quot;);</span></span><br><span class="line"><span class="string">//等价于下面的语句</span></span><br><span class="line"><span class="string">alert(&quot;</span>hello<span class="string">&quot;);</span></span><br></pre></td></tr></table></figure>
+<p>当解释器发现 <code>eval()</code> 调用时，会将参数解释为实际的ES语句，然后将其插入到该位置。通过 <code>eval()</code> 执行的代码属于该调用所在的上下文，被执行的代码与该上下文<strong>拥有相同的作用域链</strong>。这意味着定义在包含上下文中的变量可以在 <code>eval()</code> 调用内部被引用，比如下面这个例子：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> msg = <span class="string">&quot;hello world&quot;</span>;</span><br><span class="line"><span class="built_in">eval</span>(<span class="string">&quot;console.log(msg)&quot;</span>);  <span class="comment">//-&gt; &quot;hello world&quot;</span></span><br></pre></td></tr></table></figure>
+<p>通过 <code>eval()</code> 定义的任何变量和函数都<strong>不会被提升</strong>，这是因为在解析代码的时候，它们是被包含在一个字符串中的。它们只是在 <code>eval()</code> 执行的时候才会被创建。</p>
+<p>在严格模式下，在 <code>eval()</code> 内部创建的变量和函数无法被外部访问。</p>
+<blockquote>
+<p>注意：解释代码字符串的能力是非常强大的，但也非常危险。在使用 <code>eval()</code>的时候必须极为慎重，特别是在解释用户输入的内容时。因为这个方法会对XSS利用暴露出很大的攻击面。恶意用户可能插入会导致你网站或应用崩溃的代码。</p>
+</blockquote>
+<h4 id="3-Global对象属性"><a href="#3-Global对象属性" class="headerlink" title="3. Global对象属性"></a>3. Global对象属性</h4><blockquote>
+<p>这里不再列出。</p>
+</blockquote>
+<h4 id="4-window对象"><a href="#4-window对象" class="headerlink" title="4. window对象"></a>4. window对象</h4><p>虽然ECMA-262没有规定直接访问Global对象的方式，但<strong>浏览器将window对象实现为Global对象的代理</strong>。因此，所有全局作用域中声明的变量和函数都变成了window的属性。</p>
+<blockquote>
+<p>window对象会在第12章更加详细的介绍。</p>
+</blockquote>
+<h3 id="5-4-2-Math"><a href="#5-4-2-Math" class="headerlink" title="5.4.2 Math"></a>5.4.2 Math</h3><blockquote>
+<p>这里不再介绍。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>JavaScript</category>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>map与object的差异与选择</title>
+    <url>/2021/03/18/map%E4%B8%8Eobject%E7%9A%84%E5%B7%AE%E5%BC%82%E4%B8%8E%E9%80%89%E6%8B%A9/</url>
+    <content><![CDATA[<h1 id="Map与Object的差异与选择"><a href="#Map与Object的差异与选择" class="headerlink" title="Map与Object的差异与选择"></a>Map与Object的差异与选择</h1><p>ES6以前，我们可以使用Object方便高效地完成“键/值”式的存储，但是这种实现并非没有问题。因此，TC39委员会专门为“键/值”存储定义了一个规范，即Map。它是一种新的集合类型，为这门语言带来了真正地键/值存储机制。</p>
+<a id="more"></a>
+
+<h2 id="Object和Map的细微语法差异"><a href="#Object和Map的细微语法差异" class="headerlink" title="Object和Map的细微语法差异"></a>Object和Map的细微语法差异</h2><h3 id="1-键的数据类型"><a href="#1-键的数据类型" class="headerlink" title="1. 键的数据类型"></a>1. 键的数据类型</h3><p><strong>与Object只能使用数值、字符串或符号作为键不同，Map可以使用任何JS的数据类型作为键。</strong></p>
+<p>Map内部使用<strong>严格对象相等</strong>的标准来检查键的匹配性。当然，与Object类似，映射的值是没有限制的。</p>
+<br>
+<!--more-->
+
+<h3 id="2-顺序与迭代"><a href="#2-顺序与迭代" class="headerlink" title="2. 顺序与迭代"></a>2. 顺序与迭代</h3><p>与Object类型的一个主要差异是，Map实例会维护键值对的插入顺序，这也就意味着<strong>可以根据插入顺序进行迭代操作</strong>。</p>
+<p><strong>迭代方式：</strong></p>
+<p>1）映射实例可以提供一个迭代器（Iterator），能以插入顺序生成 [key,value] 形式的数组。可以通过<code>entries()</code>方法（或者<code>Symbol.iterator</code> 属性，它引用 <code>entries()</code> 方法）取得这个迭代器。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> m = <span class="keyword">new</span> <span class="built_in">Map</span>([</span><br><span class="line">    [<span class="string">&quot;key1&quot;</span>,<span class="string">&quot;val1&quot;</span>],</span><br><span class="line">    [<span class="string">&quot;key2&quot;</span>,<span class="string">&quot;val2&quot;</span>],</span><br><span class="line">    [<span class="string">&quot;key3&quot;</span>,<span class="string">&quot;val3&quot;</span>]</span><br><span class="line">]);</span><br><span class="line"></span><br><span class="line"><span class="comment">//Symbol.iterator引用entries()方法</span></span><br><span class="line">alert(m.entries === m[<span class="built_in">Symbol</span>.iterator]);  <span class="comment">//-&gt; true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//迭代，使用m[Symbol.iterator]一样可以</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> pair <span class="keyword">of</span> m.entries())  alert(pair);</span><br><span class="line"><span class="comment">//-&gt; [key1,val1]</span></span><br><span class="line"><span class="comment">//-&gt; [key2,val2]</span></span><br><span class="line"><span class="comment">//-&gt; [key3,val3]</span></span><br></pre></td></tr></table></figure>
+<p>因为<code>entries()</code>是默认迭代器，所以<strong>可以直接对映射实例使用扩展操作，把映射转化为数组</strong>：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> m = <span class="keyword">new</span> <span class="built_in">Map</span>([</span><br><span class="line">    [<span class="string">&quot;key1&quot;</span>,<span class="string">&quot;val1&quot;</span>],</span><br><span class="line">    [<span class="string">&quot;key2&quot;</span>,<span class="string">&quot;val2&quot;</span>],</span><br><span class="line">    [<span class="string">&quot;key3&quot;</span>,<span class="string">&quot;val3&quot;</span>]</span><br><span class="line">]);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log([...m]);  <span class="comment">//-&gt; [[key1,val1],[ley2,val2],[key3,val3]]</span></span><br></pre></td></tr></table></figure>
+<p>2）不使用迭代器，而是用回调方式的话，可以调用映射的<code>forEach()</code> 方法并传入回调，依次迭代每个键值对。传入的回调接收可选的第二个参数，这个参数用于重写回调内部this的值：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> m = <span class="keyword">new</span> <span class="built_in">Map</span>([</span><br><span class="line">    [<span class="string">&quot;key1&quot;</span>,<span class="string">&quot;val1&quot;</span>],</span><br><span class="line">    [<span class="string">&quot;key2&quot;</span>,<span class="string">&quot;val2&quot;</span>],</span><br><span class="line">    [<span class="string">&quot;key3&quot;</span>,<span class="string">&quot;val3&quot;</span>]</span><br><span class="line">]);</span><br><span class="line"></span><br><span class="line">m.forEach(<span class="function">(<span class="params">val,key</span>) =&gt;</span> alert(<span class="string">`<span class="subst">$&#123;key&#125;</span> -&gt; <span class="subst">$&#123;val&#125;</span>`</span>));</span><br><span class="line"><span class="comment">// key1 -&gt; val1</span></span><br><span class="line"><span class="comment">// key2 -&gt; val2</span></span><br><span class="line"><span class="comment">// key3 -&gt; val3</span></span><br></pre></td></tr></table></figure>
+<p>3）<code>keys()</code> 和 <code>values()</code> 分别返回以插入顺序生成键和值的迭代器。</p>
+<p>键和值在迭代器遍历时是可以修改的，但映射内部的引用无法修改。当然，这并不妨碍修改作为键或值的的对象内部的属性，因为这并不影响它们在映射实例中的身份。</p>
+<br>
+
+<h2 id="选择Object还是Map"><a href="#选择Object还是Map" class="headerlink" title="选择Object还是Map"></a>选择Object还是Map</h2><blockquote>
+<p>以下内容直接采用红宝书原话。结论直接看加粗文本。</p>
+</blockquote>
+<p>对于多数 Web开发任务来说，选择Object还是Map只是个人偏好问题，影响不大。不过，对于在乎内存和性能的开发者来说，对象和映射之间确实存在显著的差别。</p>
+<ol>
+<li><p>内存占用</p>
+<p>Object和Map的工程级实现在不同浏览器间存在明显差异，但<strong>存储单个键值对所占用的内存数都会随键的数量线性增加</strong>。批量添加或删除键/值对则取决于各浏览器对该类型内存分配的工程实现不同浏览器的情况不同，<strong>但给定固定大小的内存，Map大约可以比Object多存储50%的键/值对</strong>。</p>
+</li>
+<li><p>插入性能</p>
+<p>向Object和Map中插入新键/值对的消耗大致相当，不过插入Map在所有浏览器中一般会稍微快一点儿。对这两个类型来说，插入速度并不会随着键/值对数量而线性增加。<strong>如果代码涉及大量插入操作，那么显然Map的性能更佳。</strong></p>
+</li>
+<li><p>查找速度</p>
+<p>与插入不同，从大型Object和Map中查找键/值对的性能差异极小，但如果只包含少量键/值对，则Object有时候速度更快。在把object当成数组使用的情况下(比如使用连续整数作为属性)，浏览器引擎可以进行优化，在内存中使用更高效的布局。这对Map来说是不可能的。<strong>对这两个类型而言，查找速度不会随着键/值对数量增加而线性增加</strong>。如果<strong>代码涉及大量查找操作，那么某些情况下可能选择Object更好一些</strong>。</p>
+</li>
+<li><p>删除性能</p>
+<p>使用delete删除Object属性的性能一直以来饱受诟病，目前在很多浏览器中仍然如此。为此，出现了一些伪删除对象属性的操作，包括把属性值设置为undefined或null。但很多时候，这都是一种讨厌的或不适宜的折中。而对大多数浏览器引擎来说，Map的 delete() 操作都比插入和查找更快。<strong>如果代码涉及大量删除操作，那么毫无疑问应该选择Map</strong>。</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>JavaScript</category>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>ajax学习笔记(新)</title>
     <url>/2021/02/05/ajax%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/</url>
     <content><![CDATA[<h2 id="1-Ajax实现步骤"><a href="#1-Ajax实现步骤" class="headerlink" title="1. Ajax实现步骤"></a>1. Ajax实现步骤</h2><ol>
