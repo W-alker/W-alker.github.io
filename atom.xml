@@ -68,7 +68,7 @@
     <link href="http://example.com/2021/03/18/JavaScript%E7%BA%A2%E5%AE%9D%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%882%EF%BC%89/"/>
     <id>http://example.com/2021/03/18/JavaScript%E7%BA%A2%E5%AE%9D%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%882%EF%BC%89/</id>
     <published>2021-03-18T11:57:23.000Z</published>
-    <updated>2021-03-18T12:00:29.985Z</updated>
+    <updated>2021-03-18T12:08:56.996Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;第四章：变量、作用域与内存&quot;&gt;&lt;a href=&quot;#第四章：变量、作用域与内存&quot; class=&quot;headerlink&quot; title=&quot;第四章：变量、作用域与内存&quot;&gt;&lt;/a&gt;第四章：变量、作用域与内存&lt;/h1&gt;&lt;h2 id=&quot;4-1-原始值与引用值&quot;&gt;&lt;a href=&quot;#4-1-原始值与引用值&quot; class=&quot;headerlink&quot; title=&quot;4.1 原始值与引用值&quot;&gt;&lt;/a&gt;4.1 原始值与引用值&lt;/h2&gt;&lt;p&gt;ECMAScript变量可以包含两种不同类型的数据：&lt;strong&gt;原始值&lt;/strong&gt;和&lt;strong&gt;引用值&lt;/strong&gt;。原始值(primitive value)就是最简单的数据，引用值(reference value)则是由多个值构成的对象。&lt;/p&gt;
@@ -85,10 +85,14 @@
     
     <category term="学习笔记" scheme="http://example.com/categories/JavaScript/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
+    <category term="读书笔记" scheme="http://example.com/categories/JavaScript/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    
     
     <category term="学习笔记" scheme="http://example.com/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     <category term="JavaScript" scheme="http://example.com/tags/JavaScript/"/>
+    
+    <category term="读书笔记" scheme="http://example.com/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
@@ -97,7 +101,7 @@
     <link href="http://example.com/2021/03/18/h%E7%BA%A2%E5%AE%9D%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%AC%AC%E4%BA%94%E7%AB%A0/"/>
     <id>http://example.com/2021/03/18/h%E7%BA%A2%E5%AE%9D%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%AC%AC%E4%BA%94%E7%AB%A0/</id>
     <published>2021-03-18T11:54:08.000Z</published>
-    <updated>2021-03-18T12:00:50.463Z</updated>
+    <updated>2021-03-18T12:09:15.025Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;第五章：基本引用类型&quot;&gt;&lt;a href=&quot;#第五章：基本引用类型&quot; class=&quot;headerlink&quot; title=&quot;第五章：基本引用类型&quot;&gt;&lt;/a&gt;第五章：基本引用类型&lt;/h1&gt;&lt;p&gt;引用值（或者对象）是某个特定&lt;strong&gt;引用类型&lt;/strong&gt;的&lt;strong&gt;实例&lt;/strong&gt;。新对象通过使用new操作符后跟一个构造函数（constructor）来创建。&lt;/p&gt;</summary>
@@ -108,10 +112,14 @@
     
     <category term="学习笔记" scheme="http://example.com/categories/JavaScript/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
+    <category term="读书笔记" scheme="http://example.com/categories/JavaScript/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    
     
     <category term="学习笔记" scheme="http://example.com/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     <category term="JavaScript" scheme="http://example.com/tags/JavaScript/"/>
+    
+    <category term="读书笔记" scheme="http://example.com/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
@@ -120,7 +128,7 @@
     <link href="http://example.com/2021/03/18/map%E4%B8%8Eobject%E7%9A%84%E5%B7%AE%E5%BC%82%E4%B8%8E%E9%80%89%E6%8B%A9/"/>
     <id>http://example.com/2021/03/18/map%E4%B8%8Eobject%E7%9A%84%E5%B7%AE%E5%BC%82%E4%B8%8E%E9%80%89%E6%8B%A9/</id>
     <published>2021-03-18T09:55:05.000Z</published>
-    <updated>2021-03-18T12:01:14.867Z</updated>
+    <updated>2021-03-18T12:09:24.083Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;Map与Object的差异与选择&quot;&gt;&lt;a href=&quot;#Map与Object的差异与选择&quot; class=&quot;headerlink&quot; title=&quot;Map与Object的差异与选择&quot;&gt;&lt;/a&gt;Map与Object的差异与选择&lt;/h1&gt;&lt;p&gt;ES6以前，我们可以使用Object方便高效地完成“键/值”式的存储，但是这种实现并非没有问题。因此，TC39委员会专门为“键/值”存储定义了一个规范，即Map。它是一种新的集合类型，为这门语言带来了真正地键/值存储机制。&lt;/p&gt;</summary>
@@ -131,10 +139,14 @@
     
     <category term="学习笔记" scheme="http://example.com/categories/JavaScript/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
+    <category term="读书笔记" scheme="http://example.com/categories/JavaScript/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    
     
     <category term="学习笔记" scheme="http://example.com/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     <category term="JavaScript" scheme="http://example.com/tags/JavaScript/"/>
+    
+    <category term="读书笔记" scheme="http://example.com/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
