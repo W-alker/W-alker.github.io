@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+
+<head>
+  <meta charset="utf-8" />
+   
+  <meta name="keywords" content="路修远,博客,ayer,学习笔记,前端,萌新" />
+   
+  <meta name="description" content="路修远个人博客,前端萌新" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    记录大创（3） |  路修远
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="路修远" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-记录大创（3）"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  记录大创（3）
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/03/24/%E8%AE%B0%E5%BD%95%E5%A4%A7%E5%88%9B%EF%BC%883%EF%BC%89/" class="article-date">
+  <time datetime="2021-03-24T12:24:20.000Z" itemprop="datePublished">2021-03-24</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%A4%A7%E5%88%9B/">大创</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">1.5k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">6 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Express使用nodemailer完成邮箱验证功能详细流程（含封装，可作自定义模块）"><a href="#Express使用nodemailer完成邮箱验证功能详细流程（含封装，可作自定义模块）" class="headerlink" title="Express使用nodemailer完成邮箱验证功能详细流程（含封装，可作自定义模块）"></a>Express使用nodemailer完成邮箱验证功能详细流程（含封装，可作自定义模块）</h1><blockquote>
+<p>在express中使用第三方模块nodemailer完成邮箱验证功能，含客户端请求验证邮件和服务端发送验证码和判断验证码。</p>
+</blockquote>
+<h2 id="1-安装和引入模块"><a href="#1-安装和引入模块" class="headerlink" title="1. 安装和引入模块"></a>1. 安装和引入模块</h2><p><strong>安装</strong>：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i nodemailer -<span class="literal">-save</span></span><br></pre></td></tr></table></figure>
+<p><strong>引入</strong>：</p>
+<p>我们先新建一个 <code>mail.js</code> 文件作为包含发送邮件功能的模块。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* mail.js文件，发送邮件模块*/</span></span><br><span class="line"><span class="keyword">const</span> nodemailer = <span class="built_in">require</span>(<span class="string">&#x27;nodemailer&#x27;</span>);  </span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123; sendMail &#125;;  <span class="comment">//最后暴露一个sendMail方法，之后会进行这个方法的封装</span></span><br></pre></td></tr></table></figure>
+<p>在其他的路由文件中：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> mail = <span class="built_in">require</span>(<span class="string">&quot;./mail&quot;</span>); <span class="comment">//引入我们的自定义模块</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> app = express.Router();   <span class="comment">//路由</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+
+<br>
+
+<h2 id="2-封装自定义模块"><a href="#2-封装自定义模块" class="headerlink" title="2. 封装自定义模块"></a>2. 封装自定义模块</h2><h3 id="准备："><a href="#准备：" class="headerlink" title="准备："></a>准备：</h3><p>使用 <code>nodemailer</code> 这个模块需要我们有一个能发送邮件的邮箱，使用QQ邮箱。此外，需要我们到邮箱中开启 <strong>POP3/SMTP</strong> 服务，开启方法如下：</p>
+<blockquote>
+<p>登录邮箱–&gt; 邮箱首页上方点击“设置” –&gt; 邮箱设置中点击“账户” –&gt; 下滑找到“开启服务” –&gt;点击POP3/SMTP服务，之后按提示完成开启。</p>
+</blockquote>
+<h3 id="模块中配置邮箱："><a href="#模块中配置邮箱：" class="headerlink" title="模块中配置邮箱："></a>模块中配置邮箱：</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* mail.js文件，发送邮件模块*/</span></span><br><span class="line"><span class="comment">//配置邮箱</span></span><br><span class="line"><span class="keyword">let</span> transporter = nodemailer.createTransport(&#123;</span><br><span class="line">  host: <span class="string">&quot;smtp.qq.com&quot;</span>,</span><br><span class="line">  secureConnection: <span class="literal">true</span>, <span class="comment">// use SSL</span></span><br><span class="line">  port: <span class="number">465</span>,</span><br><span class="line">  secure: <span class="literal">true</span>, <span class="comment">// secure:true for port 465, secure:false for port 587</span></span><br><span class="line">  auth: &#123;</span><br><span class="line">    user: <span class="string">&quot;XXXXXXX@qq.com&quot;</span>,   <span class="comment">//其他的不要动，更改邮箱</span></span><br><span class="line">    pass: <span class="string">&quot;XXXXXX&quot;</span>,    <span class="comment">// QQ邮箱需要使用的授权码</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="封装发送邮件方法sendMail"><a href="#封装发送邮件方法sendMail" class="headerlink" title="封装发送邮件方法sendMail()"></a>封装发送邮件方法sendMail()</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//参数：mail：需要发送的邮件地址；code：验证码</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sendMail</span>(<span class="params">mail, code</span>) </span>&#123;</span><br><span class="line">    </span><br><span class="line">  <span class="comment">// 设置邮件内容（谁发送什么给谁）</span></span><br><span class="line">  <span class="keyword">let</span> mailOptions = &#123;</span><br><span class="line">    <span class="keyword">from</span>: <span class="string">&#x27;&quot; XXX &quot; &lt;XXXXXX@qq.com&gt;&#x27;</span>,   <span class="comment">// 发件人</span></span><br><span class="line">    to: mail,     <span class="comment">// 收件人</span></span><br><span class="line">    subject: <span class="string">&quot;邮箱验证&quot;</span>,    <span class="comment">// 主题</span></span><br><span class="line">    text: <span class="string">`您正在尝试修改密码,您的验证码是 <span class="subst">$&#123;code&#125;</span>,有效期5分钟。`</span>,   <span class="comment">// 直接发送文本</span></span><br><span class="line">    <span class="comment">//html: &quot;&lt;b&gt;验证功能&lt;/b&gt;&quot;,       // 也可以发送html格式文本</span></span><br><span class="line">    <span class="comment">// 下面是发送附件，不需要就注释掉</span></span><br><span class="line">    <span class="comment">/*     attachments: [</span></span><br><span class="line"><span class="comment">      &#123;</span></span><br><span class="line"><span class="comment">        filename: &quot;test.md&quot;,</span></span><br><span class="line"><span class="comment">        path: &quot;./test.md&quot;,</span></span><br><span class="line"><span class="comment">      &#125;,</span></span><br><span class="line"><span class="comment">      &#123;</span></span><br><span class="line"><span class="comment">        filename: &quot;content&quot;,</span></span><br><span class="line"><span class="comment">        content: &quot;发送内容&quot;,</span></span><br><span class="line"><span class="comment">      &#125;,</span></span><br><span class="line"><span class="comment">    ], */</span></span><br><span class="line">  &#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//这里返回一个异步操作</span></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 使用先前创建的传输器的 sendMail 方法传递消息对象</span></span><br><span class="line">    transporter.sendMail(mailOptions, <span class="function">(<span class="params">error, info</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span>(error) reject();      </span><br><span class="line">      <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">`Message: <span class="subst">$&#123;info.messageId&#125;</span>`</span>);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">`sent: <span class="subst">$&#123;info.response&#125;</span>`</span>);</span><br><span class="line">        resolve();</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="完整的自定义模块："><a href="#完整的自定义模块：" class="headerlink" title="完整的自定义模块："></a>完整的自定义模块：</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* mail.js文件，发送邮件模块*/</span></span><br><span class="line"><span class="keyword">const</span> nodemailer = <span class="built_in">require</span>(<span class="string">&#x27;nodemailer&#x27;</span>);  </span><br><span class="line"></span><br><span class="line"><span class="comment">/* mail.js文件，发送邮件模块*/</span></span><br><span class="line"><span class="comment">//配置邮箱</span></span><br><span class="line"><span class="keyword">let</span> transporter = nodemailer.createTransport(&#123;</span><br><span class="line">  host: <span class="string">&quot;smtp.qq.com&quot;</span>,</span><br><span class="line">  secureConnection: <span class="literal">true</span>, <span class="comment">// use SSL</span></span><br><span class="line">  port: <span class="number">465</span>,</span><br><span class="line">  secure: <span class="literal">true</span>, <span class="comment">// secure:true for port 465, secure:false for port 587</span></span><br><span class="line">  auth: &#123;</span><br><span class="line">    user: <span class="string">&quot;XXXXXXX@qq.com&quot;</span>,   <span class="comment">//其他的不要动，更改邮箱</span></span><br><span class="line">    pass: <span class="string">&quot;XXXXXX&quot;</span>,    <span class="comment">// QQ邮箱需要使用的授权码</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//参数：mail：需要发送的邮件地址；code：验证码</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sendMail</span>(<span class="params">mail, code</span>) </span>&#123;</span><br><span class="line">    </span><br><span class="line">  <span class="comment">// 设置邮件内容（谁发送什么给谁）</span></span><br><span class="line">  <span class="keyword">let</span> mailOptions = &#123;</span><br><span class="line">    <span class="keyword">from</span>: <span class="string">&#x27;&quot; XXX &quot; &lt;XXXXXX@qq.com&gt;&#x27;</span>,   <span class="comment">// 发件人</span></span><br><span class="line">    to: mail,     <span class="comment">// 收件人</span></span><br><span class="line">    subject: <span class="string">&quot;邮箱验证&quot;</span>,    <span class="comment">// 主题</span></span><br><span class="line">    text: <span class="string">`您正在尝试修改密码,您的验证码是 <span class="subst">$&#123;code&#125;</span>,有效期5分钟。`</span>,   <span class="comment">// 直接发送文本</span></span><br><span class="line">    <span class="comment">//html: &quot;&lt;b&gt;验证功能&lt;/b&gt;&quot;,       // 也可以发送html格式文本</span></span><br><span class="line">    <span class="comment">// 下面是发送附件，不需要就注释掉</span></span><br><span class="line">    <span class="comment">/*     attachments: [</span></span><br><span class="line"><span class="comment">      &#123;</span></span><br><span class="line"><span class="comment">        filename: &quot;test.md&quot;,</span></span><br><span class="line"><span class="comment">        path: &quot;./test.md&quot;,</span></span><br><span class="line"><span class="comment">      &#125;,</span></span><br><span class="line"><span class="comment">      &#123;</span></span><br><span class="line"><span class="comment">        filename: &quot;content&quot;,</span></span><br><span class="line"><span class="comment">        content: &quot;发送内容&quot;,</span></span><br><span class="line"><span class="comment">      &#125;,</span></span><br><span class="line"><span class="comment">    ], */</span></span><br><span class="line">  &#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//这里返回一个异步操作</span></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 使用先前创建的传输器的 sendMail 方法传递消息对象</span></span><br><span class="line">    transporter.sendMail(mailOptions, <span class="function">(<span class="params">error, info</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span>(error) reject();      </span><br><span class="line">      <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">`Message: <span class="subst">$&#123;info.messageId&#125;</span>`</span>);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">`sent: <span class="subst">$&#123;info.response&#125;</span>`</span>);</span><br><span class="line">        resolve();</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123; sendMail &#125;;  <span class="comment">//最后暴露一个sendMail方法，之后会进行这个方法的封装</span></span><br></pre></td></tr></table></figure>
+<br>
+
+<h2 id="3-客户端请求获取验证码"><a href="#3-客户端请求获取验证码" class="headerlink" title="3. 客户端请求获取验证码"></a>3. 客户端请求获取验证码</h2><p>这里直接使用JQ的ajax发送请求了：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">  headers: &#123;</span><br><span class="line">    email: email,   <span class="comment">//这里直接在请求头中传递邮箱地址了</span></span><br><span class="line">  &#125;,</span><br><span class="line">  url: <span class="string">&quot;/get_verifyCode&quot;</span>,</span><br><span class="line">  type: <span class="string">&quot;post&quot;</span>,</span><br><span class="line">  contentType: <span class="string">&quot;application/json&quot;</span>,</span><br><span class="line">  success: <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    alert(data.msg);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;,</span><br><span class="line">  error: <span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err);</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<br>
+
+<h2 id="4-服务端发送验证码"><a href="#4-服务端发送验证码" class="headerlink" title="4. 服务端发送验证码"></a>4. 服务端发送验证码</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 路由文件 */</span></span><br><span class="line"><span class="comment">//发送验证码</span></span><br><span class="line">app.post(<span class="string">&quot;/get_verifyCode&quot;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//请求头附带的邮箱地址</span></span><br><span class="line">  <span class="keyword">const</span> email = req.headers.email;   </span><br><span class="line">    <span class="comment">//随机生成一个验证码</span></span><br><span class="line">  <span class="keyword">let</span> code = <span class="built_in">parseInt</span>(<span class="built_in">Math</span>.random() * <span class="number">10000</span>);</span><br><span class="line">    <span class="comment">//使用mail模块中的sendMail方法</span></span><br><span class="line">  mail</span><br><span class="line">    .sendMail(email, code)</span><br><span class="line">    .then(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      res.send(&#123; <span class="attr">err</span>: <span class="number">0</span>, <span class="attr">msg</span>: <span class="string">&quot;验证码已发送&quot;</span> &#125;);</span><br><span class="line">    &#125;)</span><br><span class="line">    .catch(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      res.send(&#123; <span class="attr">err</span>: <span class="number">1</span>, <span class="attr">msg</span>: <span class="string">&quot;验证码发送失败&quot;</span> &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>到此为止，服务端已经可以成功发送验证码邮件了。</p>
+<br>
+
+<h2 id="5-服务端对验证码的验证"><a href="#5-服务端对验证码的验证" class="headerlink" title="5. 服务端对验证码的验证"></a>5. 服务端对验证码的验证</h2><p>前面是在发送验证码功能的路由中随机生成的验证码，那么如何在客户端发来的验证请求中验证我们之前生成的验证码呢？</p>
+<p>我们需要一个全局变量，保存之前生成的验证码，并对应当时发送验证码的邮箱地址。发送验证码功能代码改动如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 路由文件 */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> verify_codes = &#123;&#125;; <span class="comment">//保存验证码，用于后续验证</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//发送验证码</span></span><br><span class="line">app.post(<span class="string">&quot;/get_verifyCode&quot;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//请求头附带的邮箱地址</span></span><br><span class="line">  <span class="keyword">const</span> email = req.headers.email;   </span><br><span class="line">    <span class="comment">//随机生成一个验证码</span></span><br><span class="line">  <span class="keyword">let</span> code = <span class="built_in">parseInt</span>(<span class="built_in">Math</span>.random() * <span class="number">10000</span>);</span><br><span class="line">    <span class="comment">//保存验证码</span></span><br><span class="line">  verify_codes[email] = code;   </span><br><span class="line">    <span class="comment">//这样对象中就保存了一个 &#123;邮箱:验证码&#125; 格式的属性</span></span><br><span class="line">  <span class="built_in">console</span>.log(verify_codes);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//使用mail模块中的sendMail方法</span></span><br><span class="line">  mail</span><br><span class="line">    .sendMail(email, code)</span><br><span class="line">    .then(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      res.send(&#123; <span class="attr">err</span>: <span class="number">0</span>, <span class="attr">msg</span>: <span class="string">&quot;验证码已发送&quot;</span> &#125;);</span><br><span class="line">    &#125;)</span><br><span class="line">    .catch(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      res.send(&#123; <span class="attr">err</span>: <span class="number">1</span>, <span class="attr">msg</span>: <span class="string">&quot;验证码发送失败&quot;</span> &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>之后我们只需要判断用户传来的验证码参数 <code>code</code> 和邮箱参数 <code>email</code> 和服务端保存的对象变量是否一致：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>( code === verify_codes[email] )   &#123; <span class="comment">//执行代码  &#125;</span></span><br></pre></td></tr></table></figure>
+<p>至此，邮箱验证功能全部完成。</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2021/03/24/%E8%AE%B0%E5%BD%95%E5%A4%A7%E5%88%9B%EF%BC%883%EF%BC%89/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%A7%E5%88%9B/" rel="tag">大创</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2021/03/18/%E8%AE%B0%E5%BD%95%E5%A4%A7%E5%88%9B%EF%BC%882%EF%BC%89/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">记录大创（2）</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "DxjdVENjKn4OPt6wHb07UtxP-gzGzoHsz",
+    app_key: "J0hPK8lUjl1jMLcupB2S7Gws",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2020-2021
+        <i class="ri-heart-fill heart_icon"></i> Lu xiuyuan
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        Powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+        <span class="division">|</span>
+        Theme - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="路修远"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/photos">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2020/12/30/%E6%95%A3%E8%AF%97">诗集</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+<script src="/js/dz.js"></script>
+
+
+
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="1" marginwidth="0" marginheight="0" width="200" height="52"
+        src="//music.163.com/outchain/player?type=2&id=28718313&auto=1&height=32"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        right: 15px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
+    
+  </div>
+</body>
+
+</html>
