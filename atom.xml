@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-03-24T13:43:54.826Z</updated>
+  <updated>2021-05-17T02:58:28.263Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,295 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Vue学习笔记6</title>
+    <link href="http://example.com/2021/05/17/Vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B06/"/>
+    <id>http://example.com/2021/05/17/Vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B06/</id>
+    <published>2021-05-17T02:54:46.000Z</published>
+    <updated>2021-05-17T02:58:28.263Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;Vue2.x学习笔记。原视频教程：&lt;a href=&quot;https://www.bilibili.com/video/BV15741177Eh&quot;&gt;最全最新Vue、Vuejs教程，从入门到精通_哔哩哔哩 (゜-゜)つロ 干杯~-bilibili&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;第六部分：axios。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;br&gt;
+
+&lt;h1 id=&quot;axios&quot;&gt;&lt;a href=&quot;#axios&quot; class=&quot;headerlink&quot; title=&quot;axios&quot;&gt;&lt;/a&gt;axios&lt;/h1&gt;&lt;h2 id=&quot;网络模块的选择&quot;&gt;&lt;a href=&quot;#网络模块的选择&quot; class=&quot;headerlink&quot; title=&quot;网络模块的选择&quot;&gt;&lt;/a&gt;网络模块的选择&lt;/h2&gt;&lt;p&gt;Vue中发送网络请求有非常多的方式, 那么, 在开发中, 如何选择呢?&lt;/p&gt;
+&lt;h3 id=&quot;选择1：ajax&quot;&gt;&lt;a href=&quot;#选择1：ajax&quot; class=&quot;headerlink&quot; title=&quot;选择1：ajax&quot;&gt;&lt;/a&gt;选择1：ajax&lt;/h3&gt;&lt;p&gt;传统的Ajax是基于XMLHttpRequest(XHR)&lt;/p&gt;
+&lt;p&gt;为什么不用它呢?非常好解释：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;配置和调用方式等非常混乱&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;编码起来看起来就非常蛋疼&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;所以真实开发中很少直接使用, 而是使用jQuery-Ajax&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;选择2：jquery-ajax&quot;&gt;&lt;a href=&quot;#选择2：jquery-ajax&quot; class=&quot;headerlink&quot; title=&quot;选择2：jquery-ajax&quot;&gt;&lt;/a&gt;选择2：jquery-ajax&lt;/h3&gt;&lt;p&gt;它相对于传统的Ajax非常好用。为什么不选择它呢？&lt;/p&gt;
+&lt;p&gt;首先, 我们先明确一点: 在Vue的整个开发中都是不需要使用jQuery了。&lt;/p&gt;
+&lt;p&gt;那么, 就意味着为了方便我们进行一个网络请求, 特意引用一个jQuery, 你觉得合理吗？&lt;/p&gt;
+&lt;p&gt;jQuery的代码1w+行。Vue的代码才1w+行。&lt;/p&gt;
+&lt;p&gt;因此完全没有必要为了用网络请求就引用这个重量级的框架。&lt;/p&gt;
+&lt;h3 id=&quot;选择3：Vue-resource&quot;&gt;&lt;a href=&quot;#选择3：Vue-resource&quot; class=&quot;headerlink&quot; title=&quot;选择3：Vue-resource&quot;&gt;&lt;/a&gt;选择3：Vue-resource&lt;/h3&gt;&lt;p&gt;官方在Vue1.x的时候, 推出了Vue-resource。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Vue-resource的体积相对于jQuery小很多。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;另外Vue-resource是官方推出的。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;为什么不选择它呢?&lt;/p&gt;
+&lt;p&gt;在Vue2.0退出后, Vue作者就在GitHub的Issues中说明了去掉vue-resource, 并且以后也不会再更新。&lt;/p&gt;
+&lt;p&gt;那么意味着以后vue-reource不再支持新的版本时, 也不会再继续更新和维护。对以后的项目开发和维护都存在很大的隐患。&lt;/p&gt;
+&lt;h3 id=&quot;选择4：axios&quot;&gt;&lt;a href=&quot;#选择4：axios&quot; class=&quot;headerlink&quot; title=&quot;选择4：axios&quot;&gt;&lt;/a&gt;选择4：axios&lt;/h3&gt;&lt;p&gt;在说明不再继续更新和维护vue-resource的同时, 作者还推荐了一个框架: axios。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="前端" scheme="http://example.com/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    <category term="Vue" scheme="http://example.com/categories/%E5%89%8D%E7%AB%AF/Vue/"/>
+    
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%89%8D%E7%AB%AF/Vue/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="前端" scheme="http://example.com/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+    <category term="学习笔记" scheme="http://example.com/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="Vue" scheme="http://example.com/tags/Vue/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Vue学习笔记5</title>
+    <link href="http://example.com/2021/05/17/Vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B05/"/>
+    <id>http://example.com/2021/05/17/Vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B05/</id>
+    <published>2021-05-17T02:54:31.000Z</published>
+    <updated>2021-05-17T02:56:52.394Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;Vue2.x学习笔记。原视频教程：&lt;a href=&quot;https://www.bilibili.com/video/BV15741177Eh&quot;&gt;最全最新Vue、Vuejs教程，从入门到精通_哔哩哔哩 (゜-゜)つロ</summary>
+        
+      
+    
+    
+    
+    <category term="前端" scheme="http://example.com/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    <category term="Vue" scheme="http://example.com/categories/%E5%89%8D%E7%AB%AF/Vue/"/>
+    
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%89%8D%E7%AB%AF/Vue/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="前端" scheme="http://example.com/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+    <category term="学习笔记" scheme="http://example.com/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="Vue" scheme="http://example.com/tags/Vue/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Vue学习笔记4</title>
+    <link href="http://example.com/2021/05/17/Vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/"/>
+    <id>http://example.com/2021/05/17/Vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/</id>
+    <published>2021-05-17T02:51:19.000Z</published>
+    <updated>2021-05-17T02:54:09.417Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;Vue2.x学习笔记。原视频教程：&lt;a href=&quot;https://www.bilibili.com/video/BV15741177Eh&quot;&gt;最全最新Vue、Vuejs教程，从入门到精通_哔哩哔哩 (゜-゜)つロ 干杯~-bilibili&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;第四部分：Vue-Router。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;br&gt;
+
+&lt;h1 id=&quot;Vue-router&quot;&gt;&lt;a href=&quot;#Vue-router&quot; class=&quot;headerlink&quot; title=&quot;Vue-router&quot;&gt;&lt;/a&gt;Vue-router&lt;/h1&gt;&lt;h2 id=&quot;0-认识路由&quot;&gt;&lt;a href=&quot;#0-认识路由&quot; class=&quot;headerlink&quot; title=&quot;0. 认识路由&quot;&gt;&lt;/a&gt;0. 认识路由&lt;/h2&gt;&lt;h3 id=&quot;什么是路由？&quot;&gt;&lt;a href=&quot;#什么是路由？&quot; class=&quot;headerlink&quot; title=&quot;什么是路由？&quot;&gt;&lt;/a&gt;什么是路由？&lt;/h3&gt;&lt;p&gt;路由是一个网络工程里面的术语。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;路由&lt;/strong&gt;（&lt;strong&gt;routing&lt;/strong&gt;）就是通过互联的网络把信息从源地址传输到目的地址的活动。— 维基百科&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;现实生活中的路由器提供了两种机制: 路由和转送。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;路由是决定数据包从&lt;strong&gt;来源&lt;/strong&gt;到&lt;strong&gt;目的地&lt;/strong&gt;的路径。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;转送将&lt;strong&gt;输入端&lt;/strong&gt;的数据转移到合适的&lt;strong&gt;输出端&lt;/strong&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;路由中有一个非常重要的概念叫路由表。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;路由表本质上就是一个映射表, 决定了数据包的指向。&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="前端" scheme="http://example.com/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    <category term="Vue" scheme="http://example.com/categories/%E5%89%8D%E7%AB%AF/Vue/"/>
+    
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%89%8D%E7%AB%AF/Vue/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="前端" scheme="http://example.com/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+    <category term="学习笔记" scheme="http://example.com/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="Vue" scheme="http://example.com/tags/Vue/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Vue CLI学习笔记</title>
+    <link href="http://example.com/2021/05/17/Vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03/"/>
+    <id>http://example.com/2021/05/17/Vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03/</id>
+    <published>2021-05-17T02:47:08.000Z</published>
+    <updated>2021-05-17T02:52:17.597Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;Vue2.x学习笔记。原视频教程：&lt;a href=&quot;https://www.bilibili.com/video/BV15741177Eh&quot;&gt;最全最新Vue、Vuejs教程，从入门到精通_哔哩哔哩 (゜-゜)つロ 干杯~-bilibili&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;第三部分：Vue-cli。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;br&gt;
+
+&lt;h1 id=&quot;Vue-CLI&quot;&gt;&lt;a href=&quot;#Vue-CLI&quot; class=&quot;headerlink&quot; title=&quot;Vue CLI&quot;&gt;&lt;/a&gt;Vue CLI&lt;/h1&gt;&lt;h2 id=&quot;0-什么是vue-cli&quot;&gt;&lt;a href=&quot;#0-什么是vue-cli&quot; class=&quot;headerlink&quot; title=&quot;0. 什么是vue-cli&quot;&gt;&lt;/a&gt;0. 什么是vue-cli&lt;/h2&gt;&lt;p&gt;如果你在开发大型项目, 那么你需要, 并且必然需要使用Vue CLI&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;使用Vue.js开发大型应用时，我们需要考虑代码目录结构、项目结构和部署、热加载、代码单元测试等事情。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;如果每个项目都要手动完成这些工作，那无以效率比较低效，所以通常我们会使用一些脚手架工具来帮助完成这些事情。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;CLI&lt;/strong&gt;是什么意思?&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;CLI是Command-Line Interface, 翻译为命令行界面, 但是俗称脚手架.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Vue CLI是一个官方发布 vue.js 项目脚手架&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;使用 vue-cli 可以快速搭建Vue开发环境以及对应的webpack配置.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="前端" scheme="http://example.com/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    <category term="Vue" scheme="http://example.com/categories/%E5%89%8D%E7%AB%AF/Vue/"/>
+    
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%89%8D%E7%AB%AF/Vue/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="前端" scheme="http://example.com/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+    <category term="学习笔记" scheme="http://example.com/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="Vue" scheme="http://example.com/tags/Vue/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Vue组件化（学习笔记）</title>
+    <link href="http://example.com/2021/05/17/Vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/"/>
+    <id>http://example.com/2021/05/17/Vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/</id>
+    <published>2021-05-17T02:45:12.000Z</published>
+    <updated>2021-05-17T02:52:24.647Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;Vue2.x学习笔记。原视频教程：&lt;a href=&quot;https://www.bilibili.com/video/BV15741177Eh&quot;&gt;最全最新Vue、Vuejs教程，从入门到精通_哔哩哔哩 (゜-゜)つロ 干杯~-bilibili&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;第二部分：Vue组件化。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;br&gt;
+
+&lt;h1 id=&quot;Vue组件化&quot;&gt;&lt;a href=&quot;#Vue组件化&quot; class=&quot;headerlink&quot; title=&quot;Vue组件化&quot;&gt;&lt;/a&gt;Vue组件化&lt;/h1&gt;&lt;h2 id=&quot;1-什么是组件化？&quot;&gt;&lt;a href=&quot;#1-什么是组件化？&quot; class=&quot;headerlink&quot; title=&quot;1. 什么是组件化？&quot;&gt;&lt;/a&gt;1. 什么是组件化？&lt;/h2&gt;&lt;p&gt;组件化是Vue.js中的重要思想&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;它提供了一种抽象，让我们可以开发出一个个独立可复用的小组件来构造我们的应用。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;任何的应用都会被抽象成一颗组件树。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/.com//picgo_pics\image-20210424161525980.png&quot; alt=&quot;image-20210424161525980&quot;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;组件化思想的应用：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;有了组件化的思想，我们在之后的开发中就要充分的利用它。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;尽可能的将页面拆分成一个个小的、可复用的组件。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;这样让我们的代码更加方便组织和管理，并且扩展性也更强。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="前端" scheme="http://example.com/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    <category term="Vue" scheme="http://example.com/categories/%E5%89%8D%E7%AB%AF/Vue/"/>
+    
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%89%8D%E7%AB%AF/Vue/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="前端" scheme="http://example.com/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+    <category term="学习笔记" scheme="http://example.com/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="Vue" scheme="http://example.com/tags/Vue/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Vue基础语法（学习笔记）</title>
+    <link href="http://example.com/2021/05/17/Vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/"/>
+    <id>http://example.com/2021/05/17/Vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/</id>
+    <published>2021-05-17T02:42:01.000Z</published>
+    <updated>2021-05-17T02:52:31.261Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;Vue2.x学习笔记。原视频教程：&lt;a href=&quot;https://www.bilibili.com/video/BV15741177Eh&quot;&gt;最全最新Vue、Vuejs教程，从入门到精通_哔哩哔哩 (゜-゜)つロ 干杯~-bilibili&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;第一部分：认识Vue、Vue基本语法。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;邂逅Vue-js&quot;&gt;&lt;a href=&quot;#邂逅Vue-js&quot; class=&quot;headerlink&quot; title=&quot;邂逅Vue.js&quot;&gt;&lt;/a&gt;邂逅Vue.js&lt;/h1&gt;&lt;h2 id=&quot;简单认识Vue&quot;&gt;&lt;a href=&quot;#简单认识Vue&quot; class=&quot;headerlink&quot; title=&quot;简单认识Vue&quot;&gt;&lt;/a&gt;简单认识Vue&lt;/h2&gt;&lt;p&gt;Vue是一个渐进式的框架，什么是渐进式的呢？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;渐进式意味着你可以将Vue作为你应用的一部分嵌入其中，带来更丰富的交互体验。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;或者如果你希望将更多的业务逻辑使用Vue实现，那么Vue的核心库以及其生态系统。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;比如Core+Vue-router+Vuex，也可以满足你各种各样的需求。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Vue有很多特点和Web开发中常见的高级功能&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;解耦视图和数据&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;可复用的组件&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;前端路由技术&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;状态管理&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;虚拟DOM&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="前端" scheme="http://example.com/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    <category term="Vue" scheme="http://example.com/categories/%E5%89%8D%E7%AB%AF/Vue/"/>
+    
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%89%8D%E7%AB%AF/Vue/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="前端" scheme="http://example.com/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+    <category term="学习笔记" scheme="http://example.com/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="Vue" scheme="http://example.com/tags/Vue/"/>
+    
+  </entry>
   
   <entry>
     <title>记录大创（3）</title>
@@ -51,7 +340,7 @@
     <link href="http://example.com/2021/03/18/%E8%AE%B0%E5%BD%95%E5%A4%A7%E5%88%9B%EF%BC%882%EF%BC%89/"/>
     <id>http://example.com/2021/03/18/%E8%AE%B0%E5%BD%95%E5%A4%A7%E5%88%9B%EF%BC%882%EF%BC%89/</id>
     <published>2021-03-18T12:01:40.000Z</published>
-    <updated>2021-03-23T02:11:31.671Z</updated>
+    <updated>2021-05-17T02:59:10.176Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;express使用JWT和httpOnly-cookie进行登录和安全验证&quot;&gt;&lt;a href=&quot;#express使用JWT和httpOnly-cookie进行登录和安全验证&quot; class=&quot;headerlink&quot; title=&quot;express使用JWT和httpOnly cookie进行登录和安全验证&quot;&gt;&lt;/a&gt;express使用JWT和httpOnly cookie进行登录和安全验证&lt;/h1&gt;&lt;blockquote&gt;
@@ -475,75 +764,6 @@
 &lt;p&gt;最开始更新完毕确认检查后，使用</summary>
         
       
-    
-    
-    
-    <category term="建站" scheme="http://example.com/categories/%E5%BB%BA%E7%AB%99/"/>
-    
-    
-    <category term="建站" scheme="http://example.com/tags/%E5%BB%BA%E7%AB%99/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>gulp学习笔记</title>
-    <link href="http://example.com/2020/12/29/gulp%E7%AC%94%E8%AE%B0/"/>
-    <id>http://example.com/2020/12/29/gulp%E7%AC%94%E8%AE%B0/</id>
-    <published>2020-12-29T04:45:59.000Z</published>
-    <updated>2021-02-05T06:26:13.386Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;学习gulp的简单笔记。原教学视频：&lt;a href=&quot;https://www.bilibili.com/video/BV1NE411T7Z2?p=396&quot;&gt;https://www.bilibili.com/video/BV1NE411T7Z2?p=396&lt;/a&gt;。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&quot;gulp基本使用流程&quot;&gt;&lt;a href=&quot;#gulp基本使用流程&quot; class=&quot;headerlink&quot; title=&quot;gulp基本使用流程&quot;&gt;&lt;/a&gt;gulp基本使用流程&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;初始化项目目录：&lt;/li&gt;
-&lt;/ol&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;npm init      &lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;ol start=&quot;2&quot;&gt;
-&lt;li&gt;安装到项目文件夹：&lt;/li&gt;
-&lt;/ol&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;npm install gulp@3.9.1 --save-dev        &amp;#x2F;&amp;#x2F;下载gulp。--save-dev表示下载附带版本信息&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;npm i gulp-scss gulp-minify-css gulp-rename -D    &amp;#x2F;&amp;#x2F;一次下载多个第三方插件。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#x2F;&amp;#x2F;i是 install 的简写， -D是 --save-dev 的简写&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;ol start=&quot;3&quot;&gt;
-&lt;li&gt;&lt;p&gt;创建一个gulpfile.js文件&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;在gulpfile.js文件中编写任务&lt;/p&gt;
-&lt;p&gt;(全局配置好命令行工具，之后会多出gulp命令行任务）&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;npm install gulp-cli -g&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;在控制台通过    gulp  任务名    ，运行编写好的任务&lt;/p&gt;&lt;/li&gt;&lt;/ol&gt;</summary>
-    
-    
-    
-    <category term="前端" scheme="http://example.com/categories/%E5%89%8D%E7%AB%AF/"/>
-    
-    <category term="学习笔记" scheme="http://example.com/categories/%E5%89%8D%E7%AB%AF/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-    <category term="gulp" scheme="http://example.com/categories/%E5%89%8D%E7%AB%AF/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/gulp/"/>
-    
-    
-    <category term="前端" scheme="http://example.com/tags/%E5%89%8D%E7%AB%AF/"/>
-    
-    <category term="学习笔记" scheme="http://example.com/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-    <category term="gulp" scheme="http://example.com/tags/gulp/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>记录博客建站过程</title>
-    <link href="http://example.com/2020/12/27/%E5%8D%9A%E5%AE%A2%E5%BB%BA%E7%AB%8B/"/>
-    <id>http://example.com/2020/12/27/%E5%8D%9A%E5%AE%A2%E5%BB%BA%E7%AB%8B/</id>
-    <published>2020-12-27T13:03:41.000Z</published>
-    <updated>2021-01-09T11:33:38.573Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;很早就有建一个博客的想法，主要想记录一些学习过程、发布和分享一些文章什么的。2020年中开始花了大概两个半月学了前端，就尝试写一个博客，但是很麻烦，过程也相当曲折，写了大概三分之一还是发现自己的技术很差很差，后端也只是浅尝辄止，很多东西都无法实现，就停止了建博客。断了几个月的前端学习后，这几天突然看到收藏夹的Hexo博客教学视频，心血来潮就学着花了一天建立了一个博客。这里简单记录下建站过程和一些踩坑。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&quot;教程及主题&quot;&gt;&lt;a href=&quot;#教程及主题&quot; class=&quot;headerlink&quot; title=&quot;教程及主题&quot;&gt;&lt;/a&gt;教程及主题&lt;/h2&gt;&lt;p&gt;教程视频：&lt;a href=&quot;https://www.bilibili.com/video/BV1Np4y1Y7SW&quot;&gt;从零开始搭建个人博客 | 手把手教你使用Hexo框架4步完成个人博客搭建 &lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;使用主题：&lt;a href=&quot;https://shen-yu.gitee.io/&quot;&gt;Ayer&lt;/a&gt;  |  &lt;a href=&quot;https://github.com/Shen-Yu/hexo-theme-ayer&quot;&gt;Github地址&lt;/a&gt;  |  &lt;a href=&quot;https://shen-yu.gitee.io/2019/ayer/&quot;&gt;ayer中文说明&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Hexo文档：&lt;a href=&quot;https://hexo.io/zh-cn/docs/&quot;&gt;hexo中文文档&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://pic.downk.cc/item/5fe9de223ffa7d37b33ed34f.jpg&quot;&gt;&lt;/p&gt;</summary>
     
     
     

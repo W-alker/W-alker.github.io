@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+
+<head>
+  <meta charset="utf-8" />
+   
+  <meta name="keywords" content="路修远,博客,ayer,学习笔记,前端,萌新" />
+   
+  <meta name="description" content="路修远个人博客,前端萌新" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    Vue学习笔记4 |  路修远
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="路修远" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-Vue学习笔记4"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Vue学习笔记4
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/05/17/Vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/" class="article-date">
+  <time datetime="2021-05-17T02:51:19.000Z" itemprop="datePublished">2021-05-17</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a> / <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/Vue/">Vue</a> / <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/Vue/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">4k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">15 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <blockquote>
+<p>Vue2.x学习笔记。原视频教程：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV15741177Eh">最全最新Vue、Vuejs教程，从入门到精通_哔哩哔哩 (゜-゜)つロ 干杯~-bilibili</a></p>
+<p>第四部分：Vue-Router。</p>
+</blockquote>
+<br>
+
+<h1 id="Vue-router"><a href="#Vue-router" class="headerlink" title="Vue-router"></a>Vue-router</h1><h2 id="0-认识路由"><a href="#0-认识路由" class="headerlink" title="0. 认识路由"></a>0. 认识路由</h2><h3 id="什么是路由？"><a href="#什么是路由？" class="headerlink" title="什么是路由？"></a>什么是路由？</h3><p>路由是一个网络工程里面的术语。</p>
+<blockquote>
+<p><strong>路由</strong>（<strong>routing</strong>）就是通过互联的网络把信息从源地址传输到目的地址的活动。— 维基百科</p>
+</blockquote>
+<p>现实生活中的路由器提供了两种机制: 路由和转送。</p>
+<ul>
+<li><p>路由是决定数据包从<strong>来源</strong>到<strong>目的地</strong>的路径。</p>
+</li>
+<li><p>转送将<strong>输入端</strong>的数据转移到合适的<strong>输出端</strong>。</p>
+</li>
+</ul>
+<p>路由中有一个非常重要的概念叫路由表。</p>
+<ul>
+<li>路由表本质上就是一个映射表, 决定了数据包的指向。</li>
+</ul>
+<a id="more"></a>
+
+<h3 id="后端路由阶段"><a href="#后端路由阶段" class="headerlink" title="后端路由阶段"></a>后端路由阶段</h3><p>早期的网站开发整个HTML页面是由服务器来渲染的：服务器直接生产渲染好对应的HTML页面, 返回给客户端进行展示。</p>
+<p>但是, 一个网站, 这么多页面服务器如何处理呢?</p>
+<ul>
+<li><p>一个页面有自己对应的网址, 也就是URL。</p>
+</li>
+<li><p>URL会发送到服务器, 服务器会通过正则对该URL进行匹配, 并且最后交给一个Controller进行处理。</p>
+</li>
+<li><p>Controller进行各种处理, 最终生成HTML或者数据, 返回给前端。</p>
+</li>
+<li><p>这就完成了一个IO操作。</p>
+</li>
+</ul>
+<p>上面的这种操作, 就是后端路由。</p>
+<ul>
+<li><p>当我们页面中需要请求不同的<strong>路径</strong>内容时, 交给服务器来进行处理, 服务器渲染好整个页面, 并且将页面返回给客户端。</p>
+</li>
+<li><p>这种情况下渲染好的页面, 不需要单独加载任何的js和css, 可以直接交给浏览器展示, 这样也有利于SEO的优化。</p>
+</li>
+</ul>
+<p>后端路由的缺点:</p>
+<ul>
+<li><p>一种情况是整个页面的模块由后端人员来编写和维护的。</p>
+</li>
+<li><p>另一种情况是前端开发人员如果要开发页面, 需要通过PHP和Java等语言来编写页面代码。</p>
+</li>
+<li><p>而且通常情况下HTML代码和数据以及对应的逻辑会混在一起, 编写和维护都是非常糟糕的事情。</p>
+</li>
+</ul>
+<h3 id="前端路由阶段"><a href="#前端路由阶段" class="headerlink" title="前端路由阶段"></a>前端路由阶段</h3><p>前后端分离阶段：</p>
+<ul>
+<li><p>随着Ajax的出现, 有了前后端分离的开发模式。</p>
+</li>
+<li><p>后端只提供API来返回数据, 前端通过Ajax获取数据, 并且可以通过JavaScript将数据渲染到页面中。</p>
+</li>
+<li><p>这样做最大的优点就是前后端责任的清晰, 后端专注于数据上, 前端专注于交互和可视化上。</p>
+</li>
+<li><p>并且当移动端(iOS/Android)出现后, 后端不需要进行任何处理, 依然使用之前的一套API即可。</p>
+</li>
+<li><p>目前很多的网站依然采用这种模式开发。</p>
+</li>
+</ul>
+<p><strong>单页面富应用阶段</strong>:</p>
+<ul>
+<li><p>其实SPA最主要的特点就是在前后端分离的基础上加了一层前端路由。</p>
+</li>
+<li><p>也就是前端来维护一套路由规则。</p>
+</li>
+</ul>
+<p>前端路由的核心是什么呢？</p>
+<ul>
+<li><p>改变URL，但是页面不进行整体的刷新。</p>
+</li>
+<li><p>如何实现呢？</p>
+</li>
+</ul>
+<br>
+
+<h3 id="URL的hash"><a href="#URL的hash" class="headerlink" title="URL的hash"></a>URL的hash</h3><p>URL的hash也就是锚点(#)，本质上是改变<code>window.location</code>的href属性。</p>
+<p><strong>我们可以通过直接赋值<code>location.hash</code>来改变href，但是页面不发生刷新。</strong></p>
+<p><img src="/.com//picgo_pics\image-20210506140301263.png" alt="image-20210506140301263"></p>
+<h3 id="HTML5的history模式"><a href="#HTML5的history模式" class="headerlink" title="HTML5的history模式"></a>HTML5的history模式</h3><p>history接口是HTML5新增的，它有五种模式改变URL而不刷新页面。</p>
+<h4 id="1）history-pushState"><a href="#1）history-pushState" class="headerlink" title="1）history.pushState()"></a>1）history.pushState()</h4><p><img src="/.com//picgo_pics\image-20210506140808910.png" alt="image-20210506140808910"></p>
+<h4 id="2）history-replaceState"><a href="#2）history-replaceState" class="headerlink" title="2）history.replaceState()"></a>2）history.replaceState()</h4><p><img src="/.com//picgo_pics\image-20210506141009830.png" alt="image-20210506141009830"></p>
+<h4 id="3）history-go"><a href="#3）history-go" class="headerlink" title="3）history.go()"></a>3）history.go()</h4><p><img src="/.com//picgo_pics\image-20210506141049777.png" alt="image-20210506141049777"></p>
+<h4 id="4）history-back"><a href="#4）history-back" class="headerlink" title="4）history.back()"></a>4）history.back()</h4><p>等价于 <code>history.go(-1)</code></p>
+<h4 id="5）history-forward"><a href="#5）history-forward" class="headerlink" title="5）history.forward()"></a>5）history.forward()</h4><p>等价于 <code>history.go(1)</code></p>
+<br>
+
+<h2 id="1-安装和使用"><a href="#1-安装和使用" class="headerlink" title="1. 安装和使用"></a>1. 安装和使用</h2><p>vue-router是Vue.js官方的路由插件，它和vue.js是深度集成的，适合用于构建单页面应用。我们可以访问其官方网站对其进行学习: <a target="_blank" rel="noopener" href="https://router.vuejs.org/zh/%E3%80%82">https://router.vuejs.org/zh/。</a></p>
+<p>vue-router是基于路由和组件的：</p>
+<ul>
+<li><p>路由用于设定访问路径, 将路径和组件映射起来.</p>
+</li>
+<li><p>在vue-router的单页面应用中, 页面的路径的改变就是组件的切换.</p>
+</li>
+</ul>
+<h3 id="1）安装和配置"><a href="#1）安装和配置" class="headerlink" title="1）安装和配置"></a>1）安装和配置</h3><p>步骤一: 安装vue-router</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install vue<span class="literal">-router</span> -<span class="literal">-save</span></span><br></pre></td></tr></table></figure>
+<p>步骤二: 在模块化工程中使用它(因为是一个插件, 所以可以通过<code>Vue.use()</code>来安装路由功能)</p>
+<ul>
+<li><p>第一步：导入路由对象，并且调用 <code>Vue.use(VueRouter)</code></p>
+</li>
+<li><p>第二步：创建路由实例，并且传入路由映射配置</p>
+</li>
+<li><p>第三步：在Vue实例中挂载创建的路由实例</p>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* /router/index.js */</span></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span> </span><br><span class="line"><span class="keyword">import</span> VueRouter <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">//1.通过Vue.use(插件)，安装插件</span></span><br><span class="line">Vue.use(VueRouter)</span><br><span class="line"></span><br><span class="line"><span class="comment">//2.创建VueRouter对象</span></span><br><span class="line"><span class="keyword">const</span> routes = [</span><br><span class="line"></span><br><span class="line">]</span><br><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">    <span class="comment">//配置路由和组件之间的关系</span></span><br><span class="line">    routes</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//3.将router对象传入到Vue实例，导出</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> router</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* /main.js */</span></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="comment">//引入router模块</span></span><br><span class="line"><span class="keyword">import</span> router <span class="keyword">from</span> <span class="string">&#x27;./router&#x27;</span></span><br><span class="line">Vue.config.productionTip = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">    <span class="comment">//使用router</span></span><br><span class="line">  router,</span><br><span class="line">  render: <span class="function"><span class="params">h</span> =&gt;</span> h(<span class="string">&#x27;h2&#x27;</span>, &#123; <span class="attr">class</span>: <span class="string">&#x27;he&#x27;</span> &#125;, [<span class="string">&#x27;hello world&#x27;</span>]),</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="2）使用Vue-router的步骤"><a href="#2）使用Vue-router的步骤" class="headerlink" title="2）使用Vue-router的步骤"></a>2）使用Vue-router的步骤</h3><ul>
+<li><p>第一步: 创建路由组件</p>
+<p><img src="/.com//picgo_pics\image-20210506151515783.png" alt="image-20210506151515783"></p>
+</li>
+<li><p>第二步: 配置路由映射: 组件和路径映射关系</p>
+<p><img src="/.com//picgo_pics\image-20210506151528985.png" alt="image-20210506151528985"></p>
+</li>
+<li><p>第三步: 使用路由: 通过<code>&lt;router-link&gt;</code>和<code>&lt;router-view&gt;</code></p>
+<p><img src="/.com//picgo_pics\image-20210506151542593.png" alt="image-20210506151542593"></p>
+</li>
+</ul>
+<blockquote>
+<p><code>&lt;router-link&gt;</code>: 该标签是一个vue-router中已经内置的组件，它会被渲染成一个<code>&lt;a&gt;</code>标签。</p>
+<p><code>&lt;router-view&gt;</code>: 该标签会根据当前的路径，动态渲染出不同的组件。</p>
+<p>网页的其他内容, 比如顶部的标题/导航，或者底部的一些版权信息等会和<code>&lt;router-view&gt;</code>处于同一个等级。</p>
+<p>在路由切换时, 切换的是<code>&lt;router-view&gt;</code>挂载的组件，其他内容不会发生改变。</p>
+</blockquote>
+<ul>
+<li><p>最终效果：</p>
+<p><img src="/.com//picgo_pics\image-20210506160923693.png" alt="image-20210506160923693"></p>
+</li>
+</ul>
+<h3 id="3）细节处理"><a href="#3）细节处理" class="headerlink" title="3）细节处理"></a>3）细节处理</h3><h4 id="路由的默认路径"><a href="#路由的默认路径" class="headerlink" title="路由的默认路径"></a>路由的默认路径</h4><p>默认情况下, 进入网站的首页, 我们希望<code>&lt;router-view&gt;</code>渲染首页的内容。</p>
+<p>但是我们的实现中, 默认没有显示首页组件, 必须让用户点击才可以。</p>
+<p>如何可以让<strong>路径</strong>默认跳到到<strong>首页</strong>, 并且<router-view>渲染首页组件呢?</router-view></p>
+<p>非常简单, 我们只需要配置多配置一个映射就可以了：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> routes = [</span><br><span class="line">    &#123;</span><br><span class="line">        path: <span class="string">&#x27;/&#x27;</span>,   </span><br><span class="line">        <span class="comment">//path配置的是根路径: /</span></span><br><span class="line">        redirect: <span class="string">&#x27;/home&#x27;</span>    </span><br><span class="line">        <span class="comment">//redirect是重定向, 也就是我们将根路径重定向到/home的路径下, 这样就可以得到我们想要的结果了</span></span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="HTML5的History模式"><a href="#HTML5的History模式" class="headerlink" title="HTML5的History模式"></a>HTML5的History模式</h4><p>我们前面说过改变路径的方式有两种:</p>
+<ul>
+<li><p>URL的hash</p>
+</li>
+<li><p>HTML5的history</p>
+</li>
+</ul>
+<p>默认情况下, 路径的改变使用的URL的hash。</p>
+<p>如果希望使用HTML5的history模式, 非常简单, 进行如下配置即可:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">    routes,</span><br><span class="line">    mode: <span class="string">&#x27;history&#x27;</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p><img src="/.com//picgo_pics\image-20210506162132233.png" alt="image-20210506162132233"></p>
+<h4 id="router-link补充"><a href="#router-link补充" class="headerlink" title="router-link补充"></a>router-link补充</h4><p>在前面的<code>&lt;router-link&gt;</code>中, 我们只是使用了一个属性: <code>to</code>, 用于指定跳转的路径。</p>
+<p><code>&lt;router-link&gt;</code>还有一些<strong>其他属性</strong>:</p>
+<ul>
+<li><p><code>tag</code>: <code>tag</code>可以指定<code>&lt;router-link&gt;</code>之后渲染成什么组件</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">router-link</span> <span class="attr">to</span>=<span class="string">&#x27;/home&#x27;</span> <span class="attr">tag</span>=<span class="string">&#x27;li&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 比如上面的代码会被渲染成一个&lt;li&gt;元素, 而不是&lt;a&gt; --&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p><code>replace</code>: <code>replace</code>不会留下history记录, 所以指定<code>replace</code>的情况下, 后退键返回不能返回到上一个页面中</p>
+</li>
+<li><p><code>active-class</code>: 当<code>&lt;router-link&gt;</code>对应的路由匹配成功时, 会自动给当前元素设置一个<code>router-link-active</code>的class, 设置<code>active-class</code>可以修改默认的名称：</p>
+<p>Ø在进行高亮显示的导航菜单或者底部tabbar时, 会使用到该类</p>
+<p>Ø但是通常不会修改类的属性, 会直接使用默认的<code>router-link-active</code>即可</p>
+<p><img src="/.com//picgo_pics\image-20210506162750379.png" alt="image-20210506162750379"></p>
+</li>
+</ul>
+<h4 id="修改linkActiveClass"><a href="#修改linkActiveClass" class="headerlink" title="修改linkActiveClass"></a>修改linkActiveClass</h4><p>该class具体的名称也可以通过router实例的属性进行修改 :</p>
+<p><img src="/.com//picgo_pics\image-20210506162918366.png" alt="image-20210506162918366"></p>
+<p><img src="/.com//picgo_pics\image-20210506163005149.png" alt="image-20210506163005149"></p>
+<blockquote>
+<p>exact-active-class：</p>
+<p>类似于active-class, 只是在精准匹配下才会出现的class。之后在嵌套路由时, 我们再使用这个属性。</p>
+</blockquote>
+<h4 id="路由代码跳转"><a href="#路由代码跳转" class="headerlink" title="路由代码跳转"></a>路由代码跳转</h4><p>有时候, 页面的跳转可能需要执行对应的JavaScript代码, 这个时候, 就可以使用第二种跳转方式了：</p>
+<p><img src="/.com//picgo_pics\image-20210506163351520.png" alt="image-20210506163351520"></p>
+<h2 id="2-动态路由"><a href="#2-动态路由" class="headerlink" title="2. 动态路由"></a>2. 动态路由</h2><p>在某些情况下，一个页面的path路径可能是不确定的。比如我们进入用户界面时，希望是如下的路径：</p>
+<p><code>/user/aaaa或/user/bbbb</code></p>
+<p>除了有前面的/user之外，后面还跟上了用户的ID。这种path和Component的匹配关系，我们称之为动态路由(也是路由传递数据的一种方式)。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//router</span></span><br><span class="line"><span class="keyword">const</span> routes = [</span><br><span class="line">    &#123;</span><br><span class="line">        path: <span class="string">&#x27;user/:id&#x27;</span>,</span><br><span class="line">        Component: User</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- components/User.vue --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>&#123;&#123;$route.params.id&#125;&#125;<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 显示当前路由id --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- App.vue --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 使用v-bind动态绑定属性 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">router-link</span> <span class="attr">:to</span>=<span class="string">&quot;&#x27;/user/&#x27;+id&quot;</span>&gt;</span>用户<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">router-view</span>&gt;</span><span class="tag">&lt;/<span class="name">router-view</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">  name: <span class="string">&#x27;App&#x27;</span>,</span></span><br><span class="line"><span class="javascript">  <span class="function"><span class="title">data</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="javascript">      id: <span class="string">&#x27;lisi&#x27;</span></span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<br>
+
+<h2 id="3-路由懒加载"><a href="#3-路由懒加载" class="headerlink" title="3. 路由懒加载"></a>3. 路由懒加载</h2><h3 id="认识路由懒加载"><a href="#认识路由懒加载" class="headerlink" title="认识路由懒加载"></a>认识路由懒加载</h3><p>官方给出了解释:</p>
+<ul>
+<li><p>当打包构建应用时，Javascript 包会变得非常大，影响页面加载。</p>
+</li>
+<li><p>如果我们能把不同路由对应的组件分割成不同的代码块，然后当路由被访问的时候才加载对应组件，这样就更加高效了。</p>
+</li>
+</ul>
+<p>官方在说什么呢?</p>
+<ul>
+<li><p>首先, 我们知道路由中通常会定义很多不同的页面。</p>
+</li>
+<li><p>这个页面最后被打包在哪里呢? 一般情况下, 是放在一个js文件中。</p>
+</li>
+<li><p>但是, 页面这么多放在一个js文件中, 必然会造成这个页面非常的大。</p>
+</li>
+<li><p>如果我们一次性从服务器请求下来这个页面, 可能需要花费一定的时间, 甚至用户的电脑上还出现了短暂空白的情况。</p>
+</li>
+<li><p>如何避免这种情况呢? 使用路由懒加载就可以了。</p>
+</li>
+</ul>
+<p>路由懒加载做了什么?</p>
+<ul>
+<li>路由懒加载的主要作用就是将路由对应的组件打包成一个个的js代码块。只有在这个路由被访问到的时候, 才加载对应的组件。</li>
+</ul>
+<p>效果：</p>
+<ul>
+<li><p>直接打包使用：</p>
+<p><img src="/.com//picgo_pics\image-20210508200112106.png" alt="image-20210508200112106"></p>
+</li>
+<li><p>使用路由懒加载：</p>
+<p><img src="/.com//picgo_pics\image-20210508200136524.png" alt="image-20210508200136524"></p>
+</li>
+</ul>
+<h3 id="懒加载的方式"><a href="#懒加载的方式" class="headerlink" title="懒加载的方式"></a>懒加载的方式</h3><p><strong>方式一：结合Vue的异步组件和Webpack的代码分析</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Home = <span class="function"><span class="params">resolve</span> =&gt;</span> &#123; <span class="built_in">require</span>.ensure([<span class="string">&#x27;../components/Home.vue&#x27;</span>], <span class="function">() =&gt;</span> &#123; resolve(<span class="built_in">require</span>(<span class="string">&#x27;../components/Home.vue&#x27;</span>)) &#125;)&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>方式二： AMD写法</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> About = <span class="function"><span class="params">resolve</span> =&gt;</span> <span class="built_in">require</span>([<span class="string">&#x27;../components/About.vue&#x27;</span>], resolve);</span><br></pre></td></tr></table></figure>
+<p><strong>方式三：在ES6中, 我们可以有更加简单的写法来组织Vue异步组件和Webpack的代码分割</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Home = <span class="function">() =&gt;</span> <span class="keyword">import</span>(<span class="string">&#x27;../components/Home.vue&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//router/index.js</span></span><br><span class="line"><span class="keyword">const</span> User = <span class="function">() =&gt;</span> <span class="keyword">import</span>(<span class="string">&quot;../components/User&quot;</span>)</span><br><span class="line">  <span class="comment">//使用路由懒加载方式引入</span></span><br><span class="line"><span class="keyword">const</span> routes = [</span><br><span class="line">    &#123;</span><br><span class="line">        path: <span class="string">&#x27;/user/:id&#x27;</span>,</span><br><span class="line">        component: User</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<br>
+
+<h2 id="4-嵌套路由"><a href="#4-嵌套路由" class="headerlink" title="4. 嵌套路由"></a>4. 嵌套路由</h2><h3 id="1）认识嵌套路由"><a href="#1）认识嵌套路由" class="headerlink" title="1）认识嵌套路由"></a>1）认识嵌套路由</h3><p>嵌套路由是一个很常见的功能</p>
+<ul>
+<li><p>比如在home页面中, 我们希望通过/home/news和/home/message访问一些内容。</p>
+</li>
+<li><p>一个路径映射一个组件, 访问这两个路径也会分别渲染两个组件。</p>
+</li>
+</ul>
+<p>路径和组件的关系如下:</p>
+<p><img src="/.com//picgo_pics\image-20210508202544568.png" alt="image-20210508202544568"></p>
+<p>实现嵌套路由有两个步骤：</p>
+<ol>
+<li><p>创建对应的子组件, 并且在路由映射中配置对应的子路由</p>
+</li>
+<li><p>在组件内部使用<code>&lt;router-view&gt;</code>标签</p>
+</li>
+</ol>
+<h3 id="2）嵌套路由实现"><a href="#2）嵌套路由实现" class="headerlink" title="2）嵌套路由实现"></a>2）嵌套路由实现</h3><ol>
+<li><p>定义两个子组件</p>
+<p><img src="/.com//picgo_pics\image-20210508205312364.png" alt="image-20210508205312364"></p>
+</li>
+<li><p>在组件内部使用</p>
+<p><img src="/.com//picgo_pics\image-20210508205410837.png" alt="image-20210508205410837"></p>
+</li>
+<li><p>路由映射中配置对应的子路由</p>
+<p><img src="/.com//picgo_pics\image-20210508205435981.png" alt="image-20210508205435981"></p>
+</li>
+<li><p>结果</p>
+<p><img src="/.com//picgo_pics\image-20210508205504578.png" alt="image-20210508205504578"></p>
+</li>
+</ol>
+<p><strong>嵌套默认路径：</strong></p>
+<p>嵌套路由也可以配置默认的路径, 配置方式如下: </p>
+<p><img src="/.com//picgo_pics\image-20210508205930255.png" alt="image-20210508205930255"></p>
+<br>
+
+<h2 id="5-传递参数"><a href="#5-传递参数" class="headerlink" title="5. 传递参数"></a>5. 传递参数</h2><h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>为了演示传递参数, 我们这里再创建一个组件, 并且将其配置好</p>
+<ul>
+<li><p>第一步: 创建新的组件Profile.vue </p>
+<p><img src="/.com//picgo_pics\image-20210509151812087.png" alt="image-20210509151812087"></p>
+</li>
+<li><p>第二步: 配置路由映射 </p>
+<p><img src="/.com//picgo_pics\image-20210509151829147.png" alt="image-20210509151829147"></p>
+</li>
+<li><p>第三步: 添加跳转的<router-link></router-link></p>
+<p><img src="/.com//picgo_pics\image-20210509151838186.png" alt="image-20210509151838186"></p>
+</li>
+</ul>
+<h3 id="传递参数的方式"><a href="#传递参数的方式" class="headerlink" title="传递参数的方式"></a>传递参数的方式</h3><p>传递参数主要有两种类型: <code>params</code>和<code>query</code></p>
+<p><strong>params的类型</strong>:</p>
+<ul>
+<li><p>配置路由格式: /router/:id</p>
+</li>
+<li><p>传递的方式: 在path后面跟上对应的值</p>
+</li>
+<li><p>传递后形成的路径: /router/123，/router/abc</p>
+</li>
+</ul>
+<p><strong>query的类型</strong>:</p>
+<ul>
+<li><p>配置路由格式: /router，也就是普通配置</p>
+</li>
+<li><p>传递的方式: 对象中使用query的key作为传递方式</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- APP.vue --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">router-link</span> <span class="attr">:to</span>=<span class="string">&quot;&#123;path: &#x27;/profile&#x27;, query: &#123;name: &#x27;nick&#x27;, age: 18&#125;&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 形成的路径：/profile?name=nick&amp;age=18 --&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>传递后形成的路径: /router?id=123，/router?id=abc</p>
+</li>
+</ul>
+<p>如何使用它们呢? 也有两种方式: <code>&lt;router-link&gt;</code>的方式和JavaScript代码方式。</p>
+<p><strong>方式1：<code>&lt;router-link&gt;</code></strong></p>
+<p><img src="/.com//picgo_pics\image-20210509155159881.png" alt="image-20210509155159881"></p>
+<p>方式2：JavaScript代码</p>
+<p><img src="/.com//picgo_pics\image-20210509155227150.png" alt="image-20210509155227150"></p>
+<h3 id="获取参数"><a href="#获取参数" class="headerlink" title="获取参数"></a>获取参数</h3><p>获取参数通过<code>$route</code>对象获取的。</p>
+<p>在使用了 vue-router 的应用中，路由对象会被注入每个组件中，赋值为 <code>this.$route</code> ，并且当路由切换时，路由对象会被更新。</p>
+<p>通过<code>$route</code>获取传递的信息如下:</p>
+<p><img src="/.com//picgo_pics\image-20210509160035623.png" alt="image-20210509160035623"></p>
+<p><strong>$route和$router是有区别的</strong></p>
+<p><code>$route</code>和<code>$router</code>是有区别的</p>
+<ul>
+<li><p><code>$router</code>为VueRouter实例，想要导航到不同URL，则使用<code>$router.push</code>方法</p>
+</li>
+<li><p><code>$route</code>为当前router跳转对象里面可以获取name、path、query、params等 </p>
+</li>
+</ul>
+<p><img src="/.com//picgo_pics\image-20210509160508297.png" alt="image-20210509160508297"></p>
+<br>
+
+<h2 id="6-全局导航守卫"><a href="#6-全局导航守卫" class="headerlink" title="6. 全局导航守卫"></a>6. 全局导航守卫</h2><h3 id="什么是导航守卫？"><a href="#什么是导航守卫？" class="headerlink" title="什么是导航守卫？"></a>什么是导航守卫？</h3><p>我们来考虑一个需求: 在一个SPA应用中, 如何改变网页的标题呢?</p>
+<ul>
+<li><p>网页标题是通过<code>&lt;title&gt;</code>来显示的, 但是SPA只有一个固定的HTML, 切换不同的页面时, 标题并不会改变。</p>
+</li>
+<li><p>但是我们可以通过JavaScript来修改<code>&lt;title&gt;</code>的内容。<code>window.document.title = &#39;新的标题&#39;</code>。</p>
+</li>
+<li><p>那么在Vue项目中, 在哪里修改? 什么时候修改比较合适呢?</p>
+</li>
+</ul>
+<p>普通的修改方式:</p>
+<ul>
+<li><p>我们比较容易想到的修改标题的位置是每一个路由对应的组件.vue文件中。</p>
+</li>
+<li><p>通过mounted声明周期函数, 执行对应的代码进行修改即可。</p>
+</li>
+<li><p>但是当页面比较多时, 这种方式不容易维护(因为需要在多个页面执行类似的代码)。</p>
+</li>
+</ul>
+<p>有没有更好的办法呢? 使用<strong>导航守卫</strong>即可。</p>
+<p>什么是导航守卫?</p>
+<ul>
+<li><p>vue-router提供的导航守卫<strong>主要用来监听路由的进入和离开</strong>的。</p>
+</li>
+<li><p>vue-router提供了<code>beforeEach</code>和<code>afterEach</code>的钩子函数, 它们会在路由即将改变前和改变后触发。</p>
+</li>
+</ul>
+<h3 id="导航守卫的使用"><a href="#导航守卫的使用" class="headerlink" title="导航守卫的使用"></a>导航守卫的使用</h3><p>我们可以利用beforeEach来完成标题的修改。</p>
+<ol>
+<li><p>首先, 我们可以在钩子当中定义一些标题, 可以利用meta来定义</p>
+<p><img src="/.com//picgo_pics\image-20210509162003890.png" alt="image-20210509162003890"></p>
+</li>
+<li><p>其次, 利用导航守卫,修改我们的标题</p>
+<p><img src="/.com//picgo_pics\image-20210509162012365.png" alt="image-20210509162012365"></p>
+</li>
+</ol>
+<blockquote>
+<p>导航钩子的三个参数解析：</p>
+<ul>
+<li><p>to: 即将要进入的目标的路由对象</p>
+</li>
+<li><p>from: 当前导航即将要离开的路由对象</p>
+</li>
+<li><p>next: 调用该方法后, 才能进入下一个钩子</p>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>可能出现的问题：其他路由页面标题正常显示，但是主页面的标题为undefined。可以将代码改动如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">router.beforeEach(<span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</span><br><span class="line"> <span class="built_in">document</span>.title = to.matched[<span class="number">0</span>].meta.title</span><br><span class="line"> next()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="导航守卫补充"><a href="#导航守卫补充" class="headerlink" title="导航守卫补充"></a>导航守卫补充</h3><p>补充一:如果是后置钩子, 也就是<code>afterEach</code>, 不需要主动调用<code>next()</code>函数</p>
+<p>补充二: 上面我们使用的导航守卫, 被称之为<strong>全局守卫</strong></p>
+<ul>
+<li><p>路由独享的守卫</p>
+</li>
+<li><p>组件内的守卫</p>
+</li>
+</ul>
+<blockquote>
+<p>更多内容, 可以查看官网进行学习：</p>
+<p><a target="_blank" rel="noopener" href="https://router.vuejs.org/zh/guide/advanced/navigation-guards.html">VueRouter - 导航守卫</a></p>
+</blockquote>
+<br>
+
+<h2 id="7-keep-alive"><a href="#7-keep-alive" class="headerlink" title="7. keep-alive"></a>7. keep-alive</h2><p>keep-alive 是 Vue 内置的一个组件，可以使被包含的组件保留状态，或避免重新渲染。</p>
+<p>它们有两个非常重要的属性:</p>
+<ul>
+<li><p>include - 字符串或正则表达，只有匹配的组件会被缓存</p>
+</li>
+<li><p>exclude - 字符串或正则表达式，任何匹配的组件都不会被缓存</p>
+</li>
+</ul>
+<p>router-view 也是一个组件，如果直接被包在 keep-alive 里面，所有路径匹配到的视图组件都会被缓存：</p>
+<p><img src="/.com//picgo_pics\image-20210509165411976.png" alt="image-20210509165411976"></p>
+<blockquote>
+<p>activated()和deactivated()两个周期函数，只有该组件保持了状态使用了keep-alive时，才是有效的。</p>
+</blockquote>
+<br> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2021/05/17/Vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag">学习笔记</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2021/05/17/Vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B05/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Vue学习笔记5
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2021/05/17/Vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Vue CLI学习笔记</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "DxjdVENjKn4OPt6wHb07UtxP-gzGzoHsz",
+    app_key: "J0hPK8lUjl1jMLcupB2S7Gws",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2020-2021
+        <i class="ri-heart-fill heart_icon"></i> Lu xiuyuan
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        Powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+        <span class="division">|</span>
+        Theme - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="路修远"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/photos">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2020/12/30/%E6%95%A3%E8%AF%97">诗集</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+<script src="/js/dz.js"></script>
+
+
+
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="1" marginwidth="0" marginheight="0" width="200" height="52"
+        src="//music.163.com/outchain/player?type=2&id=28718313&auto=1&height=32"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        right: 15px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
+    
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+
+<head>
+  <meta charset="utf-8" />
+   
+  <meta name="keywords" content="路修远,博客,ayer,学习笔记,前端,萌新" />
+   
+  <meta name="description" content="路修远个人博客,前端萌新" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    Vue学习笔记6 |  路修远
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="路修远" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-Vue学习笔记6"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Vue学习笔记6
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/05/17/Vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B06/" class="article-date">
+  <time datetime="2021-05-17T02:54:46.000Z" itemprop="datePublished">2021-05-17</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a> / <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/Vue/">Vue</a> / <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/Vue/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">1.4k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">5 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <blockquote>
+<p>Vue2.x学习笔记。原视频教程：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV15741177Eh">最全最新Vue、Vuejs教程，从入门到精通_哔哩哔哩 (゜-゜)つロ 干杯~-bilibili</a></p>
+<p>第六部分：axios。</p>
+</blockquote>
+<br>
+
+<h1 id="axios"><a href="#axios" class="headerlink" title="axios"></a>axios</h1><h2 id="网络模块的选择"><a href="#网络模块的选择" class="headerlink" title="网络模块的选择"></a>网络模块的选择</h2><p>Vue中发送网络请求有非常多的方式, 那么, 在开发中, 如何选择呢?</p>
+<h3 id="选择1：ajax"><a href="#选择1：ajax" class="headerlink" title="选择1：ajax"></a>选择1：ajax</h3><p>传统的Ajax是基于XMLHttpRequest(XHR)</p>
+<p>为什么不用它呢?非常好解释：</p>
+<ul>
+<li><p>配置和调用方式等非常混乱</p>
+</li>
+<li><p>编码起来看起来就非常蛋疼</p>
+</li>
+<li><p>所以真实开发中很少直接使用, 而是使用jQuery-Ajax</p>
+</li>
+</ul>
+<h3 id="选择2：jquery-ajax"><a href="#选择2：jquery-ajax" class="headerlink" title="选择2：jquery-ajax"></a>选择2：jquery-ajax</h3><p>它相对于传统的Ajax非常好用。为什么不选择它呢？</p>
+<p>首先, 我们先明确一点: 在Vue的整个开发中都是不需要使用jQuery了。</p>
+<p>那么, 就意味着为了方便我们进行一个网络请求, 特意引用一个jQuery, 你觉得合理吗？</p>
+<p>jQuery的代码1w+行。Vue的代码才1w+行。</p>
+<p>因此完全没有必要为了用网络请求就引用这个重量级的框架。</p>
+<h3 id="选择3：Vue-resource"><a href="#选择3：Vue-resource" class="headerlink" title="选择3：Vue-resource"></a>选择3：Vue-resource</h3><p>官方在Vue1.x的时候, 推出了Vue-resource。</p>
+<ul>
+<li><p>Vue-resource的体积相对于jQuery小很多。</p>
+</li>
+<li><p>另外Vue-resource是官方推出的。</p>
+</li>
+</ul>
+<p>为什么不选择它呢?</p>
+<p>在Vue2.0退出后, Vue作者就在GitHub的Issues中说明了去掉vue-resource, 并且以后也不会再更新。</p>
+<p>那么意味着以后vue-reource不再支持新的版本时, 也不会再继续更新和维护。对以后的项目开发和维护都存在很大的隐患。</p>
+<h3 id="选择4：axios"><a href="#选择4：axios" class="headerlink" title="选择4：axios"></a>选择4：axios</h3><p>在说明不再继续更新和维护vue-resource的同时, 作者还推荐了一个框架: axios。</p>
+<a id="more"></a>
+
+<br>
+
+<h2 id="jsonp"><a href="#jsonp" class="headerlink" title="jsonp"></a>jsonp</h2><p>在前端开发中，我们一种常见的网络请求方式就是JSONP。</p>
+<p>使用JSONP最主要的原因往往是为了<strong>解决跨域访问的问题</strong>。</p>
+<p>JSONP的原理是什么呢？</p>
+<p>JSONP的核心在于通过<code>&lt;script&gt;</code>标签的src来帮助我们请求数据。</p>
+<p>原因是我们的项目部署在domain1.com服务器上时，是不能直接访问domain2.com服务器上的资料的。</p>
+<p>这个时候，我们利用<code>&lt;script&gt;</code>标签的src帮助我们去服务器请求到数据，将数据当做一个javascript的函数来执行，并且执行的过程中传入我们需要的json。</p>
+<p><strong>所以, 封装jsonp的核心就在于我们监听window上的jsonp进行回调时的名称。</strong></p>
+<p>JSONP如何封装呢?我们一起自己来封装一个处理JSONP的代码吧。</p>
+<p><img src="/.com//picgo_pics\image-20210516172049353.png" alt="image-20210516172049353"></p>
+<p><img src="/.com//picgo_pics\image-20210516172037127.png" alt="image-20210516172037127"></p>
+<br>
+
+<h2 id="认识axios"><a href="#认识axios" class="headerlink" title="认识axios"></a>认识axios</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>功能特点:</p>
+<ul>
+<li><p>在浏览器中发送 XMLHttpRequests 请求</p>
+</li>
+<li><p>在 node.js 中发送 http请求</p>
+</li>
+<li><p>支持 Promise API</p>
+</li>
+<li><p>拦截请求和响应</p>
+</li>
+<li><p>转换请求和响应数据</p>
+</li>
+<li><p>等等</p>
+</li>
+</ul>
+<blockquote>
+<p>补充:：axios名称的由来？它没有具体的翻译。</p>
+<p>coderWhy老师的理解：</p>
+<p>axios：ajax i/o system。</p>
+</blockquote>
+<h3 id="请求方式"><a href="#请求方式" class="headerlink" title="请求方式"></a>请求方式</h3><p>支持多种请求方式:</p>
+<ul>
+<li><p><code>axios(config)</code></p>
+</li>
+<li><p><code>axios.request(config)</code></p>
+</li>
+<li><p><code>axios.get(url[, config])</code></p>
+</li>
+<li><p><code>axios.delete(url[, config])</code></p>
+</li>
+<li><p><code>axios.head(url[, config])</code></p>
+</li>
+<li><p><code>axios.post(url[, data[, config]])</code></p>
+</li>
+<li><p><code>axios.put(url[, data[, config]])</code></p>
+</li>
+<li><p><code>axios.patch(url[, data[, config]])</code></p>
+</li>
+</ul>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install axios -<span class="literal">-save</span></span><br></pre></td></tr></table></figure>
+<h3 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&#x27;axios&#x27;</span></span><br></pre></td></tr></table></figure>
+<h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//写法1</span></span><br><span class="line">axios(&#123;</span><br><span class="line">    url: <span class="string">&#x27;url&#x27;</span>,</span><br><span class="line">    method: <span class="string">&#x27;get&#x27;</span> <span class="comment">//不写默认为get方式</span></span><br><span class="line">&#125;).then().catch()</span><br><span class="line"></span><br><span class="line"><span class="comment">//写法2</span></span><br><span class="line">axios.get(<span class="string">&#x27;url&#x27;</span>).then().catch()</span><br></pre></td></tr></table></figure>
+
+
+<br>
+
+<h2 id="发送请求"><a href="#发送请求" class="headerlink" title="发送请求"></a>发送请求</h2><h3 id="发送get请求演示"><a href="#发送get请求演示" class="headerlink" title="发送get请求演示"></a>发送get请求演示</h3><p><img src="/.com//picgo_pics\image-20210516172812318.png" alt="image-20210516172812318"></p>
+<h3 id="发送并发请求"><a href="#发送并发请求" class="headerlink" title="发送并发请求"></a>发送并发请求</h3><p>有时候, 我们可能需求同时发送两个请求。 </p>
+<ul>
+<li><p>使用<code>axios.all</code>, 可以放入多个请求的数组</p>
+</li>
+<li><p><code>axios.all([])</code> 返回的结果是一个数组，使用 <code>axios.spread</code> 可将数组 [res1,res2] 展开为 res1, res2</p>
+</li>
+</ul>
+<p><img src="/.com//picgo_pics\image-20210516172920180.png" alt="image-20210516172920180"></p>
+<br>
+
+<h2 id="全局配置"><a href="#全局配置" class="headerlink" title="全局配置"></a>全局配置</h2><p>在上面的示例中, 我们的BaseURL是固定的。</p>
+<p>事实上, 在开发中可能很多参数都是固定的。</p>
+<p>这个时候我们可以进行一些抽取, 也可以利用axios的全局配置。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//示例：</span></span><br><span class="line">axios.defaults.baseURL = <span class="string">&#x27;123.207.32.32:8000&#x27;</span></span><br><span class="line">axios.defaults.headers.post[<span class="string">&#x27;Content-Type&#x27;</span>] = <span class="string">&#x27;application/x-www-form-urlencoded&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p><img src="/.com//picgo_pics\image-20210516194537504.png" alt="image-20210516194537504"></p>
+<p><strong>常见的配置选项：</strong></p>
+<p><img src="/.com//picgo_pics\image-20210516195038198.png" alt="image-20210516195038198"></p>
+<br>
+
+<h2 id="axios的实例"><a href="#axios的实例" class="headerlink" title="axios的实例"></a>axios的实例</h2><p>为什么要创建axios的实例呢?</p>
+<ul>
+<li><p>当我们从axios模块中导入对象时, 使用的实例是默认的实例</p>
+</li>
+<li><p>当给该实例设置一些默认配置时, 这些配置就被固定下来了</p>
+</li>
+<li><p>但是后续开发中, 某些配置可能会不太一样</p>
+</li>
+<li><p>比如某些请求需要使用特定的baseURL或者timeout或者content-Type等</p>
+</li>
+<li><p>这个时候, 我们就可以创建新的实例, 并且传入属于该实例的配置信息</p>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建新的实例</span></span><br><span class="line"><span class="keyword">const</span> axiosInstance = axios.create(&#123;</span><br><span class="line">  baseURL: <span class="string">&#x27;url&#x27;</span>,</span><br><span class="line">  timeout: <span class="number">5000</span>,</span><br><span class="line">  headers: &#123;</span><br><span class="line">      <span class="string">&#x27;content-Type&#x27;</span>: <span class="string">&#x27;application/x-www-form-urlencoded&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//发送网络请求</span></span><br><span class="line">axiosInstance(&#123;</span><br><span class="line">  url: <span class="string">&#x27;/category&#x27;</span>,</span><br><span class="line">  method: <span class="string">&#x27;get&#x27;</span></span><br><span class="line">&#125;).then().catch()</span><br></pre></td></tr></table></figure>
+<br>
+
+<h2 id="axios封装"><a href="#axios封装" class="headerlink" title="axios封装"></a>axios封装</h2><p>可以新建一个network文件，新建request.js文件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//封装</span></span><br><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&#x27;axios&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">request</span>(<span class="params">config</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">//1.创建axios实例</span></span><br><span class="line">        <span class="keyword">const</span> instance = axios.create(&#123;</span><br><span class="line">            baseURL: <span class="string">&#x27;url&#x27;</span>,</span><br><span class="line">            timeout: <span class="number">5000</span></span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">        <span class="comment">//2.传入对象发送网络请求</span></span><br><span class="line">        instance(config)</span><br><span class="line">            .then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">                resolve(res)</span><br><span class="line">            &#125;)</span><br><span class="line">            .catch(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">                reject(err)</span><br><span class="line">            &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用</span></span><br><span class="line"><span class="keyword">import</span> request <span class="keyword">from</span> <span class="string">&#x27;./network/request&#x27;</span></span><br><span class="line"></span><br><span class="line">request(&#123;</span><br><span class="line">    url: <span class="string">&#x27;/home&#x27;</span></span><br><span class="line">&#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> <span class="built_in">console</span>.log(res))</span><br><span class="line">  .catch(<span class="function"><span class="params">err</span> =&gt;</span> <span class="built_in">console</span>.log(err))</span><br></pre></td></tr></table></figure>
+<br>
+
+<h2 id="axios拦截器"><a href="#axios拦截器" class="headerlink" title="axios拦截器"></a>axios拦截器</h2><p>axios提供了拦截器，用于我们在发送每次请求或者得到响应后，进行对应的处理。</p>
+<h3 id="怎么做"><a href="#怎么做" class="headerlink" title="怎么做"></a>怎么做</h3><p><img src="/.com//picgo_pics\image-20210516205209351.png" alt="image-20210516205209351"></p>
+<p><img src="/.com//picgo_pics\image-20210516205216174.png" alt="image-20210516205216174"></p>
+<p><img src="/.com//picgo_pics\image-20210516205224320.png" alt="image-20210516205224320"></p>
+<br>
+
+<h3 id="做什么"><a href="#做什么" class="headerlink" title="做什么"></a>做什么</h3><h4 id="请求拦截："><a href="#请求拦截：" class="headerlink" title="请求拦截："></a>请求拦截：</h4><ul>
+<li><p>请求的成功拦截：</p>
+<p><img src="/.com//picgo_pics\image-20210516210354057.png" alt="image-20210516210354057"></p>
+</li>
+<li><p>请求拦截中错误拦截较少，通常都是配置相关的拦截。</p>
+<ul>
+<li>可能的错误比如请求超时，可以将页面跳转到一个错误页面中。</li>
+</ul>
+</li>
+</ul>
+<h4 id="响应拦截："><a href="#响应拦截：" class="headerlink" title="响应拦截："></a>响应拦截：</h4><ul>
+<li><p>响应的成功拦截中，主要是对数据进行过滤。</p>
+<p><img src="/.com//picgo_pics\image-20210516210506355.png" alt="image-20210516210506355"></p>
+<p><img src="/.com//picgo_pics\image-20210516210515748.png" alt="image-20210516210515748"></p>
+</li>
+<li><p>响应的失败拦截中，可以根据status判断报错的错误码，跳转到不同的错误提示页面。</p>
+<p><img src="/.com//picgo_pics\image-20210516210634524.png" alt="image-20210516210634524"></p>
+</li>
+</ul>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2021/05/17/Vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B06/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag">学习笔记</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2021/05/17/Vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B05/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Vue学习笔记5</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "DxjdVENjKn4OPt6wHb07UtxP-gzGzoHsz",
+    app_key: "J0hPK8lUjl1jMLcupB2S7Gws",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2020-2021
+        <i class="ri-heart-fill heart_icon"></i> Lu xiuyuan
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        Powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+        <span class="division">|</span>
+        Theme - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="路修远"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/photos">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2020/12/30/%E6%95%A3%E8%AF%97">诗集</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+<script src="/js/dz.js"></script>
+
+
+
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="1" marginwidth="0" marginheight="0" width="200" height="52"
+        src="//music.163.com/outchain/player?type=2&id=28718313&auto=1&height=32"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        right: 15px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
+    
+  </div>
+</body>
+
+</html>

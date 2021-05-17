@@ -13,7 +13,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    记录大创（2） |  路修远
+    Vue CLI学习笔记 |  路修远
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -49,7 +49,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-记录大创（2）"
+  id="post-Vue学习笔记3"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -60,18 +60,18 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  记录大创（2）
+  Vue CLI学习笔记
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/2021/03/18/%E8%AE%B0%E5%BD%95%E5%A4%A7%E5%88%9B%EF%BC%882%EF%BC%89/" class="article-date">
-  <time datetime="2021-03-18T12:01:40.000Z" itemprop="datePublished">2021-03-18</time>
+      <a href="/2021/05/17/Vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03/" class="article-date">
+  <time datetime="2021-05-17T02:47:08.000Z" itemprop="datePublished">2021-05-17</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%A4%A7%E5%88%9B/">大创</a>
+    <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a> / <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/Vue/">Vue</a> / <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/Vue/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
   </div>
   
 <div class="word_count">
@@ -79,7 +79,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">773</span>
+            <span class="post-count">966</span>
         </span>
     </span>
 
@@ -103,26 +103,111 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="express使用JWT和httpOnly-cookie进行登录和安全验证"><a href="#express使用JWT和httpOnly-cookie进行登录和安全验证" class="headerlink" title="express使用JWT和httpOnly cookie进行登录和安全验证"></a>express使用JWT和httpOnly cookie进行登录和安全验证</h1><blockquote>
-<p>一般情况使用JWT作为身份验证的方式可以直接参考这篇文章：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/zkqiang/p/11810203.html">Node.js 使用 express-jwt 解析 JWT</a> 。这里主要针对httpOnly类型的cookie进行代码调整。</p>
+  <blockquote>
+<p>Vue2.x学习笔记。原视频教程：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV15741177Eh">最全最新Vue、Vuejs教程，从入门到精通_哔哩哔哩 (゜-゜)つロ 干杯~-bilibili</a></p>
+<p>第三部分：Vue-cli。</p>
 </blockquote>
+<br>
+
+<h1 id="Vue-CLI"><a href="#Vue-CLI" class="headerlink" title="Vue CLI"></a>Vue CLI</h1><h2 id="0-什么是vue-cli"><a href="#0-什么是vue-cli" class="headerlink" title="0. 什么是vue-cli"></a>0. 什么是vue-cli</h2><p>如果你在开发大型项目, 那么你需要, 并且必然需要使用Vue CLI</p>
+<ul>
+<li><p>使用Vue.js开发大型应用时，我们需要考虑代码目录结构、项目结构和部署、热加载、代码单元测试等事情。</p>
+</li>
+<li><p>如果每个项目都要手动完成这些工作，那无以效率比较低效，所以通常我们会使用一些脚手架工具来帮助完成这些事情。</p>
+</li>
+</ul>
+<p><strong>CLI</strong>是什么意思?</p>
+<ul>
+<li><p>CLI是Command-Line Interface, 翻译为命令行界面, 但是俗称脚手架.</p>
+</li>
+<li><p>Vue CLI是一个官方发布 vue.js 项目脚手架</p>
+</li>
+<li><p>使用 vue-cli 可以快速搭建Vue开发环境以及对应的webpack配置.</p>
+</li>
+</ul>
 <a id="more"></a>
 
-<h2 id="1-安装和引入"><a href="#1-安装和引入" class="headerlink" title="1. 安装和引入"></a>1. 安装和引入</h2><p>需要使用的模块：<code>express-jwt</code> ，用于解析token； <code>jsonwebtoken</code> ，用于生成token ； <code>cookie-parser</code>，用于解析cookie（据说express已经内置，但是为可能没有该模块导致避免取不到cookie，安装该模块）。</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i express<span class="literal">-jwt</span> jsonwebtoken cookie<span class="literal">-parser</span> -<span class="literal">-save</span></span><br></pre></td></tr></table></figure>
-<p><strong>引入：</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> jwt = <span class="built_in">require</span>(<span class="string">&#x27;jsonwebtoken&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> expressJwt = <span class="built_in">require</span>(<span class="string">&#x27;express-jwt&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> cookieParser = <span class="built_in">require</span>(<span class="string">&#x27;cookie-parser&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = express();</span><br></pre></td></tr></table></figure>
-<h2 id="2-生成token，放入cookie"><a href="#2-生成token，放入cookie" class="headerlink" title="2. 生成token，放入cookie"></a>2. 生成token，放入cookie</h2><p><strong>封装一个生成token的方法：</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置一个私钥</span></span><br><span class="line"><span class="keyword">const</span> scrict = <span class="string">&#x27;examplev8w9egf&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createToken</span> = <span class="title">palyload</span> =&gt;</span>&#123;</span><br><span class="line">    <span class="comment">//给palyload添加一个生成时间戳的属性</span></span><br><span class="line">    palyload.curtime = <span class="built_in">Date</span>.now();</span><br><span class="line">    <span class="comment">//这里添加Bearer是因为express-jwt模块默认获取到token的方法</span></span><br><span class="line">    <span class="comment">//当然这里也没必要添加，因为后续我们不会使用默认的解析方式</span></span><br><span class="line">    <span class="keyword">const</span> token = <span class="string">&#x27;Bearer &#x27;</span> +　jwt.sign(</span><br><span class="line">        palyload,</span><br><span class="line">        scrict, &#123; </span><br><span class="line">            expiresIn: <span class="number">3600</span> * <span class="number">24</span> * <span class="number">3</span>   <span class="comment">//过期时间</span></span><br><span class="line">        &#125;)</span><br><span class="line">    <span class="keyword">return</span> token;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>在需要的位置生成和发送token到cookie：</strong></p>
+<br>
+
+<h2 id="1-vue-cli使用"><a href="#1-vue-cli使用" class="headerlink" title="1. vue-cli使用"></a>1. vue-cli使用</h2><h3 id="0）前提"><a href="#0）前提" class="headerlink" title="0）前提"></a>0）前提</h3><p><strong>Node</strong>环境要求8.9以上或更改版本。同时依赖<strong>webpack</strong>。</p>
+<h3 id="1）安装及初始化"><a href="#1）安装及初始化" class="headerlink" title="1）安装及初始化"></a>1）安装及初始化</h3><h4 id="安装："><a href="#安装：" class="headerlink" title="安装："></a>安装：</h4><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install <span class="literal">-g</span> @vue/<span class="built_in">cli</span></span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>如果不知道express中怎么使用cookie，可以参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/cckevincyh/article/details/79815666">Express Cookie的使用</a></p>
+<p><strong>注意：</strong>上面安装的是Vue CLI3的版本，如果需要想按照Vue CLI2的方式初始化项目时不可以的。</p>
+<p><img src="/.com//picgo_pics\image-20210504220852996.png" alt="image-20210504220852996"></p>
 </blockquote>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">app.use(<span class="string">&#x27;/&#x27;</span>,<span class="function">(<span class="params">req,res</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> token = createToken(&#123;<span class="attr">login</span>:<span class="literal">true</span>,<span class="attr">name</span>:user&#125;)   <span class="comment">//这里的palyload参数可以自行设定</span></span><br><span class="line">    <span class="comment">//将token存入cookie，设置最大失效时间和httpOnly</span></span><br><span class="line">    res.cookie(<span class="string">&#x27;token&#x27;</span>,token,&#123; <span class="attr">maxAge</span>:<span class="number">1000</span>*<span class="number">3600</span>*<span class="number">24</span>, <span class="attr">path</span>:<span class="string">&#x27;/&#x27;</span>, <span class="attr">httpOnly</span>:<span class="literal">true</span> &#125;);</span><br><span class="line">    <span class="comment">//响应客户端</span></span><br><span class="line">    res.send(&#123;<span class="attr">msg</span>:<span class="string">&#x27;cookie设置成功&#x27;</span>&#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p><strong>客户端携带cookie请求：</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这里使用JQ封装的ajax，默认是会自动携带cookie的，无需单独设置</span></span><br><span class="line">$.ajax(&#123;</span><br><span class="line">    <span class="comment">//一般情况携带token的方式。但这里设置的是httpOnly无法获取，交给服务端处理</span></span><br><span class="line"><span class="comment">/*     headers:&#123;</span></span><br><span class="line"><span class="comment">        Accept: &quot;application/json; charset=utf-8&quot;,</span></span><br><span class="line"><span class="comment">        Authorization:token</span></span><br><span class="line"><span class="comment">    &#125;, */</span></span><br><span class="line">    url: <span class="string">&#x27;/&#x27;</span>,</span><br><span class="line">    type: <span class="string">&#x27;put&#x27;</span>,</span><br><span class="line">    contentType: <span class="string">&quot;application/json&quot;</span>,  </span><br><span class="line">    success: <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    error: <span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(err);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">//做一个响应401状态码的操作，返回登录界面</span></span><br><span class="line">    statusCode:&#123;</span><br><span class="line">        <span class="number">401</span>:<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">           <span class="comment">//token验证失败 异常处理</span></span><br><span class="line">           alert(<span class="string">&#x27;token验证失败！&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p><strong>服务器端解析cookie中的token：</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//cookie-parser挂载                                                                         </span></span><br><span class="line">home.use(cookieParser());</span><br><span class="line"></span><br><span class="line"><span class="comment">//express-jwt挂载，验证token</span></span><br><span class="line">home.use(expressJwt(&#123;</span><br><span class="line">    secret:scrict,</span><br><span class="line">    algorithms: [<span class="string">&#x27;HS256&#x27;</span>],   <span class="comment">//解码方式建议加上，否则可能会报错</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">/*重要的是这里，需要改变express-jwt默认取得token的方式</span></span><br><span class="line"><span class="comment">      默认模块会从请求头的authorization中取得token，token以&#x27;Bearer&#x27;开头 */</span></span><br><span class="line">    getToken:<span class="function"><span class="keyword">function</span> <span class="title">fromCookie</span>(<span class="params">req</span>)</span>&#123;</span><br><span class="line">        <span class="comment">//尝试从cookie读取token进行验证</span></span><br><span class="line">          <span class="keyword">if</span>(req.cookies.token)</span><br><span class="line">            <span class="keyword">return</span> req.cookies.token.split(<span class="string">&#x27; &#x27;</span>)[<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;  </span><br><span class="line">    &#125; </span><br><span class="line">    </span><br><span class="line">&#125;).unless(&#123;</span><br><span class="line">    path:[<span class="string">&#x27;/login&#x27;</span>,<span class="string">&#x27;logout&#x27;</span>]  <span class="comment">//白名单，该地址下的不会进行解析</span></span><br><span class="line">&#125;))</span><br><span class="line"><span class="comment">//token校验错误处理中间件</span></span><br><span class="line">home.use(<span class="function"><span class="keyword">function</span> (<span class="params">err, req, res, next</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (err.name === <span class="string">&#x27;UnauthorizedError&#x27;</span>) &#123;	</span><br><span class="line">      <span class="built_in">console</span>.log(err);</span><br><span class="line">      res.status(<span class="number">401</span>).send(<span class="string">&#x27;invalid token...&#x27;</span>);   <span class="comment">//根据具体情况设置，这里返回401状态码</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//通过解析后的处理</span></span><br><span class="line">app.use(<span class="string">&#x27;/user&#x27;</span>,<span class="function">(<span class="params">req,res</span>)=&gt;</span>&#123;</span><br><span class="line">    res.send(&#123;<span class="attr">err</span>:<span class="number">0</span>,<span class="attr">msg</span>:<span class="string">&#x27;token通过解析验证&#x27;</span>&#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="初始化："><a href="#初始化：" class="headerlink" title="初始化："></a>初始化：</h4><ul>
+<li><p>Vue CLI2初始化：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vue init webpack my<span class="literal">-project</span></span><br><span class="line"><span class="comment"># my-project为项目名称</span></span><br></pre></td></tr></table></figure></li>
+<li><p>Vue CLI3初始化：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue create my<span class="literal">-project</span></span><br></pre></td></tr></table></figure>
+<h3 id="2）启动和发布"><a href="#2）启动和发布" class="headerlink" title="2）启动和发布"></a>2）启动和发布</h3></li>
+</ul>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run dev <span class="comment">#启动项目</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run build <span class="comment">#项目打包，dist文件夹即为最终项目</span></span><br></pre></td></tr></table></figure>
+<br>
+
+<h3 id="3）Vue-CLI2详解"><a href="#3）Vue-CLI2详解" class="headerlink" title="3）Vue CLI2详解"></a>3）Vue CLI2详解</h3><h4 id="Vue-CLI2初始化详解"><a href="#Vue-CLI2初始化详解" class="headerlink" title="Vue CLI2初始化详解"></a>Vue CLI2初始化详解</h4><p><img src="/.com//picgo_pics\image-20210504221856656.png" alt="image-20210504221856656"></p>
+<h4 id="Vue-CLI2目录结构详解"><a href="#Vue-CLI2目录结构详解" class="headerlink" title="Vue CLI2目录结构详解"></a>Vue CLI2目录结构详解</h4><p><img src="/.com//picgo_pics\image-20210505113706703.png" alt="image-20210505113706703"></p>
+<br>
+
+<h4 id="Runtime-Compiler和Runtime-only"><a href="#Runtime-Compiler和Runtime-only" class="headerlink" title="Runtime-Compiler和Runtime-only"></a>Runtime-Compiler和Runtime-only</h4><p><img src="/.com//picgo_pics\image-20210505142928537.png" alt="image-20210505142928537"></p>
+<p><img src="/.com//picgo_pics\image-20210505142943189.png" alt="image-20210505142943189"></p>
+<p><strong>简单总结：</strong></p>
+<ul>
+<li><p>如果在之后的开发中，你依然使用template，就需要选择Runtime-Compiler</p>
+</li>
+<li><p>如果你之后的开发中，使用的是.vue文件夹开发，那么可以选择Runtime-only</p>
+</li>
+</ul>
+<br>
+
+<h5 id="Runtime-Compiler-和-Runtime-only的区别："><a href="#Runtime-Compiler-和-Runtime-only的区别：" class="headerlink" title="Runtime-Compiler 和 Runtime-only的区别："></a>Runtime-Compiler 和 Runtime-only的区别：</h5><p><img src="/.com//picgo_pics\image-20210505155531172.png" alt="image-20210505155531172"></p>
+<p><img src="/.com//picgo_pics\image-20210505155541831.png" alt="image-20210505155541831"></p>
+<p>为什么存在这样的差异呢？我们需要先理解Vue应用程序是如何运行起来的，</p>
+<p>Vue中的模板如何最终渲染成真实DOM。</p>
+<h5 id="Vue程序运行过程："><a href="#Vue程序运行过程：" class="headerlink" title="Vue程序运行过程："></a>Vue程序运行过程：</h5><p><img src="/.com//picgo_pics\image-20210505143054635.png" alt="image-20210505143054635"></p>
+<blockquote>
+<p><strong>runtime-compiler渲染过程：</strong></p>
+<p>template -&gt; ast -&gt; render -&gt; vDom -&gt; UI</p>
+<p><strong>runtime-only渲染过程：</strong>（省略编译，性能更高，代码更少）</p>
+<p>render -&gt; vDom -&gt; UI</p>
+</blockquote>
+<br>
+
+<h4 id="render函数的使用"><a href="#render函数的使用" class="headerlink" title="render函数的使用"></a>render函数的使用</h4><p><strong>方式1：</strong></p>
+<p><img src="/.com//picgo_pics\image-20210505155807925.png" alt="image-20210505155807925"></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">  render: <span class="function"><span class="params">h</span> =&gt;</span> h(<span class="string">&#x27;h2&#x27;</span>, &#123; <span class="attr">class</span>: <span class="string">&#x27;he&#x27;</span> &#125;, [<span class="string">&#x27;hello world&#x27;</span>]),</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><strong>方式2：</strong>（注意不能在runtime-only中使用）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.先注册一个组件</span></span><br><span class="line"><span class="keyword">const</span> cpn = Vue.component(<span class="string">&#x27;cpn&#x27;</span>, &#123;</span><br><span class="line">  template: <span class="string">&#x27;&lt;div&gt;我是一个组件,我的名字是：&#123;&#123;name&#125;&#125;&lt;/div&gt;&#x27;</span>,</span><br><span class="line">  <span class="function"><span class="title">data</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      name: <span class="string">&#x27;cpn&#x27;</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//2.使用组件</span></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">  render: <span class="function"><span class="params">h</span> =&gt;</span> h(cpn)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+<h5 id="关于runtime-only下-vue文件中的template"><a href="#关于runtime-only下-vue文件中的template" class="headerlink" title="关于runtime-only下.vue文件中的template"></a>关于runtime-only下.vue文件中的template</h5><p>按理说runtime-only中，是不经过template直接生成vDom的，但是.vue文件中却存在这样的template：</p>
+<p><img src="/.com//picgo_pics\image-20210505175632869.png" alt="image-20210505175632869"></p>
+<p>那么这是由谁处理的？</p>
+<p>答案：是由<strong>vue-template-compiler</strong>处理的。我们可以在package.json文件的<strong>开发时依赖</strong>中找到。我们引用的组件并非是直接引用的.vue文件中的内容，而是先经过vue-template-compiler将其<strong>转换成render函数</strong>后再使用。</p>
+<br>
+
+<h4 id="npm-run-dev和npm-run-build的解析过程图解"><a href="#npm-run-dev和npm-run-build的解析过程图解" class="headerlink" title="npm run dev和npm run build的解析过程图解"></a>npm run dev和npm run build的解析过程图解</h4><p><img src="/.com//picgo_pics\image-20210505180910045.png" alt="image-20210505180910045"></p>
+<p><img src="/.com//picgo_pics\image-20210505180919642.png" alt="image-20210505180919642"></p>
+<h3 id="4）Vue-CLI3详解"><a href="#4）Vue-CLI3详解" class="headerlink" title="4）Vue CLI3详解"></a>4）Vue CLI3详解</h3><h4 id="vue-cli-3-与-2-版本的区别："><a href="#vue-cli-3-与-2-版本的区别：" class="headerlink" title="vue-cli 3 与 2 版本的区别："></a>vue-cli 3 与 2 版本的区别：</h4><ul>
+<li><p>vue-cli 3 是基于 webpack 4 打造，vue-cli 2 还是 webapck 3</p>
+</li>
+<li><p>vue-cli 3 的设计原则是“0配置”，移除的配置文件根目录下的，build和config等目录</p>
+</li>
+<li><p>vue-cli 3 提供了 vue ui 命令，提供了可视化配置，更加人性化</p>
+</li>
+<li><p>移除了static文件夹，新增了public文件夹，并且index.html移动到public中</p>
+</li>
+</ul>
+<h4 id="安装配置："><a href="#安装配置：" class="headerlink" title="安装配置："></a>安装配置：</h4><p><img src="/.com//picgo_pics\image-20210505182135594.png"></p>
+<h4 id="目录结构详解："><a href="#目录结构详解：" class="headerlink" title="目录结构详解："></a>目录结构详解：</h4><p><img src="/.com//picgo_pics\image-20210505200152050.png" alt="image-20210505200152050"></p>
+<h4 id="配置文件的查看和修改："><a href="#配置文件的查看和修改：" class="headerlink" title="配置文件的查看和修改："></a>配置文件的查看和修改：</h4><p><strong>图形界面配置：</strong></p>
+<p>任意目录启动配置服务器：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue ui</span><br></pre></td></tr></table></figure>
+<p>之后可以创建、导入和管理自己的Vue项目。</p>
+<p><strong>文件配置：</strong></p>
+<p>在项目根目录创建<code>vue.config.js</code>文件，进行自定义配置。</p>
+<p><img src="/.com//picgo_pics\image-20210505210109896.png" alt="image-20210505210109896"></p>
  
       <!-- reward -->
       
@@ -187,12 +272,12 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2021/03/18/%E8%AE%B0%E5%BD%95%E5%A4%A7%E5%88%9B%EF%BC%882%EF%BC%89/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2021/05/17/Vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%A7%E5%88%9B/" rel="tag">大创</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag">学习笔记</a></li></ul>
 
     </footer>
   </div>
@@ -200,19 +285,19 @@
    
   <nav class="article-nav">
     
-      <a href="/2021/03/24/%E8%AE%B0%E5%BD%95%E5%A4%A7%E5%88%9B%EF%BC%883%EF%BC%89/" class="article-nav-link">
+      <a href="/2021/05/17/Vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            记录大创（3）
+            Vue学习笔记4
           
         </div>
       </a>
     
     
-      <a href="/2021/03/18/%E8%AE%B0%E5%BD%95%E5%A4%A7%E5%88%9B%EF%BC%881%EF%BC%89/" class="article-nav-link">
+      <a href="/2021/05/17/Vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">记录大创（1）</div>
+        <div class="article-nav-title">Vue组件化（学习笔记）</div>
       </a>
     
   </nav>
