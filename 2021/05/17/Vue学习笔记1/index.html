@@ -129,7 +129,7 @@
 <li><p>虚拟DOM</p>
 </li>
 </ul>
-<a id="more"></a>
+<br>
 
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>安装Vue的方式有很多：</p>
 <ul>
@@ -151,7 +151,7 @@
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      &#123;&#123;msg&#125;&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">const</span> vm=<span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">  el:<span class="string">&#x27;#app&#x27;</span>,</span></span><br><span class="line">  data:&#123;</span><br><span class="line"><span class="javascript">    msg:<span class="string">&#x27;hello vue&#x27;</span></span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- </span></span><br><span class="line"><span class="comment">1.实例参数分析</span></span><br><span class="line"><span class="comment">  el:  元素的挂载位置（值可以是css选择器或者DOM元素）</span></span><br><span class="line"><span class="comment">  data:  模型数据（值是一个对象）</span></span><br><span class="line"><span class="comment">2.插值表达式用法</span></span><br><span class="line"><span class="comment">  将数据填充到HTML标签中</span></span><br><span class="line"><span class="comment">  插值表达式支持基本的计算操作</span></span><br><span class="line"><span class="comment">--&gt;</span> </span><br></pre></td></tr></table></figure>
 <br>
 
-<h2 id="Vue中的MVVM"><a href="#Vue中的MVVM" class="headerlink" title="Vue中的MVVM"></a>Vue中的MVVM</h2><p><img src="/.com//picgo_pics\image-20210517102946148.png" alt="image-20210517102946148"></p>
+<h2 id="Vue中的MVVM"><a href="#Vue中的MVVM" class="headerlink" title="Vue中的MVVM"></a>Vue中的MVVM</h2><p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210517102946148.png" alt="image-20210517102946148"></p>
 <p><strong>View 层：</strong></p>
 <ul>
 <li>视图层</li>
@@ -176,8 +176,8 @@
 </ul>
 <br>
 
-<h2 id="Vue的生命周期"><a href="#Vue的生命周期" class="headerlink" title="Vue的生命周期"></a>Vue的生命周期</h2><p><img src="/.com//picgo_pics\image-20210517103200385.png" alt="image-20210517103200385"></p>
-<p><img src="/.com//picgo_pics\image-20210517103218504.png" alt="image-20210517103218504"></p>
+<h2 id="Vue的生命周期"><a href="#Vue的生命周期" class="headerlink" title="Vue的生命周期"></a>Vue的生命周期</h2><p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210517103200385.png" alt="image-20210517103200385"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210517103218504.png" alt="image-20210517103218504"></p>
 <h1 id="Vue基本语法"><a href="#Vue基本语法" class="headerlink" title="Vue基本语法"></a>Vue基本语法</h1><h2 id="如何理解前端渲染"><a href="#如何理解前端渲染" class="headerlink" title="如何理解前端渲染"></a>如何理解前端渲染</h2><p>​    将数据填充到HTML标签中(模板+数据 =&gt; 前端渲染  =&gt;  静态HTML内容)</p>
 <h2 id="前端渲染方式"><a href="#前端渲染方式" class="headerlink" title="前端渲染方式"></a>前端渲染方式</h2><ul>
 <li>原生js拼接字符串</li>
@@ -249,7 +249,7 @@
 <ul>
 <li><p>全局config.keyCodes对象</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Vue.config.keyCodes.f1=<span class="number">112</span></span><br><span class="line"><span class="comment">//例子中的f1是自定义按键名，后面的值是每个按键唯一的标志符值，可以通过事件对象的KeyCode属性取得。也可以不定义按键名而直接使用标识符</span></span><br></pre></td></tr></table></figure>
-<p><img src="/.com//picgo_pics\image-20210326163748967.png" alt="image-20210326163748967"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210326163748967.png" alt="image-20210326163748967"></p>
 </li>
 </ul>
 </li>
@@ -298,9 +298,9 @@
 <ul>
 <li>OK，我们发现计算属性是写在实例的computed选项中的。</li>
 </ul>
-<p><img src="/.com//picgo_pics\image-20210320164923606.png" alt="image-20210320164923606"></p>
-<p><img src="/.com//picgo_pics\image-20210320164940274.png" alt="image-20210320164940274"></p>
-<h3 id="计算属性的复杂操作"><a href="#计算属性的复杂操作" class="headerlink" title="计算属性的复杂操作"></a>计算属性的复杂操作</h3><p><img src="/.com//picgo_pics\image-20210320165051065.png" alt="image-20210320165051065"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210320164923606.png" alt="image-20210320164923606"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210320164940274.png" alt="image-20210320164940274"></p>
+<h3 id="计算属性的复杂操作"><a href="#计算属性的复杂操作" class="headerlink" title="计算属性的复杂操作"></a>计算属性的复杂操作</h3><p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210320165051065.png" alt="image-20210320165051065"></p>
 <h3 id="计算属性的setter和getter"><a href="#计算属性的setter和getter" class="headerlink" title="计算属性的setter和getter"></a>计算属性的setter和getter</h3><p>每个计算属性都包含一个getter和一个setter</p>
 <ul>
 <li><p>在上面的例子中，我们只是使用getter来读取。</p>
@@ -310,7 +310,7 @@
 <li><p>在需要写setter的时候，代码如下：</p>
 </li>
 </ul>
-<p><img src="/.com//picgo_pics\image-20210320165203281.png" alt="image-20210320165203281"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210320165203281.png" alt="image-20210320165203281"></p>
 <h3 id="计算属性的缓存"><a href="#计算属性的缓存" class="headerlink" title="计算属性的缓存"></a>计算属性的缓存</h3><p>我们可能会考虑这样的一个问题：</p>
 <ul>
 <li><p>methods和computed看起来都可以实现我们的功能，</p>
@@ -366,14 +366,14 @@
 <li><p>v-for遍历对象</p>
 </li>
 </ul>
-<img src="/.com//picgo_pics\image-20210421214608056.png" alt="image-20210421214608056" style="zoom:80%;">
+<img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210421214608056.png" alt="image-20210421214608056" style="zoom:80%;">
 
 <ul>
 <li><p>在遍历对象时，如果只有一个值，那么获取到的是value</p>
 <p>如果是两个，那么是value和key</p>
 </li>
 </ul>
-<h4 id="组件的key属性"><a href="#组件的key属性" class="headerlink" title="组件的key属性"></a>组件的key属性</h4><p><img src="/.com//picgo_pics\image-20210422115829234.png" alt="image-20210422115829234"></p>
+<h4 id="组件的key属性"><a href="#组件的key属性" class="headerlink" title="组件的key属性"></a>组件的key属性</h4><p><img src="/.com//Users\86186\AppData\Roaming\Typora\typora-user-images\image-20210422115829234.png" alt="image-20210422115829234"></p>
 <h4 id="检测数组更新"><a href="#检测数组更新" class="headerlink" title="检测数组更新"></a>检测数组更新</h4><p>Vue中包含了一组观察数组编译的方法，使用它们改变数组也会触发视图的更新。</p>
 <ul>
 <li>push()</li>
@@ -387,7 +387,7 @@
 <br>
 
 <h2 id="表单绑定v-model"><a href="#表单绑定v-model" class="headerlink" title="表单绑定v-model"></a>表单绑定v-model</h2><p>Vue中使用v-model指令来实现表单元素和数据的双向绑定。</p>
-<p><img src="/.com//picgo_pics\image-20210424133828641.png" alt="image-20210424133828641"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210424133828641.png" alt="image-20210424133828641"></p>
 <h3 id="v-model原理"><a href="#v-model原理" class="headerlink" title="v-model原理"></a>v-model原理</h3><p>v-model其实是一个语法糖，它的背后本质上是包含两个操作：</p>
 <ol>
 <li><p>v-bind绑定一个value属性</p>

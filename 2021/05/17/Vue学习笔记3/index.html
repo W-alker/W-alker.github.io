@@ -125,15 +125,11 @@
 <li><p>使用 vue-cli 可以快速搭建Vue开发环境以及对应的webpack配置.</p>
 </li>
 </ul>
-<a id="more"></a>
-
-<br>
-
 <h2 id="1-vue-cli使用"><a href="#1-vue-cli使用" class="headerlink" title="1. vue-cli使用"></a>1. vue-cli使用</h2><h3 id="0）前提"><a href="#0）前提" class="headerlink" title="0）前提"></a>0）前提</h3><p><strong>Node</strong>环境要求8.9以上或更改版本。同时依赖<strong>webpack</strong>。</p>
 <h3 id="1）安装及初始化"><a href="#1）安装及初始化" class="headerlink" title="1）安装及初始化"></a>1）安装及初始化</h3><h4 id="安装："><a href="#安装：" class="headerlink" title="安装："></a>安装：</h4><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install <span class="literal">-g</span> @vue/<span class="built_in">cli</span></span><br></pre></td></tr></table></figure>
 <blockquote>
 <p><strong>注意：</strong>上面安装的是Vue CLI3的版本，如果需要想按照Vue CLI2的方式初始化项目时不可以的。</p>
-<p><img src="/.com//picgo_pics\image-20210504220852996.png" alt="image-20210504220852996"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210504220852996.png" alt="image-20210504220852996"></p>
 </blockquote>
 <h4 id="初始化："><a href="#初始化：" class="headerlink" title="初始化："></a>初始化：</h4><ul>
 <li><p>Vue CLI2初始化：</p>
@@ -146,12 +142,12 @@
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run build <span class="comment">#项目打包，dist文件夹即为最终项目</span></span><br></pre></td></tr></table></figure>
 <br>
 
-<h3 id="3）Vue-CLI2详解"><a href="#3）Vue-CLI2详解" class="headerlink" title="3）Vue CLI2详解"></a>3）Vue CLI2详解</h3><h4 id="Vue-CLI2初始化详解"><a href="#Vue-CLI2初始化详解" class="headerlink" title="Vue CLI2初始化详解"></a>Vue CLI2初始化详解</h4><p><img src="/.com//picgo_pics\image-20210504221856656.png" alt="image-20210504221856656"></p>
-<h4 id="Vue-CLI2目录结构详解"><a href="#Vue-CLI2目录结构详解" class="headerlink" title="Vue CLI2目录结构详解"></a>Vue CLI2目录结构详解</h4><p><img src="/.com//picgo_pics\image-20210505113706703.png" alt="image-20210505113706703"></p>
+<h3 id="3）Vue-CLI2详解"><a href="#3）Vue-CLI2详解" class="headerlink" title="3）Vue CLI2详解"></a>3）Vue CLI2详解</h3><h4 id="Vue-CLI2初始化详解"><a href="#Vue-CLI2初始化详解" class="headerlink" title="Vue CLI2初始化详解"></a>Vue CLI2初始化详解</h4><p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210504221856656.png" alt="image-20210504221856656"></p>
+<h4 id="Vue-CLI2目录结构详解"><a href="#Vue-CLI2目录结构详解" class="headerlink" title="Vue CLI2目录结构详解"></a>Vue CLI2目录结构详解</h4><p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210505113706703.png" alt="image-20210505113706703"></p>
 <br>
 
-<h4 id="Runtime-Compiler和Runtime-only"><a href="#Runtime-Compiler和Runtime-only" class="headerlink" title="Runtime-Compiler和Runtime-only"></a>Runtime-Compiler和Runtime-only</h4><p><img src="/.com//picgo_pics\image-20210505142928537.png" alt="image-20210505142928537"></p>
-<p><img src="/.com//picgo_pics\image-20210505142943189.png" alt="image-20210505142943189"></p>
+<h4 id="Runtime-Compiler和Runtime-only"><a href="#Runtime-Compiler和Runtime-only" class="headerlink" title="Runtime-Compiler和Runtime-only"></a>Runtime-Compiler和Runtime-only</h4><p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210505142928537.png" alt="image-20210505142928537"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210505142943189.png" alt="image-20210505142943189"></p>
 <p><strong>简单总结：</strong></p>
 <ul>
 <li><p>如果在之后的开发中，你依然使用template，就需要选择Runtime-Compiler</p>
@@ -161,11 +157,11 @@
 </ul>
 <br>
 
-<h5 id="Runtime-Compiler-和-Runtime-only的区别："><a href="#Runtime-Compiler-和-Runtime-only的区别：" class="headerlink" title="Runtime-Compiler 和 Runtime-only的区别："></a>Runtime-Compiler 和 Runtime-only的区别：</h5><p><img src="/.com//picgo_pics\image-20210505155531172.png" alt="image-20210505155531172"></p>
-<p><img src="/.com//picgo_pics\image-20210505155541831.png" alt="image-20210505155541831"></p>
+<h5 id="Runtime-Compiler-和-Runtime-only的区别："><a href="#Runtime-Compiler-和-Runtime-only的区别：" class="headerlink" title="Runtime-Compiler 和 Runtime-only的区别："></a>Runtime-Compiler 和 Runtime-only的区别：</h5><p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210505155531172.png" alt="image-20210505155531172"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210505155541831.png" alt="image-20210505155541831"></p>
 <p>为什么存在这样的差异呢？我们需要先理解Vue应用程序是如何运行起来的，</p>
 <p>Vue中的模板如何最终渲染成真实DOM。</p>
-<h5 id="Vue程序运行过程："><a href="#Vue程序运行过程：" class="headerlink" title="Vue程序运行过程："></a>Vue程序运行过程：</h5><p><img src="/.com//picgo_pics\image-20210505143054635.png" alt="image-20210505143054635"></p>
+<h5 id="Vue程序运行过程："><a href="#Vue程序运行过程：" class="headerlink" title="Vue程序运行过程："></a>Vue程序运行过程：</h5><p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210505143054635.png" alt="image-20210505143054635"></p>
 <blockquote>
 <p><strong>runtime-compiler渲染过程：</strong></p>
 <p>template -&gt; ast -&gt; render -&gt; vDom -&gt; UI</p>
@@ -175,20 +171,20 @@
 <br>
 
 <h4 id="render函数的使用"><a href="#render函数的使用" class="headerlink" title="render函数的使用"></a>render函数的使用</h4><p><strong>方式1：</strong></p>
-<p><img src="/.com//picgo_pics\image-20210505155807925.png" alt="image-20210505155807925"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210505155807925.png" alt="image-20210505155807925"></p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">  render: <span class="function"><span class="params">h</span> =&gt;</span> h(<span class="string">&#x27;h2&#x27;</span>, &#123; <span class="attr">class</span>: <span class="string">&#x27;he&#x27;</span> &#125;, [<span class="string">&#x27;hello world&#x27;</span>]),</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p><strong>方式2：</strong>（注意不能在runtime-only中使用）</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.先注册一个组件</span></span><br><span class="line"><span class="keyword">const</span> cpn = Vue.component(<span class="string">&#x27;cpn&#x27;</span>, &#123;</span><br><span class="line">  template: <span class="string">&#x27;&lt;div&gt;我是一个组件,我的名字是：&#123;&#123;name&#125;&#125;&lt;/div&gt;&#x27;</span>,</span><br><span class="line">  <span class="function"><span class="title">data</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      name: <span class="string">&#x27;cpn&#x27;</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//2.使用组件</span></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">  render: <span class="function"><span class="params">h</span> =&gt;</span> h(cpn)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 
 <h5 id="关于runtime-only下-vue文件中的template"><a href="#关于runtime-only下-vue文件中的template" class="headerlink" title="关于runtime-only下.vue文件中的template"></a>关于runtime-only下.vue文件中的template</h5><p>按理说runtime-only中，是不经过template直接生成vDom的，但是.vue文件中却存在这样的template：</p>
-<p><img src="/.com//picgo_pics\image-20210505175632869.png" alt="image-20210505175632869"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210505175632869.png" alt="image-20210505175632869"></p>
 <p>那么这是由谁处理的？</p>
 <p>答案：是由<strong>vue-template-compiler</strong>处理的。我们可以在package.json文件的<strong>开发时依赖</strong>中找到。我们引用的组件并非是直接引用的.vue文件中的内容，而是先经过vue-template-compiler将其<strong>转换成render函数</strong>后再使用。</p>
 <br>
 
-<h4 id="npm-run-dev和npm-run-build的解析过程图解"><a href="#npm-run-dev和npm-run-build的解析过程图解" class="headerlink" title="npm run dev和npm run build的解析过程图解"></a>npm run dev和npm run build的解析过程图解</h4><p><img src="/.com//picgo_pics\image-20210505180910045.png" alt="image-20210505180910045"></p>
-<p><img src="/.com//picgo_pics\image-20210505180919642.png" alt="image-20210505180919642"></p>
+<h4 id="npm-run-dev和npm-run-build的解析过程图解"><a href="#npm-run-dev和npm-run-build的解析过程图解" class="headerlink" title="npm run dev和npm run build的解析过程图解"></a>npm run dev和npm run build的解析过程图解</h4><p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210505180910045.png" alt="image-20210505180910045"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210505180919642.png" alt="image-20210505180919642"></p>
 <h3 id="4）Vue-CLI3详解"><a href="#4）Vue-CLI3详解" class="headerlink" title="4）Vue CLI3详解"></a>4）Vue CLI3详解</h3><h4 id="vue-cli-3-与-2-版本的区别："><a href="#vue-cli-3-与-2-版本的区别：" class="headerlink" title="vue-cli 3 与 2 版本的区别："></a>vue-cli 3 与 2 版本的区别：</h4><ul>
 <li><p>vue-cli 3 是基于 webpack 4 打造，vue-cli 2 还是 webapck 3</p>
 </li>
@@ -200,14 +196,14 @@
 </li>
 </ul>
 <h4 id="安装配置："><a href="#安装配置：" class="headerlink" title="安装配置："></a>安装配置：</h4><p><img src="/.com//picgo_pics\image-20210505182135594.png"></p>
-<h4 id="目录结构详解："><a href="#目录结构详解：" class="headerlink" title="目录结构详解："></a>目录结构详解：</h4><p><img src="/.com//picgo_pics\image-20210505200152050.png" alt="image-20210505200152050"></p>
+<h4 id="目录结构详解："><a href="#目录结构详解：" class="headerlink" title="目录结构详解："></a>目录结构详解：</h4><p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210505200152050.png" alt="image-20210505200152050"></p>
 <h4 id="配置文件的查看和修改："><a href="#配置文件的查看和修改：" class="headerlink" title="配置文件的查看和修改："></a>配置文件的查看和修改：</h4><p><strong>图形界面配置：</strong></p>
 <p>任意目录启动配置服务器：</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue ui</span><br></pre></td></tr></table></figure>
 <p>之后可以创建、导入和管理自己的Vue项目。</p>
 <p><strong>文件配置：</strong></p>
 <p>在项目根目录创建<code>vue.config.js</code>文件，进行自定义配置。</p>
-<p><img src="/.com//picgo_pics\image-20210505210109896.png" alt="image-20210505210109896"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210505210109896.png" alt="image-20210505210109896"></p>
  
       <!-- reward -->
       

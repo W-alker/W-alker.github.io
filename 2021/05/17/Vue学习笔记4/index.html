@@ -124,8 +124,6 @@
 <ul>
 <li>路由表本质上就是一个映射表, 决定了数据包的指向。</li>
 </ul>
-<a id="more"></a>
-
 <h3 id="后端路由阶段"><a href="#后端路由阶段" class="headerlink" title="后端路由阶段"></a>后端路由阶段</h3><p>早期的网站开发整个HTML页面是由服务器来渲染的：服务器直接生产渲染好对应的HTML页面, 返回给客户端进行展示。</p>
 <p>但是, 一个网站, 这么多页面服务器如何处理呢?</p>
 <ul>
@@ -185,11 +183,11 @@
 
 <h3 id="URL的hash"><a href="#URL的hash" class="headerlink" title="URL的hash"></a>URL的hash</h3><p>URL的hash也就是锚点(#)，本质上是改变<code>window.location</code>的href属性。</p>
 <p><strong>我们可以通过直接赋值<code>location.hash</code>来改变href，但是页面不发生刷新。</strong></p>
-<p><img src="/.com//picgo_pics\image-20210506140301263.png" alt="image-20210506140301263"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210506140301263.png" alt="image-20210506140301263"></p>
 <h3 id="HTML5的history模式"><a href="#HTML5的history模式" class="headerlink" title="HTML5的history模式"></a>HTML5的history模式</h3><p>history接口是HTML5新增的，它有五种模式改变URL而不刷新页面。</p>
-<h4 id="1）history-pushState"><a href="#1）history-pushState" class="headerlink" title="1）history.pushState()"></a>1）history.pushState()</h4><p><img src="/.com//picgo_pics\image-20210506140808910.png" alt="image-20210506140808910"></p>
-<h4 id="2）history-replaceState"><a href="#2）history-replaceState" class="headerlink" title="2）history.replaceState()"></a>2）history.replaceState()</h4><p><img src="/.com//picgo_pics\image-20210506141009830.png" alt="image-20210506141009830"></p>
-<h4 id="3）history-go"><a href="#3）history-go" class="headerlink" title="3）history.go()"></a>3）history.go()</h4><p><img src="/.com//picgo_pics\image-20210506141049777.png" alt="image-20210506141049777"></p>
+<h4 id="1）history-pushState"><a href="#1）history-pushState" class="headerlink" title="1）history.pushState()"></a>1）history.pushState()</h4><p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210506140808910.png" alt="image-20210506140808910"></p>
+<h4 id="2）history-replaceState"><a href="#2）history-replaceState" class="headerlink" title="2）history.replaceState()"></a>2）history.replaceState()</h4><p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210506141009830.png" alt="image-20210506141009830"></p>
+<h4 id="3）history-go"><a href="#3）history-go" class="headerlink" title="3）history.go()"></a>3）history.go()</h4><p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210506141049777.png" alt="image-20210506141049777"></p>
 <h4 id="4）history-back"><a href="#4）history-back" class="headerlink" title="4）history.back()"></a>4）history.back()</h4><p>等价于 <code>history.go(-1)</code></p>
 <h4 id="5）history-forward"><a href="#5）history-forward" class="headerlink" title="5）history.forward()"></a>5）history.forward()</h4><p>等价于 <code>history.go(1)</code></p>
 <br>
@@ -219,13 +217,13 @@
 
 <h3 id="2）使用Vue-router的步骤"><a href="#2）使用Vue-router的步骤" class="headerlink" title="2）使用Vue-router的步骤"></a>2）使用Vue-router的步骤</h3><ul>
 <li><p>第一步: 创建路由组件</p>
-<p><img src="/.com//picgo_pics\image-20210506151515783.png" alt="image-20210506151515783"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210506151515783.png" alt="image-20210506151515783"></p>
 </li>
 <li><p>第二步: 配置路由映射: 组件和路径映射关系</p>
-<p><img src="/.com//picgo_pics\image-20210506151528985.png" alt="image-20210506151528985"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210506151528985.png" alt="image-20210506151528985"></p>
 </li>
 <li><p>第三步: 使用路由: 通过<code>&lt;router-link&gt;</code>和<code>&lt;router-view&gt;</code></p>
-<p><img src="/.com//picgo_pics\image-20210506151542593.png" alt="image-20210506151542593"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210506151542593.png" alt="image-20210506151542593"></p>
 </li>
 </ul>
 <blockquote>
@@ -236,7 +234,7 @@
 </blockquote>
 <ul>
 <li><p>最终效果：</p>
-<p><img src="/.com//picgo_pics\image-20210506160923693.png" alt="image-20210506160923693"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210506160923693.png" alt="image-20210506160923693"></p>
 </li>
 </ul>
 <h3 id="3）细节处理"><a href="#3）细节处理" class="headerlink" title="3）细节处理"></a>3）细节处理</h3><h4 id="路由的默认路径"><a href="#路由的默认路径" class="headerlink" title="路由的默认路径"></a>路由的默认路径</h4><p>默认情况下, 进入网站的首页, 我们希望<code>&lt;router-view&gt;</code>渲染首页的内容。</p>
@@ -256,7 +254,7 @@
 <p>默认情况下, 路径的改变使用的URL的hash。</p>
 <p>如果希望使用HTML5的history模式, 非常简单, 进行如下配置即可:</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">    routes,</span><br><span class="line">    mode: <span class="string">&#x27;history&#x27;</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p><img src="/.com//picgo_pics\image-20210506162132233.png" alt="image-20210506162132233"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210506162132233.png" alt="image-20210506162132233"></p>
 <h4 id="router-link补充"><a href="#router-link补充" class="headerlink" title="router-link补充"></a>router-link补充</h4><p>在前面的<code>&lt;router-link&gt;</code>中, 我们只是使用了一个属性: <code>to</code>, 用于指定跳转的路径。</p>
 <p><code>&lt;router-link&gt;</code>还有一些<strong>其他属性</strong>:</p>
 <ul>
@@ -267,18 +265,18 @@
 <li><p><code>active-class</code>: 当<code>&lt;router-link&gt;</code>对应的路由匹配成功时, 会自动给当前元素设置一个<code>router-link-active</code>的class, 设置<code>active-class</code>可以修改默认的名称：</p>
 <p>Ø在进行高亮显示的导航菜单或者底部tabbar时, 会使用到该类</p>
 <p>Ø但是通常不会修改类的属性, 会直接使用默认的<code>router-link-active</code>即可</p>
-<p><img src="/.com//picgo_pics\image-20210506162750379.png" alt="image-20210506162750379"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210506162750379.png" alt="image-20210506162750379"></p>
 </li>
 </ul>
 <h4 id="修改linkActiveClass"><a href="#修改linkActiveClass" class="headerlink" title="修改linkActiveClass"></a>修改linkActiveClass</h4><p>该class具体的名称也可以通过router实例的属性进行修改 :</p>
-<p><img src="/.com//picgo_pics\image-20210506162918366.png" alt="image-20210506162918366"></p>
-<p><img src="/.com//picgo_pics\image-20210506163005149.png" alt="image-20210506163005149"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210506162918366.png" alt="image-20210506162918366"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210506163005149.png" alt="image-20210506163005149"></p>
 <blockquote>
 <p>exact-active-class：</p>
 <p>类似于active-class, 只是在精准匹配下才会出现的class。之后在嵌套路由时, 我们再使用这个属性。</p>
 </blockquote>
 <h4 id="路由代码跳转"><a href="#路由代码跳转" class="headerlink" title="路由代码跳转"></a>路由代码跳转</h4><p>有时候, 页面的跳转可能需要执行对应的JavaScript代码, 这个时候, 就可以使用第二种跳转方式了：</p>
-<p><img src="/.com//picgo_pics\image-20210506163351520.png" alt="image-20210506163351520"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210506163351520.png" alt="image-20210506163351520"></p>
 <h2 id="2-动态路由"><a href="#2-动态路由" class="headerlink" title="2. 动态路由"></a>2. 动态路由</h2><p>在某些情况下，一个页面的path路径可能是不确定的。比如我们进入用户界面时，希望是如下的路径：</p>
 <p><code>/user/aaaa或/user/bbbb</code></p>
 <p>除了有前面的/user之外，后面还跟上了用户的ID。这种path和Component的匹配关系，我们称之为动态路由(也是路由传递数据的一种方式)。</p>
@@ -337,7 +335,7 @@
 </li>
 </ul>
 <p>路径和组件的关系如下:</p>
-<p><img src="/.com//picgo_pics\image-20210508202544568.png" alt="image-20210508202544568"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210508202544568.png" alt="image-20210508202544568"></p>
 <p>实现嵌套路由有两个步骤：</p>
 <ol>
 <li><p>创建对应的子组件, 并且在路由映射中配置对应的子路由</p>
@@ -350,30 +348,30 @@
 <p><img src="/.com//picgo_pics\image-20210508205312364.png" alt="image-20210508205312364"></p>
 </li>
 <li><p>在组件内部使用</p>
-<p><img src="/.com//picgo_pics\image-20210508205410837.png" alt="image-20210508205410837"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210508205410837.png" alt="image-20210508205410837"></p>
 </li>
 <li><p>路由映射中配置对应的子路由</p>
-<p><img src="/.com//picgo_pics\image-20210508205435981.png" alt="image-20210508205435981"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210508205435981.png" alt="image-20210508205435981"></p>
 </li>
 <li><p>结果</p>
-<p><img src="/.com//picgo_pics\image-20210508205504578.png" alt="image-20210508205504578"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210508205504578.png" alt="image-20210508205504578"></p>
 </li>
 </ol>
 <p><strong>嵌套默认路径：</strong></p>
 <p>嵌套路由也可以配置默认的路径, 配置方式如下: </p>
-<p><img src="/.com//picgo_pics\image-20210508205930255.png" alt="image-20210508205930255"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210508205930255.png" alt="image-20210508205930255"></p>
 <br>
 
 <h2 id="5-传递参数"><a href="#5-传递参数" class="headerlink" title="5. 传递参数"></a>5. 传递参数</h2><h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>为了演示传递参数, 我们这里再创建一个组件, 并且将其配置好</p>
 <ul>
 <li><p>第一步: 创建新的组件Profile.vue </p>
-<p><img src="/.com//picgo_pics\image-20210509151812087.png" alt="image-20210509151812087"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210509151812087.png" alt="image-20210509151812087"></p>
 </li>
 <li><p>第二步: 配置路由映射 </p>
-<p><img src="/.com//picgo_pics\image-20210509151829147.png" alt="image-20210509151829147"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210509151829147.png" alt="image-20210509151829147"></p>
 </li>
 <li><p>第三步: 添加跳转的<router-link></router-link></p>
-<p><img src="/.com//picgo_pics\image-20210509151838186.png" alt="image-20210509151838186"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210509151838186.png" alt="image-20210509151838186"></p>
 </li>
 </ul>
 <h3 id="传递参数的方式"><a href="#传递参数的方式" class="headerlink" title="传递参数的方式"></a>传递参数的方式</h3><p>传递参数主要有两种类型: <code>params</code>和<code>query</code></p>
@@ -397,13 +395,13 @@
 </ul>
 <p>如何使用它们呢? 也有两种方式: <code>&lt;router-link&gt;</code>的方式和JavaScript代码方式。</p>
 <p><strong>方式1：<code>&lt;router-link&gt;</code></strong></p>
-<p><img src="/.com//picgo_pics\image-20210509155159881.png" alt="image-20210509155159881"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210509155159881.png" alt="image-20210509155159881"></p>
 <p>方式2：JavaScript代码</p>
-<p><img src="/.com//picgo_pics\image-20210509155227150.png" alt="image-20210509155227150"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210509155227150.png" alt="image-20210509155227150"></p>
 <h3 id="获取参数"><a href="#获取参数" class="headerlink" title="获取参数"></a>获取参数</h3><p>获取参数通过<code>$route</code>对象获取的。</p>
 <p>在使用了 vue-router 的应用中，路由对象会被注入每个组件中，赋值为 <code>this.$route</code> ，并且当路由切换时，路由对象会被更新。</p>
 <p>通过<code>$route</code>获取传递的信息如下:</p>
-<p><img src="/.com//picgo_pics\image-20210509160035623.png" alt="image-20210509160035623"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210509160035623.png" alt="image-20210509160035623"></p>
 <p><strong>$route和$router是有区别的</strong></p>
 <p><code>$route</code>和<code>$router</code>是有区别的</p>
 <ul>
@@ -412,7 +410,7 @@
 <li><p><code>$route</code>为当前router跳转对象里面可以获取name、path、query、params等 </p>
 </li>
 </ul>
-<p><img src="/.com//picgo_pics\image-20210509160508297.png" alt="image-20210509160508297"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210509160508297.png" alt="image-20210509160508297"></p>
 <br>
 
 <h2 id="6-全局导航守卫"><a href="#6-全局导航守卫" class="headerlink" title="6. 全局导航守卫"></a>6. 全局导航守卫</h2><h3 id="什么是导航守卫？"><a href="#什么是导航守卫？" class="headerlink" title="什么是导航守卫？"></a>什么是导航守卫？</h3><p>我们来考虑一个需求: 在一个SPA应用中, 如何改变网页的标题呢?</p>
@@ -444,10 +442,10 @@
 <h3 id="导航守卫的使用"><a href="#导航守卫的使用" class="headerlink" title="导航守卫的使用"></a>导航守卫的使用</h3><p>我们可以利用beforeEach来完成标题的修改。</p>
 <ol>
 <li><p>首先, 我们可以在钩子当中定义一些标题, 可以利用meta来定义</p>
-<p><img src="/.com//picgo_pics\image-20210509162003890.png" alt="image-20210509162003890"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210509162003890.png" alt="image-20210509162003890"></p>
 </li>
 <li><p>其次, 利用导航守卫,修改我们的标题</p>
-<p><img src="/.com//picgo_pics\image-20210509162012365.png" alt="image-20210509162012365"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210509162012365.png" alt="image-20210509162012365"></p>
 </li>
 </ol>
 <blockquote>
@@ -488,7 +486,7 @@
 </li>
 </ul>
 <p>router-view 也是一个组件，如果直接被包在 keep-alive 里面，所有路径匹配到的视图组件都会被缓存：</p>
-<p><img src="/.com//picgo_pics\image-20210509165411976.png" alt="image-20210509165411976"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210509165411976.png" alt="image-20210509165411976"></p>
 <blockquote>
 <p>activated()和deactivated()两个周期函数，只有该组件保持了状态使用了keep-alive时，才是有效的。</p>
 </blockquote>

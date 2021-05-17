@@ -136,8 +136,6 @@
 <p>在Vue2.0退出后, Vue作者就在GitHub的Issues中说明了去掉vue-resource, 并且以后也不会再更新。</p>
 <p>那么意味着以后vue-reource不再支持新的版本时, 也不会再继续更新和维护。对以后的项目开发和维护都存在很大的隐患。</p>
 <h3 id="选择4：axios"><a href="#选择4：axios" class="headerlink" title="选择4：axios"></a>选择4：axios</h3><p>在说明不再继续更新和维护vue-resource的同时, 作者还推荐了一个框架: axios。</p>
-<a id="more"></a>
-
 <br>
 
 <h2 id="jsonp"><a href="#jsonp" class="headerlink" title="jsonp"></a>jsonp</h2><p>在前端开发中，我们一种常见的网络请求方式就是JSONP。</p>
@@ -148,8 +146,8 @@
 <p>这个时候，我们利用<code>&lt;script&gt;</code>标签的src帮助我们去服务器请求到数据，将数据当做一个javascript的函数来执行，并且执行的过程中传入我们需要的json。</p>
 <p><strong>所以, 封装jsonp的核心就在于我们监听window上的jsonp进行回调时的名称。</strong></p>
 <p>JSONP如何封装呢?我们一起自己来封装一个处理JSONP的代码吧。</p>
-<p><img src="/.com//picgo_pics\image-20210516172049353.png" alt="image-20210516172049353"></p>
-<p><img src="/.com//picgo_pics\image-20210516172037127.png" alt="image-20210516172037127"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210516172049353.png" alt="image-20210516172049353"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210516172037127.png" alt="image-20210516172037127"></p>
 <br>
 
 <h2 id="认识axios"><a href="#认识axios" class="headerlink" title="认识axios"></a>认识axios</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>功能特点:</p>
@@ -198,7 +196,7 @@
 
 <br>
 
-<h2 id="发送请求"><a href="#发送请求" class="headerlink" title="发送请求"></a>发送请求</h2><h3 id="发送get请求演示"><a href="#发送get请求演示" class="headerlink" title="发送get请求演示"></a>发送get请求演示</h3><p><img src="/.com//picgo_pics\image-20210516172812318.png" alt="image-20210516172812318"></p>
+<h2 id="发送请求"><a href="#发送请求" class="headerlink" title="发送请求"></a>发送请求</h2><h3 id="发送get请求演示"><a href="#发送get请求演示" class="headerlink" title="发送get请求演示"></a>发送get请求演示</h3><p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210516172812318.png" alt="image-20210516172812318"></p>
 <h3 id="发送并发请求"><a href="#发送并发请求" class="headerlink" title="发送并发请求"></a>发送并发请求</h3><p>有时候, 我们可能需求同时发送两个请求。 </p>
 <ul>
 <li><p>使用<code>axios.all</code>, 可以放入多个请求的数组</p>
@@ -206,16 +204,16 @@
 <li><p><code>axios.all([])</code> 返回的结果是一个数组，使用 <code>axios.spread</code> 可将数组 [res1,res2] 展开为 res1, res2</p>
 </li>
 </ul>
-<p><img src="/.com//picgo_pics\image-20210516172920180.png" alt="image-20210516172920180"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210516172920180.png" alt="image-20210516172920180"></p>
 <br>
 
 <h2 id="全局配置"><a href="#全局配置" class="headerlink" title="全局配置"></a>全局配置</h2><p>在上面的示例中, 我们的BaseURL是固定的。</p>
 <p>事实上, 在开发中可能很多参数都是固定的。</p>
 <p>这个时候我们可以进行一些抽取, 也可以利用axios的全局配置。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//示例：</span></span><br><span class="line">axios.defaults.baseURL = <span class="string">&#x27;123.207.32.32:8000&#x27;</span></span><br><span class="line">axios.defaults.headers.post[<span class="string">&#x27;Content-Type&#x27;</span>] = <span class="string">&#x27;application/x-www-form-urlencoded&#x27;</span>;</span><br></pre></td></tr></table></figure>
-<p><img src="/.com//picgo_pics\image-20210516194537504.png" alt="image-20210516194537504"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210516194537504.png" alt="image-20210516194537504"></p>
 <p><strong>常见的配置选项：</strong></p>
-<p><img src="/.com//picgo_pics\image-20210516195038198.png" alt="image-20210516195038198"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210516195038198.png" alt="image-20210516195038198"></p>
 <br>
 
 <h2 id="axios的实例"><a href="#axios的实例" class="headerlink" title="axios的实例"></a>axios的实例</h2><p>为什么要创建axios的实例呢?</p>
@@ -241,9 +239,9 @@
 <br>
 
 <h2 id="axios拦截器"><a href="#axios拦截器" class="headerlink" title="axios拦截器"></a>axios拦截器</h2><p>axios提供了拦截器，用于我们在发送每次请求或者得到响应后，进行对应的处理。</p>
-<h3 id="怎么做"><a href="#怎么做" class="headerlink" title="怎么做"></a>怎么做</h3><p><img src="/.com//picgo_pics\image-20210516205209351.png" alt="image-20210516205209351"></p>
-<p><img src="/.com//picgo_pics\image-20210516205216174.png" alt="image-20210516205216174"></p>
-<p><img src="/.com//picgo_pics\image-20210516205224320.png" alt="image-20210516205224320"></p>
+<h3 id="怎么做"><a href="#怎么做" class="headerlink" title="怎么做"></a>怎么做</h3><p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210516205209351.png" alt="image-20210516205209351"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210516205216174.png" alt="image-20210516205216174"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210516205224320.png" alt="image-20210516205224320"></p>
 <br>
 
 <h3 id="做什么"><a href="#做什么" class="headerlink" title="做什么"></a>做什么</h3><h4 id="请求拦截："><a href="#请求拦截：" class="headerlink" title="请求拦截："></a>请求拦截：</h4><ul>
@@ -259,10 +257,10 @@
 <h4 id="响应拦截："><a href="#响应拦截：" class="headerlink" title="响应拦截："></a>响应拦截：</h4><ul>
 <li><p>响应的成功拦截中，主要是对数据进行过滤。</p>
 <p><img src="/.com//picgo_pics\image-20210516210506355.png" alt="image-20210516210506355"></p>
-<p><img src="/.com//picgo_pics\image-20210516210515748.png" alt="image-20210516210515748"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210516210515748.png" alt="image-20210516210515748"></p>
 </li>
 <li><p>响应的失败拦截中，可以根据status判断报错的错误码，跳转到不同的错误提示页面。</p>
-<p><img src="/.com//picgo_pics\image-20210516210634524.png" alt="image-20210516210634524"></p>
+<p><img src="https://gitee.com/W-alker/picgo/raw/master/vue_snap/image-20210516210634524.png" alt="image-20210516210634524"></p>
 </li>
 </ul>
  
